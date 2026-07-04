@@ -6,14 +6,45 @@
   --bs-btn-bg: oklch(0.65 0.18 85);
   --bs-btn-border-color: oklch(0.65 0.18 85);
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: oklch(43.7% 0.08993 77.141);
-  --bs-btn-hover-border-color: oklch(43.7% 0.08993 77.141);
+  --bs-btn-hover-bg: oklch(55.515% 0.1146 75.812);
+  --bs-btn-hover-border-color: ;
   --bs-btn-focus-shadow-rgb: 49, 132, 253;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: oklch(37.519% 0.0678 81.833);
-  --bs-btn-active-border-color: oklch(37.519% 0.0678 81.833);
+  --bs-btn-active-bg: oklch(49.235% 0.10121 76.747);
+  --bs-btn-active-border-color: ;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: oklch(27.806% 0.05408 80.592);
+  --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
+}
+
+.btn-white {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: #ffffff;
+  --bs-btn-hover-bg: #dfdada;
+  --bs-btn-hover-border-color: oklch(43.7% 0.08993 77.141);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-bg: #bebfc0;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #8a8a8b;
+  --bs-btn-disabled-border-color: #8a8a8a;
+}
+
+.btn-primary-outline {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: oklch(100% 0.00011 271.152);
+  --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-color: #000000;
+  --bs-btn-hover-bg: rgba(255, 231, 0, 0.1);
+  --bs-btn-hover-border-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: ;
+  --bs-btn-active-bg: rgba(255, 231, 0, 0.1);
+  --bs-btn-active-border-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000000;
   --bs-btn-disabled-bg: oklch(27.806% 0.05408 80.592);
   --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
 }
@@ -47,6 +78,11 @@
 }
 
 .backdrop-filter {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.bg-white-10 {
+  --bs-bg-opacity: 0.1;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
 }
