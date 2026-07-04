@@ -1,0 +1,52 @@
+/* @import "../libraries/bootstrap-icons/font/bootstrap-icons.css"; */
+@import "../libraries/fontawesome-free/css/all.min.css";
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: oklch(0.65 0.18 85);
+  --bs-btn-border-color: oklch(0.65 0.18 85);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: oklch(43.7% 0.08993 77.141);
+  --bs-btn-hover-border-color: oklch(43.7% 0.08993 77.141);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: oklch(37.519% 0.0678 81.833);
+  --bs-btn-active-border-color: oklch(37.519% 0.0678 81.833);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: oklch(27.806% 0.05408 80.592);
+  --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
+}
+
+.bi-bold {
+  -webkit-text-stroke: 1px; /* Increase pixels for a thicker bold look */
+}
+
+.bi-semibold {
+  -webkit-text-stroke: 0.3px; /* Increase pixels for a thicker bold look */
+}
+
+.line {
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: 0.25;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.text-gray {
+  color: gray;
+}
+
+.extra-small {
+  font-size: 0.8rem;
+  line-height: 0.6rem;
+}
+
+.backdrop-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
