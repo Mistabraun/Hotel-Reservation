@@ -10,39 +10,53 @@
 </head>
 
 <body class="vh-100 d-flex position-relative">
-    <header
+    <aside
         id="sidebar"
         data-bs-scroll="true"
         tabindex="1"
-        class="offcanvas-lg offcanvas-start bg-secondary text-white  d-flex flex-column"
+        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column"
         style="width: 16rem">
 
-        <div class="cpx-3 pt-4 pb-2">
+        <header class="cpx-3 pt-4 pb-2">
             <h1 class="h5">Grand Horizon</h1>
             <p class="f-spacing-wide fw-semibold text-uppercase ultra-small text-gray">Admin Panel</p>
-        </div>
+        </header>
         <div class="line"></div>
-        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4">
+        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
             <div class="text-gray">
                 <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Overview</h2>
                 <ul class="mt-2 small d-flex flex-column gap-1">
-                    <li class="active d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-solid fa-cube"></i>
-                        <a href="dashboard" class="text-gray">Dashboard</a>
+                    <li>
+                        <a href="./" class="active d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                            <i class=" fa-solid fa-cube"></i>
+                            Dashboard
+                        </a>
                     </li>
                 </ul>
             </div>
             <div class="text-gray">
                 <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Management</h2>
                 <ul class="mt-2 small d-flex flex-column gap-1">
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-solid fa-bed"></i>
-                        <a href="dashboard" class="text-gray ">Rooms</a>
+
+                    <li>
+                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                            <i class=" fa-solid fa-bed"></i>
+                            Rooms
+                        </a>
                     </li>
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-regular fa-building"></i>
-                        <a href="dashboard" class="text-gray">Room Types</a>
+                    <li>
+                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                            <i class=" fa-regular fa-building"></i>
+                            Room Types
+                        </a>
                     </li>
+                    <li>
+                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                            <i class=" fa-regular fa-building"></i>
+                            Room Types
+                        </a>
+                    </li>
+
                     <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
                         <i class="fa-regular fa-calendar-check"></i>
                         <a href="dashboard" class="text-gray">Reservation</a>
@@ -83,14 +97,14 @@
         </nav>
         <div class="mt-auto text-gray opacity-75">
             <div class="line"></div>
-            <a href="../" class="extra-small d-flex p-4 pt-3 gap-3 align-items-center">
+            <a href="/" class="extra-small d-flex p-4 pt-3 gap-3 align-items-center">
                 <i class="fa-solid fa-arrow-left ultra-small"></i>
                 <p class="m-0 fw-semibold">Back to Website</p>
             </a>
         </div>
-    </header>
+    </aside>
     <div class="flex-grow-1">
-        <header class="border-bottom d-flex p-2 mx-2" style="height: 3.5rem;">
+        <header class="border-bottom d-flex p-2 mx-2 me-4" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
                 type="button"
@@ -100,12 +114,53 @@
 
                 <i class="fa-solid fa-bars"></i>
             </button>
+            <div class="dropdown ms-auto">
+                <button
+                    class="btn border-0 text-start p-0 text-secondary"
+                    type="button"
+                    id="profile-dropdown-btn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-3 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                    <div class="profile-header p-1 px-3 mb-2">
+                        <p class="profile-name fw-semibold">Justine Carl</p>
+                        <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
+                        <span class="user-role admin rounded-1">Super Admin</span>
+                    </div>
+                    <div class="line"></div>
+                    <ul class="profile-items my-1">
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="line"></div>
+                    <ul class="profile-items mt-1">
+                        <li>
+                            <button class="link link-danger fs-7 btn-default" href="settings.php">
+                                <i class="fa-solid fa-sign-out"></i>
+                                <p>Logout</p>
+                            </button>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
         </header>
+        <main class="bg-main"></main>
     </div>
     <script src="../libraries/bootstrap/js/bootstrap.bundle.js"></script>
-    <script>
-
-    </script>
+    <script src="../scripts/app.js"></script>
 </body>
 
 </html>
