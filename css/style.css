@@ -1,6 +1,23 @@
 /* @import "../libraries/bootstrap-icons/font/bootstrap-icons.css"; */
 @import "../libraries/fontawesome-free/css/all.min.css";
 
+:root {
+  --bs-secondary: rgb(26, 21, 15);
+  --bs-secondary-rgb: 26, 21, 15;
+  --text: white;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--bs-light);
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: oklch(0.65 0.18 85);
@@ -49,12 +66,66 @@
   --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
 }
 
+.btn-outline {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: ;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-bg: rgba(179, 177, 177, 0.1);
+  --bs-btn-hover-border-color: ;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: ;
+  --bs-btn-active-bg: rgba(17, 17, 17, 0.1);
+  --bs-btn-active-border-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #8a8a8b;
+  --bs-btn-disabled-border-color: #8a8a8a;
+}
+
+.item-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.item-link:hover > a {
+  color: white;
+}
+
+.item-link.active {
+  background-color: oklch(0.65 0.18 85);
+  color: white;
+  opacity: 1;
+}
+
+.item-link.active > a {
+  color: white;
+}
+
 .bi-bold {
   -webkit-text-stroke: 1px; /* Increase pixels for a thicker bold look */
 }
 
 .bi-semibold {
   -webkit-text-stroke: 0.3px; /* Increase pixels for a thicker bold look */
+}
+
+.cpx-3 {
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.px-2\.5 {
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
+
+.f-spacing-wide {
+  letter-spacing: 0.1em;
 }
 
 .line {
@@ -69,11 +140,16 @@
 }
 
 .text-gray {
-  color: gray;
+  color: #fff9;
 }
 
 .extra-small {
   font-size: 0.8rem;
+  line-height: 0.6rem;
+}
+
+.ultra-small {
+  font-size: 0.6rem;
   line-height: 0.6rem;
 }
 
