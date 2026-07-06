@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <title>Document</title>
 </head>
@@ -23,74 +23,78 @@
         </header>
         <div class="line"></div>
         <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
-            <div class="text-gray">
-                <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Overview</h2>
-                <ul class="mt-2 small d-flex flex-column gap-1">
+            <div class="sidebar-category">
+                <h2>Overview</h2>
+                <ul class="sidebar-list">
                     <li>
-                        <a href="./" class="active d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                        <a href="./" class="sidebar-link link link-gray active">
                             <i class=" fa-solid fa-cube"></i>
                             Dashboard
                         </a>
                     </li>
                 </ul>
             </div>
-            <div class="text-gray">
-                <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Management</h2>
-                <ul class="mt-2 small d-flex flex-column gap-1">
-
+            <div class="sidebar-category">
+                <h2>Management</h2>
+                <ul class="sidebar-list">
                     <li>
-                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                        <a href="rooms.php" class="sidebar-link link link-gray">
                             <i class=" fa-solid fa-bed"></i>
                             Rooms
                         </a>
                     </li>
                     <li>
-                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
+                        <a href="rooms-types.php" class="sidebar-link link link-gray">
                             <i class=" fa-regular fa-building"></i>
                             Room Types
                         </a>
                     </li>
                     <li>
-                        <a href="./" class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded text-gray">
-                            <i class=" fa-regular fa-building"></i>
-                            Room Types
+                        <a href="reservation.php" class="sidebar-link link link-gray">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            Reservation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="guests.php" class="sidebar-link link link-gray">
+                            <i class=" fa-regular fa-user"></i>
+                            Guests
                         </a>
                     </li>
 
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-regular fa-calendar-check"></i>
-                        <a href="dashboard" class="text-gray">Reservation</a>
-                    </li>
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-regular fa-user"></i>
-                        <a href="dashboard" class="text-gray">Guests</a>
-                    </li>
                 </ul>
-
             </div>
-            <div class="text-gray">
-                <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Operations</h2>
-                <ul class="mt-2 small d-flex flex-column gap-1">
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        <a href="dashboard" class="text-gray ">Check-in / Out</a>
+            <div class="sidebar-category">
+                <h2>Operations</h2>
+                <ul class="sidebar-list">
+                    <li>
+                        <a href="checking.php" class="sidebar-link link link-gray">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            Check-in / Out
+                        </a>
                     </li>
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-regular fa-credit-card"></i>
-                        <a href="dashboard" class="text-gray">Payments</a>
+                    <li>
+                        <a href="checking.php" class="sidebar-link link link-gray">
+                            <i class="fa-regular fa-credit-card"></i>
+                            Payments
+                        </a>
                     </li>
                 </ul>
             </div>
-            <div class="text-gray">
-                <h2 class="px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold">Insights</h2>
-                <ul class="mt-2 small d-flex flex-column gap-1">
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-solid fa-chart-simple"></i>
-                        <a href="dashboard" class="text-gray ">Reports</a>
+            <div class="sidebar-category">
+                <h2>Insights</h2>
+                <ul class="sidebar-list">
+                    <li>
+                        <a href="reports.php" class="sidebar-link link link-gray">
+                            <i class="fa-solid fa-chart-simple"></i>
+                            Reports
+                        </a>
                     </li>
-                    <li class="d-flex gap-3 align-items-center item-link px-3 py-2.5 rounded">
-                        <i class="fa-solid fa-gear"></i>
-                        <a href="dashboard" class="text-gray">Settings</a>
+                    <li>
+                        <a href="reports.php" class="sidebar-link link link-gray">
+                            <i class="fa-solid fa-gear"></i>
+                            Settings
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -104,7 +108,7 @@
         </div>
     </aside>
     <div class="flex-grow-1">
-        <header class="border-bottom d-flex p-2 mx-2 me-4" style="height: 3.5rem;">
+        <header class="border-bottom d-flex p-2 mx-2 me-4 ms-0" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
                 type="button"
@@ -159,7 +163,7 @@
         </header>
         <main class="bg-main"></main>
     </div>
-    <script src="../libraries/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
 </body>
 
