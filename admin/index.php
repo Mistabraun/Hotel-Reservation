@@ -132,12 +132,12 @@
                   </div>
                   <div class="flex-grow-1">
                     <p class="fw-semibold m-0">Justine Carl</p>
-                    <p class="m-0 text-gray extra-small">Super Admin</p>
+                    <p class="m-0 text-gray-light extra-small">Admin</p>
                   </div>
                   <i class="fa-solid fa-arrow-right opacity-50"></i>
                 </button>
 
-                <button class="text-start rounded p-3 d-flex justify-content-between align-items-center gap-3 btn btn-primary-outline ">
+                <!-- <button class="text-start rounded p-3 d-flex justify-content-between align-items-center gap-3 btn btn-primary-outline ">
                   <div class="bg-primary rounded-circle d-flex align-items-center">
                     <span class="text-black-50 fw-semibold p-2 text-center extra-small">RE</span>
                   </div>
@@ -146,7 +146,7 @@
                     <p class="m-0 text-gray extra-small">Admin</p>
                   </div>
                   <i class="fa-solid fa-arrow-right opacity-50"></i>
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
