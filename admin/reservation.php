@@ -163,7 +163,10 @@
         </header>
         <main class="p-4">
             <div class="container m-0 p-0">
-                <!-- HOTEL RESERVATION ADMIN CONTENT HERE -->
+                <header>
+                    <h1 class="h4 m-0 p-0">Reservation Management</h1>
+                    <p class="text-secondary-2 m-0 p-0">8 total reservations</p>
+                </header>
             </div>
         </main>
     </div>

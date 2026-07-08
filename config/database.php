@@ -2,24 +2,23 @@
 
 class Database
 {
-    private static $connection = null;
+    private static ?mysqli $connection = null;
 
     public static function connect()
     {
-        if (self::$connection === null) {
-
-            self::$connection = new PDO(
-                "mysql:host=localhost;dbname=hotel;charset=utf8mb4",
-                "root",
-                ""
-            );
-
-            self::$connection->setAttribute(
-                PDO::ATTR_ERRMODE,
-                PDO::ERRMODE_EXCEPTION
-            );
+        if (self::$connection) {
+            return self::$connection;
         }
-
+        
+        self::$connection = mysqli_connect(
+            "localhost",
+            "root",
+            "",
+            "accounts"
+        );
+        if (!self::$connection) {
+            die("Database connection failed! " . mysqli_connect_error());
+        }
         return self::$connection;
     }
 }
