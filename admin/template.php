@@ -108,7 +108,7 @@
         </div>
     </aside>
     <div class="flex-grow-1">
-        <header class="border-bottom d-flex p-2 mx-2 me-4 ms-0 bg-white" style="height: 3.5rem;">
+        <header class="border-bottom d-flex p-2 px-2 pe-4 ms-0 bg-white" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
                 type="button"
@@ -132,7 +132,7 @@
                     <div class="profile-header p-1 px-3 mb-2">
                         <p class="profile-name fw-semibold">Justine Carl</p>
                         <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
-                        <span class="user-role admin rounded-1">Super Admin</span>
+                        <span class="status status-warning rounded-1">Super Admin</span>
                     </div>
                     <div class="line"></div>
                     <ul class="profile-items my-1">
