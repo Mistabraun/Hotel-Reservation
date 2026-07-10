@@ -1,15 +1,19 @@
-document.querySelector(".profile-menu").addEventListener("click", function (e) {
-    e.stopPropagation();
-});
+document.addEventListener('DOMContentLoaded', () => {
 
-const currentPath = window.location.pathname;
+    document.querySelector(".profile-menu").addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
 
-document.querySelectorAll(".sidebar-category .sidebar-link").forEach(link => {
-    link.classList.remove("active");
+    const currentPath = window.location.pathname;
 
-    const linkPath = new URL(link.href, window.location.origin).pathname;
+    document.querySelectorAll(".sidebar-category .sidebar-link").forEach(link => {
+        link.classList.remove("active");
 
-    if (linkPath === currentPath) {
-        link.classList.add("active");
-    }
+        const linkPath = new URL(link.href, window.location.origin).pathname;
+
+        if (linkPath === currentPath) {
+            link.classList.add("active");
+        }
+    });
+
 });

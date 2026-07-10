@@ -164,10 +164,61 @@
         <main class="p-4 m-1">
             <div class="container-fluid m-0 p-0">
                 <header>
-                    <h1 class="h4 m-0 p-0">Title of the Page</h1>
-                    <p class="text-secondary-2 m-0 p-0">Description of the page</p>
+                    <h1 class="h4 m-0 p-0">Reservation Management</h1>
+                    <p class="text-secondary-2 m-0 p-0">8 total reservations</p>
                 </header>
-                <!-- HOTEL RESERVATION ADMIN CONTENT HERE -->
+                <div class="row my-4 gx-2">
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                            <div class="combo-warning p-3 rounded extra-small">
+                                <i class="fa-regular fa-user text-gray-light"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold">3</h2>
+                                <p class="status-card-label fw-semibold">Total Guests</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                            <div class="combo-danger p-3 rounded extra-small">
+                                <i class="fa-solid fa-hotel"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold">12</h2>
+                                <p class="status-card-label fw-semibold">Total Stays</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                            <div class="combo-success p-3 rounded extra-small">
+                                <i class="fa-solid fa-arrows-rotate"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold">3</h2>
+                                <p class="status-card-label fw-semibold">Repeat Guests</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                            <div class="combo-warning p-3 rounded extra-small">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold">1</h2>
+                                <p class="status-card-label fw-semibold">New Guests</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="search-group flex-grow-1">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" name="search" id="search" placeholder="Search by name, email, or phone" class="form-control outline-hover rounded">
+                </div>
+            </div>
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -44,6 +44,20 @@ a {
   color: var(--bs-light);
 }
 
+.combo-warning {
+  color: rgb(217 119 6);
+  background-color: rgb(250, 246, 230);
+}
+
+.combo-success {
+  color: rgb(22 163 74);
+  background-color: rgb(240 253 244);
+}
+.combo-danger {
+  color: oklch(0.48 0.14 40);
+  background-color: oklch(0.97 0.02 45);
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: oklch(0.65 0.18 85);
@@ -205,6 +219,8 @@ a {
   font-size: 0.625rem;
   font-weight: 600;
   padding: 0.125rem 0.5rem;
+  color: oklch(0.43 0.015 75);
+  background: oklch(0.95 0.01 82);
 }
 
 .status-warning {
@@ -241,6 +257,10 @@ a {
 .cpx-3 {
   padding-left: 1.25rem !important;
   padding-right: 1.25rem !important;
+}
+
+.p-2\.5 {
+  padding: 0.625rem;
 }
 
 .py-2\.5 {
@@ -349,9 +369,9 @@ a {
   --bs-status-card-padding-y: 0.75rem;
   --bs-status-card-padding-x: 1rem;
 
-  --bs-status-card-bg: oklch(0.9 0.01 83);
-  --bs-status-card-color: white;
-  --bs-status-card-label-color: oklch(0.35 0.022 75);
+  --bs-status-card-bg: oklch(0.99 0.005 90);
+  --bs-status-card-color: black;
+  --bs-status-card-label-color: var(--text-2);
   --bs-status-card-value-color: black;
 
   padding: var(--bs-status-card-padding-y) var(--bs-status-card-padding-x);
@@ -374,18 +394,25 @@ a {
   font-size: 0.75rem;
   line-height: 1rem;
 }
-.status-card--confirmed {
+.status-card-success {
   --bs-status-card-bg: rgb(240 253 244);
   --bs-status-card-label-color: rgb(22 163 74);
 }
 
-.status-card--pending {
+.status-card-warning {
   --bs-status-card-bg: rgb(254 252 232);
   --bs-status-card-label-color: rgb(202 138 4);
 }
 
-.status-card--cancelled {
-  --bs-status-card-bg: rgb(254 242 242);
+.status-card-gray {
+  --bs-status-card-bg: oklch(0.9 0.01 83);
+  --bs-status-card-color: white;
+  --bs-status-card-label-color: oklch(0.35 0.022 75);
+  --bs-status-card-value-color: black;
+}
+
+.status-card-danger {
+  --bs-status-card-bg: rgb(255 227 227);
   --bs-status-card-label-color: rgb(220 38 38);
 }
 
@@ -408,6 +435,19 @@ a {
 .outline-hover:focus {
   border-color: var(--bs--outline-focus);
   box-shadow: var(--bs-outline-shadow);
+}
+
+.bg-subtle {
+  background-color: oklch(0.97 0.01 90);
+}
+
+.input-subtle {
+  background-color: oklch(0.97 0.01 90);
+}
+
+.input-subtle:active,
+.input-subtle:focus {
+  background-color: oklch(0.97 0.01 90);
 }
 
 .search-group {
@@ -443,12 +483,26 @@ a {
   border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
+.sort-input label {
+  padding: 0.525rem 1rem;
+  color: var(--text-2);
+}
+
+.sort-input input {
+  display: none;
+}
+
+.sort-input input:checked + label {
+  color: white;
+  background: oklch(0.2 0.015 72);
+}
+/* 
 .sort-group button {
   padding: 0.525rem 1rem;
   color: var(--text-2);
 }
 
-.sort-group button[data-active="true"] {
+.sort-group button[data-active] {
   color: white;
   background: #000;
 }
@@ -459,6 +513,10 @@ a {
 
 .sort-group button[data-active="true"]:hover {
   color: white;
+} */
+
+.table-custom {
+  vertical-align: middle;
 }
 
 .table-custom thead tr > th {
@@ -474,11 +532,16 @@ a {
 
 .table-custom tbody tr > td {
   padding: 0.875rem 1.25rem;
+  color: oklch(0.2 0.015 72);
 }
 
 .action-group {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+}
+
+.action-group button {
+  padding: 0.3rem 0.5rem;
 }
 
 .action-group .action-remove {
@@ -486,4 +549,12 @@ a {
 }
 .action-group .action-edit {
   color: var(--text-2);
+}
+
+.edit-modal {
+  max-width: 35rem;
+}
+
+.reservation-form * label {
+  color: oklch(0.35 0.022 75);
 }

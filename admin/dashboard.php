@@ -161,13 +161,10 @@
                 </ul>
             </div>
         </header>
-        <main class="p-4 m-1">
-            <div class="container-fluid m-0 p-0">
-                <header>
-                    <h1 class="h4 m-0 p-0">Title of the Page</h1>
-                    <p class="text-secondary-2 m-0 p-0">Description of the page</p>
-                </header>
+        <main class="p-4">
+            <div class="container m-0 p-0">
                 <!-- HOTEL RESERVATION ADMIN CONTENT HERE -->
+            </div>
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

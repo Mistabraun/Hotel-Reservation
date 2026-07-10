@@ -14,7 +14,7 @@
     <div class="container-fluid h-100 p-0 overflow-hidden">
       <div class="row h-100">
         <div class="col-lg-6 d-none d-lg-block p-0 position-relative">
-          <img src="../assets/images/background/hallway.jpg" alt="" class="w-100 h-100 object-fit-cover position-absolute" />
+          <img src="../assets/images/background/pexels-pixabay-53464.jpg" alt="" class="w-100 h-100 object-fit-cover position-absolute" />
           <div class="position-absolute bg-black w-100 h-100 opacity-50"></div>
           <div class="position-relative p-5 mx-2 z-3 text-white d-flex flex-column justify-content-between h-100">
             <header class="h-auto w-auto">
@@ -137,16 +137,6 @@
                   <i class="fa-solid fa-arrow-right opacity-50"></i>
                 </button>
 
-                <!-- <button class="text-start rounded p-3 d-flex justify-content-between align-items-center gap-3 btn btn-primary-outline ">
-                  <div class="bg-primary rounded-circle d-flex align-items-center">
-                    <span class="text-black-50 fw-semibold p-2 text-center extra-small">RE</span>
-                  </div>
-                  <div class="flex-grow-1">
-                    <p class="fw-semibold m-0">Ramcel Esteron</p>
-                    <p class="m-0 text-gray extra-small">Admin</p>
-                  </div>
-                  <i class="fa-solid fa-arrow-right opacity-50"></i>
-                </button> -->
               </div>
             </div>
           </div>

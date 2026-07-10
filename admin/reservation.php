@@ -27,7 +27,7 @@
                 <h2>Overview</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="./" class="sidebar-link link link-gray active">
+                        <a href="dashboard.php" class="sidebar-link link link-gray">
                             <i class=" fa-solid fa-cube"></i>
                             Dashboard
                         </a>
@@ -107,7 +107,104 @@
             </a>
         </div>
     </aside>
-    <div class="flex-grow-1" style="min-width: 0;">
+    <div class="flex-grow-1 " style="min-width: 0;">
+
+        <div class="modal fade" id="editReservationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered edit-modal">
+                <div class="modal-content p-2">
+                    <div class="modal-header d-flex justify-content-between">
+                        <div>
+                            <h5 class="modal-title" data-title>Reservation Details</h5>
+                            <p class="ultra-small text-gray-light fw-semibold" data-description>GH-2026-0738</p>
+                        </div>
+                        <span data-status class="status status-success text-uppercase fw-bold">Confirmed</span>
+                    </div>
+
+                    <div class=" modal-body">
+                        <form id="edit-reservation" class="reservation-form">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="name" class="form-label extra-small fw-semibold">Guest Name</label>
+                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                                <div class="col">
+                                    <label for="email" class="form-label extra-small fw-semibold">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="phone" class="form-label extra-small fw-semibold">Phone</label>
+                                    <input type="tel" id="phone" name="phone" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                                <div class="col">
+                                    <label for="room" class="form-label extra-small fw-semibold">Room</label>
+                                    <input type="text" id="room" name="room" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="check_in" class="form-label extra-small fw-semibold">Check-in</label>
+                                    <input type="date" id="check_in" name="check_in" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                                <div class="col">
+                                    <label for="check_out" class="form-label extra-small fw-semibold">Check-out</label>
+                                    <input type="date" id="check_out" name="check_out" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                                <div class="col">
+                                    <label for="guests" class="form-label extra-small fw-semibold">Guests</label>
+                                    <input type="number" id="guests" name="guests" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="status" class="form-label extra-small fw-semibold">Status</label>
+                                    <select name="status" id="status" class="form-control form-select outline-hover rounded input-subtle">
+                                        <option value="pending">Pending</option>
+                                        <option value="confirmed">Confirmed</option>
+                                        <option value="checked_out">Checked Out</option>
+                                        <option value="cancelled">Cancelled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="check_in" class="form-label extra-small fw-semibold">Check-in</label>
+                                    <input type="date" id="check_in" name="check_in" class="form-control outline-hover rounded input-subtle">
+                                </div>
+
+                            </div>
+                            <div class="d-flex justify-content-between mt-3 bg-subtle rounded outline-hover border">
+                                <div class="pt-3 px-4">
+                                    <p class="extra-small text-gray-light fw-semibold">Nights</p>
+                                    <p id="nights" class="fw-bold">2</p>
+                                </div>
+                                <div class="pt-3 px-4">
+                                    <p class="extra-small text-gray-light fw-semibold">Rate / Night</p>
+                                    <p id="rate_per_night" class="my-2 fw-bold" data-currency data-price="349">2</p>
+                                </div>
+                                <div class="pt-3 px-4">
+                                    <p class="extra-small text-gray-light fw-semibold">Total</p>
+                                    <p id="total" class="fs-5 fw-bold my-2" data-currency data-price="69420">69420</p>
+                                </div>
+
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-primary">
+                            Save Changes
+                        </button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
         <header class="border-bottom d-flex p-2 px-2 pe-4 ms-0 bg-white" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
@@ -169,27 +266,27 @@
                 </header>
                 <div class="row my-4 gx-2">
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card--confirmed rounded-3">
+                        <div class="status-card status-card-success rounded-3">
                             <h2 class="status-card-value fw-bold">6</h2>
                             <p class="status-card-label fw-semibold">Confirmed</p>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card--pending rounded-3">
+                        <div class="status-card status-card-warning rounded-3">
                             <h2 class="status-card-value fw-bold">1</h2>
                             <p class="status-card-label fw-semibold">Pending</p>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card rounded-3">
+                        <div class="status-card status-card-gray status-card rounded-3">
                             <h2 class="status-card-value fw-bold">1</h2>
                             <p class="status-card-label fw-semibold">Checked Out</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card--cancelled rounded-3">
+                        <div class="status-card status-card-danger rounded-3">
                             <h2 class="status-card-value fw-bold">0</h2>
                             <p class="status-card-label fw-semibold">Cancelled</p>
                         </div>
@@ -202,17 +299,37 @@
                         <input type="text" name="search" id="search" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
                     </div>
                     <div class="sort-group rounded-5 gap-2 p-1">
-                        <button class="btn-plain extra-small rounded-5 fw-semibold" data-active="true">All</button>
+                        <div class="sort-input">
+                            <input type="radio" name="sort" id="all" value="active" checked>
+                            <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
+                        </div>
+                        <div class="sort-input">
+                            <input type="radio" name="sort" id="pending">
+                            <label for="pending" class="extra-small rounded-5 fw-semibold">Pending</label>
+                        </div>
+                        <div class="sort-input">
+                            <input type="radio" name="sort" id="confirmed">
+                            <label for="confirmed" class="extra-small rounded-5 fw-semibold">Confirmed</label>
+                        </div>
+                        <div class="sort-input">
+                            <input type="radio" name="sort" id="checkout">
+                            <label for="checkout" class="extra-small rounded-5 fw-semibold">Checked Out</label>
+                        </div>
+                        <div class="sort-input">
+                            <input type="radio" name="sort" id="cancelled">
+                            <label for="cancelled" class="extra-small rounded-5 fw-semibold">Cancelled</label>
+                        </div>
+                        <!-- <button class="btn-plain extra-small rounded-5 fw-semibold" data-active>All</button>
                         <button class="btn-plain extra-small rounded-5 fw-semibold">Pending</button>
                         <button class="btn-plain extra-small rounded-5 fw-semibold">Confirmed</button>
                         <button class="btn-plain extra-small rounded-5 fw-semibold">Checked Out</button>
-                        <button class="btn-plain extra-small rounded-5 fw-semibold">Cancelled</button>
+                        <button class="btn-plain extra-small rounded-5 fw-semibold">Cancelled</button> -->
                     </div>
                 </div>
 
                 <div class="overflow-hidden">
                     <div class="overflow-x-auto mt-4 rounded-4">
-                        <table class="table table-custom w-100">
+                        <table class="table table-custom">
                             <thead>
                                 <tr>
                                     <th scope="col">Booking Ref</th>
@@ -228,26 +345,32 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>GH-2026-0738</td>
                                     <td>
-                                        <p>David & Sarah Mitchell</p>
-                                        <p>mitchells@email.com</p>
+                                        <span class="extra-small fw-semibold">GH-2026-0738</span>
                                     </td>
                                     <td>
-                                        <p>Deluxe Ocean Suite</p>
-                                        <span>Deluxe</span>
+                                        <p class="fw-semibold small">David & Sarah Mitchell</p>
+                                        <p class="text-gray-light extra-small mt-1">mitchells@email.com</p>
                                     </td>
-                                    <td>Jun 28, 2026</td>
-                                    <td>Jun 30, 2026</td>
-                                    <td>2</td>
-                                    <td>$69420</td>
+                                    <td>
+                                        <p class="small">Deluxe Ocean Suite</p>
+                                        <span class="status py-1">Deluxe</span>
+                                    </td>
+                                    <td><span class="small text-gray-light">Jun 28, 2026</span></td>
+                                    <td><span class="small text-gray-light">Jun 30, 2026</span></td>
+                                    <td><span class="small text-gray-light fw-semibold">2</span></td>
+                                    <td><span class="small fw-semibold" data-currency data-price="69420">$69420</span></td>
                                     <td><span class="status status-success rounded-2 text-uppercase small fw-bold">Confirmed</span></td>
                                     <td>
                                         <div class="action-group">
-                                            <button class="btn-plain action-edit">
+                                            <button class="btn btn-outline action-edit text-gray-light"
+                                                title="Edit details"
+                                                data-edit
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editReservationModal">
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn-plain action-remove">
+                                            <button class="btn btn-outline action-remove" data-delete>
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
@@ -262,6 +385,7 @@
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
+    <script src="../scripts/currency.js"></script>
 </body>
 
 </html>
