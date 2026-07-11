@@ -124,31 +124,128 @@
                         </div>
                     </div>
 
-                    <div class=" modal-body row text-black">
-                        <div class="col-sm-4 col-12">
-                            <div class="bg-subtle text-center rounded-4 p-3">
-                                <h5>3</h5>
-                                <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
+                    <div class=" modal-body">
+                        <div class="row text-black">
+                            <div class="col">
+                                <div class="bg-subtle text-center rounded-4 p-3">
+                                    <h5>3</h5>
+                                    <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="bg-subtle text-center rounded-4 p-3">
+                                    <h5>May 12, 2026</h5>
+                                    <p class="text-gray-light fw-semibold extra-small mt-2">Last Stay</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="bg-subtle text-center rounded-4 p-3">
+                                    <h5>January 1, 2026</h5>
+                                    <p class="text-gray-light fw-semibold extra-small mt-2">Member Since</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 col-12">
-                            <div class="bg-subtle text-center rounded-4 p-3">
-                                <h5>May 12, 2026</h5>
-                                <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 col-12">
-                            <div class="bg-subtle text-center rounded-4 p-3">
-                                <h5>January 1, 2026</h5>
-                                <p class="text-gray-light fw-semibold extra-small mt-2">Member Since</p>
-                            </div>
+                        <h4 class="fs-7 fw-semibold mb-2 mt-4">Resrvation History</h4>
+                        <div class="overflow-y-auto position-relative" style="max-height: 20rem;">
+                            <table class="table-custom w-100 bg-subtle rounded-4">
+                                <thead class="position-sticky top-0 z-1 bg-subtle">
+                                    <tr>
+                                        <th scope="col">Ref</th>
+                                        <th scope="col">Dates</th>
+                                        <th scope="col">Guets</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                    <tr class="extra-small">
+                                        <td class="fw-bold">GH-2026-0742</td>
+                                        <td>
+                                            <p>Jul 15, 2026</p>
+                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
+                                        </td>
+                                        <td>2</td>
+                                        <td class="fw-bold" data-currency data-price="1047"></td>
+                                        <td>
+                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="modal-footer border-0">
-
-                    </div>
-
-
                 </div>
             </div>
         </div>
