@@ -108,6 +108,51 @@
         </div>
     </aside>
     <div class="flex-grow-1">
+        <div class="modal fade" id="viewDetailsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-lg">
+                <div class="modal-content p-2 border-0">
+                    <div class="modal-header d-flex justify-content-start align-items-start gap-3 border-0">
+                        <div class="bg-warning-subtle p-4 rounded-circle extra-small">
+                            <span class="fw-bold text-secondary-2 h6">ER</span>
+                        </div>
+                        <div>
+                            <h4 class="fs-5 fw-semibold">Emma Richardson</h4>
+                            <div class="extra-small text-gray-light mt-2">
+                                <span><i class="fa-regular fa-envelope"></i> eemma.r@mail.com</span>
+                                <span><i class="fa-solid fa-phone"></i> +1 (415) 555-0123</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" modal-body row text-black">
+                        <div class="col-sm-4 col-12">
+                            <div class="bg-subtle text-center rounded-4 p-3">
+                                <h5>3</h5>
+                                <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-12">
+                            <div class="bg-subtle text-center rounded-4 p-3">
+                                <h5>May 12, 2026</h5>
+                                <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-12">
+                            <div class="bg-subtle text-center rounded-4 p-3">
+                                <h5>January 1, 2026</h5>
+                                <p class="text-gray-light fw-semibold extra-small mt-2">Member Since</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
         <header class="border-bottom d-flex p-2 px-2 pe-4 ms-0 bg-white" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
@@ -217,6 +262,41 @@
                 <div class="search-group flex-grow-1">
                     <i class="fa-solid fa-search"></i>
                     <input type="text" name="search" id="search" placeholder="Search by name, email, or phone" class="form-control outline-hover rounded">
+                </div>
+                <div class="container-fluid my-4 p-0">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <button class="btn btn-primary-outline status-card rounded-3 d-flex align-items-start gap-3 w-100 py-4 px-3"
+                                data-bs-toggle="modal"
+                                data-bs-target="#viewDetailsModal">
+                                <div class="bg-warning-subtle p-3 rounded-circle extra-small">
+                                    <span class="fw-bold text-secondary-2 h6">ER</span>
+                                </div>
+                                <div class="text-start flex-grow-1">
+                                    <h2 class="small fw-semibold">Emma Richardson</h2>
+                                    <div class="mt-1">
+                                        <p class="status-card-label opacity-75 fw-semibold">emma.r@email.com</p>
+                                        <p class="status-card-label opacity-75 fw-semibold">+1 (415 555-0123)</p>
+                                    </div>
+                                    <div class="d-flex gap-3 border-top align-middle mt-2 pt-2 text-black">
+                                        <div class="border-end pe-4">
+                                            <p class="h5 fw-bold">3</p>
+                                            <p class="ultra-small fw-semibold text-secondary-2">stays</p>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <p class="extra-small">May 12, 2026</p>
+                                            <p class="ultra-small fw-semibold text-secondary-2 mt-2">Last stay</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-angle-right flex-shrink-0 opacity-50"></i>
+
+                            </button>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

@@ -90,20 +90,17 @@ a {
 }
 
 .btn-primary-outline {
-  --bs-btn-color: #000000;
-  --bs-btn-bg: oklch(100% 0.00011 271.152);
+  --bs-btn-color: #000;
+  --bs-btn-bg: #fff;
   --bs-btn-border-color: var(--bs-border-color);
-  --bs-btn-hover-color: #000000;
-  --bs-btn-hover-bg: rgba(255, 231, 0, 0.1);
+
+  --bs-btn-hover-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-hover-bg: #fff;
   --bs-btn-hover-border-color: oklch(68.275% 0.14056 75.989);
-  --bs-btn-focus-shadow-rgb: 49, 132, 253;
-  --bs-btn-active-color: ;
-  --bs-btn-active-bg: rgba(255, 231, 0, 0.1);
+
+  --bs-btn-active-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-active-bg: #fff;
   --bs-btn-active-border-color: oklch(68.275% 0.14056 75.989);
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #000000;
-  --bs-btn-disabled-bg: oklch(27.806% 0.05408 80.592);
-  --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
 }
 
 .btn-outline {
@@ -120,6 +117,26 @@ a {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #8a8a8b;
   --bs-btn-disabled-border-color: #8a8a8a;
+}
+
+.btn-danger {
+  --bs-btn-bg: rgb(220 38 38);
+  --bs-btn-hover-bg: rgb(185, 25, 25);
+  --bs-btn-active-bg: rgb(185, 25, 25);
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-active-shadow: transparent;
+  --bs-btn-focus-shadow-rgb: 0, 0, 0;
+  --bs-btn-active-shadow: transparent;
+}
+
+.btn-secondary {
+  --bs-btn-color: oklch(0.35 0.022 75);
+  --bs-btn-bg: #eceae5;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-bg: oklch(0.94 0.015 88);
+  --bs-btn-hover-color: oklch(0.35 0.022 75);
+  --bs-btn-active-bg: oklch(0.94 0.015 88);
+  --bs-btn-active-color: oklch(0.35 0.022 75);
 }
 
 .btn-plain {
@@ -298,7 +315,7 @@ a {
 }
 
 .text-gray-light {
-  color: #4e4e4e;
+  color: #4e4e4e !important;
 }
 
 .extra-small {
@@ -488,6 +505,10 @@ a {
   color: var(--text-2);
 }
 
+.sort-input label:hover {
+  cursor: pointer;
+}
+
 .sort-input input {
   display: none;
 }
@@ -551,8 +572,16 @@ a {
   color: var(--text-2);
 }
 
-.edit-modal {
+.mx-w-sm {
+  max-width: 24rem;
+}
+
+.mx-w-md {
   max-width: 35rem;
+}
+
+.mx-w-lg {
+  max-width: 42rem;
 }
 
 .reservation-form * label {

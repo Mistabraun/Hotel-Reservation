@@ -110,7 +110,7 @@
     <div class="flex-grow-1 " style="min-width: 0;">
 
         <div class="modal fade" id="editReservationModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered edit-modal">
+            <div class="modal-dialog modal-dialog-centered mx-w-md">
                 <div class="modal-content p-2">
                     <div class="modal-header d-flex justify-content-between">
                         <div>
@@ -191,12 +191,37 @@
                             </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Cancel
                         </button>
 
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" data-bs-dismiss="modal">
                             Save Changes
+                        </button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="removeReservationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-sm">
+                <div class="modal-content p-2 ">
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center gap-2">
+                        <div class="bg-danger-subtle p-3 rounded-circle">
+                            <i class="fa-solid fa-xmark text-danger"></i>
+                        </div>
+                        <h2 class="fw-semibold fs-4">Cancel Reservation?</h2>
+                        <p class="small text-center">Are you sure you want to cancel GH-2026-0738? This may be irreversible based on hotel policy.</p>
+                    </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center">
+                        <button class="btn btn-secondary rounded-5" data-bs-dismiss="modal">
+                            Go Back
+                        </button>
+
+                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal">
+                            Cancel Reservation
                         </button>
                     </div>
                     </form>
@@ -370,7 +395,11 @@
                                                 data-bs-target="#editReservationModal">
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-outline action-remove" data-delete>
+                                            <button class="btn btn-outline action-remove"
+                                                title="Cancel"
+                                                data-remove
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#removeReservationModal">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
