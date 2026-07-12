@@ -1,3 +1,11 @@
+<?php
+
+include_once __DIR__ . "/../app/middleware/Authmidlleware.php";
+
+AuthMiddleware::guest(false);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,7 +87,7 @@
               <p class="text-muted mb-0">Sign in to access the admin dashboard.</p>
             </section>
 
-            <form action="/routes/api.php" method="post">
+            <form action="/routes/api.php" method="post" id="loginForm">
               <div class="mb-4">
                 <label for="email" class="form-label"> Email address </label>
                 <input
@@ -146,6 +154,16 @@
   </main>
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../scripts/app.js"></script>
+  <script>
+    const form = document.getElementById("loginForm");
+
+    form.addEventListener("submit", await async function(element) {
+      element.preventDefault();
+
+      $request = await fetch("", {})
+
+    })
+  </script>
 </body>
 
 </html>

@@ -1,14 +1,17 @@
 <?php
 
 include_once __DIR__ . "/../models/User.php";
+include_once __DIR__ . "/SessionService.php";
 
 class AuthService
 {
     private User $user;
+    private SessionService $session;
 
     public function __construct()
     {
         $this->user = new User();
+        $this->session = new SessionService();
     }
 
     private function error(String $message)
@@ -38,14 +41,12 @@ class AuthService
             return  $this->error("Invalid Credentials");
         }
 
+
+        $this->session->login($userData);
+
         return [
             "success" => true,
-            "message" => [
-                "id" => $userData["id"],
-                "username" => $userData["username"],
-                "email" => $userData["email"],
-                "role" => $userData["role"]
-            ]
+            "message" => "Logged in successfully."
         ];
     }
 }

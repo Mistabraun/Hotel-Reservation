@@ -306,8 +306,8 @@
         <main class="p-4 m-1">
             <div class="container-fluid m-0 p-0">
                 <header>
-                    <h1 class="h4 m-0 p-0">Reservation Management</h1>
-                    <p class="text-secondary-2 m-0 p-0">8 total reservations</p>
+                    <h1 class="h4 m-0 p-0">Guest Management</h1>
+                    <p class="text-secondary-2 m-0 p-0">1 guest on record</p>
                 </header>
                 <div class="row my-4 gx-2">
                     <div class="col-md-3 col-6">
