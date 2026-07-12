@@ -9,12 +9,12 @@ class Database
         if (self::$connection) {
             return self::$connection;
         }
-        
+
         self::$connection = mysqli_connect(
             "localhost",
             "root",
             "",
-            "accounts"
+            "hotel"
         );
         if (!self::$connection) {
             die("Database connection failed! " . mysqli_connect_error());

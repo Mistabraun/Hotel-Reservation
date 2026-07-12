@@ -87,12 +87,13 @@ AuthMiddleware::guest(false);
               <p class="text-muted mb-0">Sign in to access the admin dashboard.</p>
             </section>
 
-            <form action="/routes/api.php" method="post" id="loginForm">
+            <form method="post" id="loginForm">
               <div class="mb-4">
                 <label for="email" class="form-label"> Email address </label>
                 <input
+                  title=""
                   type="email"
-                  class="form-control"
+                  class="form-control outline-hover"
                   id="email"
                   name="email"
                   placeholder="example@mail.com"
@@ -100,26 +101,32 @@ AuthMiddleware::guest(false);
                   required />
               </div>
 
-              <div class="mb-4">
-                <label for="password" class="form-label"> Password </label>
+              <label for="password" class=""> Password </label>
+              <div class="mb-4 input-group password-group">
                 <input
+                  title=""
                   type="password"
-                  class="form-control"
+                  class="form-control outline-hover rounded z-2"
                   id="password"
                   name="password"
                   placeholder="Enter your password"
                   autocomplete="current-password"
                   required />
+
+                <button type="button"
+                  class="toggle-password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+
               </div>
 
-              <div class="d-flex justify-content-between align-items-center mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="remember" name="remember" />
-
                   <label class="form-check-label" for="remember"> Remember me </label>
                 </div>
 
-                <a href="/">Forgot password?</a>
+                <a href="/" class="text-gray-light text-decoration-underline">Forgot password?</a>
               </div>
 
               <button type="submit" class="btn btn-primary w-100 fw-semibold">
@@ -155,12 +162,24 @@ AuthMiddleware::guest(false);
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../scripts/app.js"></script>
   <script>
-    const form = document.getElementById("loginForm");
-
-    form.addEventListener("submit", await async function(element) {
+    document.getElementById("loginForm").addEventListener("submit", async function(element) {
       element.preventDefault();
 
-      $request = await fetch("", {})
+      const form = element.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = fetch("../api/auth/login.php", {
+          method: "post",
+          body: formData,
+        })
+
+        const result = await response.json();
+        console.log(result);
+
+      } catch (e) {
+
+      }
 
     })
   </script>

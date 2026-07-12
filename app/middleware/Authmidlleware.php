@@ -68,11 +68,4 @@ class AuthMiddleware
             Role::ADMIN
         ], $api);
     }
-
-    public static function customer(bool $api = true): void
-    {
-        self::role([
-            Role::CUSTOMER
-        ], $api);
-    }
 }

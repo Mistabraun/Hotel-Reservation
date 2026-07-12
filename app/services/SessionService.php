@@ -16,7 +16,6 @@ class SessionService
 
         $_SESSION["user"] = [
             "id"       => $user["id"],
-            "username" => $user["username"],
             "email"    => $user["email"],
             "role_id"  => $user["role_id"]
         ];
@@ -24,6 +23,7 @@ class SessionService
 
     public function logout(): void
     {
+        $this->start();
         $_SESSION = [];
 
         if (ini_get("session.use_cookies")) {
@@ -73,22 +73,16 @@ class SessionService
         );
     }
 
-    public function redirectToDashboard(): never
+    public function redirectToDashboard(): void
     {
         switch ($this->getRoleId()) {
             case Role::SUPER_ADMIN:
             case Role::ADMIN:
-                header("Location: /hotel/Hotel-Reservation/admin/dashboard");
-                break;
-
-            case Role::CUSTOMER:
-                header("Location: /hotel/Hotel-Reservation/customer/dashboard");
+                header("Location: /../admin/dashboard.php");
                 break;
 
             default:
-                header("Location: /hotel/Hotel-Reservation/");
+                header("Location: ../admin/dashboard.php");
         }
-
-        exit;
     }
 }

@@ -152,8 +152,8 @@
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
                         <li>
-                            <button class="link link-danger fs-7 btn-default" href="settings.php">
-                                <i class="fa-solid fa-sign-out"></i>
+                            <button class="link link-danger fs-7 btn-default" id="logout">
+                                <i class=" fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
                             </button>
                         </li>

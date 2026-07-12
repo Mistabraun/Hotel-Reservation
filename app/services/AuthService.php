@@ -31,7 +31,7 @@ class AuthService
             return $this->error("Username and password is required.");
         }
 
-        if (strlen($password) <= 6 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return $this->error("Invalid Credentials");
         }
 
