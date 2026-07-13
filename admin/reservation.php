@@ -344,11 +344,6 @@
                             <input type="radio" name="sort" id="cancelled">
                             <label for="cancelled" class="extra-small rounded-5 fw-semibold">Cancelled</label>
                         </div>
-                        <!-- <button class="btn-plain extra-small rounded-5 fw-semibold" data-active>All</button>
-                        <button class="btn-plain extra-small rounded-5 fw-semibold">Pending</button>
-                        <button class="btn-plain extra-small rounded-5 fw-semibold">Confirmed</button>
-                        <button class="btn-plain extra-small rounded-5 fw-semibold">Checked Out</button>
-                        <button class="btn-plain extra-small rounded-5 fw-semibold">Cancelled</button> -->
                     </div>
                 </div>
 

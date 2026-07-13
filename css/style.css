@@ -591,10 +591,14 @@ a {
 /* position-absolute  btn-plain extra-small top-50 translate-middle-y z-3" style="right: .75rem; */
 
 .password-group {
+}
 
+.password-group:focus-within .toggle-password {
+  display: block;
 }
 
 .toggle-password {
+  display: none;
   position: absolute;
 
   background: transparent;
@@ -617,5 +621,3 @@ a {
   right: 0.75rem;
   z-index: 3;
 }
-
-

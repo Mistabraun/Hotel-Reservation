@@ -1,5 +1,17 @@
 function updateCurrency(targetCurrency) {
-    const priceElements = document.querySelectorAll('[data-currency]');
+    // const priceElements = document.querySelectorAll('[data-currency]');
+
+    // priceElements.forEach(el => {
+    //     const price = parseFloat(el.getAttribute('data-price'));
+    //     // Format the currency string
+    //     el.textContent = new Intl.NumberFormat('en-US', {
+    //         style: 'currency',
+    //         currency: targetCurrency,
+    //         minimumFractionDigits: 0
+    //     }).format(price);
+    // });
+
+    const priceElements = document.querySelectorAll('[data-price]');
 
     priceElements.forEach(el => {
         const price = parseFloat(el.getAttribute('data-price'));
@@ -10,6 +22,7 @@ function updateCurrency(targetCurrency) {
             minimumFractionDigits: 0
         }).format(price);
     });
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
