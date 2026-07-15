@@ -1,0 +1,381 @@
+
+/* ====DESIGN BASICS===== */
+body {
+    background-color: #ffffff;
+    color: #2b2b2b;
+}
+
+/* Re-useable font */
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+.font-sans {
+    font-family: 'Inter', sans-serif;
+}
+.font-light {
+    font-weight: 300;
+}
+.tracking-widest {
+    letter-spacing: 0.15em;
+}
+.tracking-wider {
+    letter-spacing: 0.08em;
+}
+
+/* Color Background Modifier class styling rules */
+.bg-sand {
+    background-color: #fbf9f4;
+}
+
+
+/* ==========================================
+[STYLING BLOCK 1] NAVIGATION BAR COMPONENT
+   ========================================== */
+.header-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+.btn-gold {
+    background-color: #c49a45;
+    color: white !important;
+}
+.btn-gold:hover {
+    background-color: #b08737;
+}
+
+/* ======================================================================
+[STYLING BLOCK 1] NAVIGATION BAR COMPONENT
+====================================================================== */
+.header-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+/* Bagong layout para sa transparent bar */
+/* ======================================================================
+Dito dapat DEFAULT yung STATE: Fully Transparent sa Hero Section (Puti ang Text)
+   ====================================================================== */
+.custom-luxury-nav {
+    background: transparent !important;
+    background-color: transparent !important;
+    
+    /* Siguraduhing walang anino o filter na sumasali sa simula */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+    
+    /* Swabeng transition para sa background change */
+    transition: background 0.3s ease-in-out, background-color 0.3s ease-in-out !important;
+    padding-top: 25px !important;    
+    padding-bottom: 25px !important;
+
+}
+
+/* Lahat ng text links ay malinis na puti kapag nasa hero */
+.custom-luxury-nav .navbar-brand,
+.custom-luxury-nav .nav-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease !important;
+}
+
+.custom-luxury-nav .nav-link.active {
+    color: #c49a45 !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+}
+
+/* ====== dito kapag nagscroll ka dapat magiging solid white yung navbar =============== */
+.custom-luxury-nav.scrolled {
+    /* 1. GUMAMIT TAYO NG RGB VERSION NG WHITE NA MAY 100% OPACITY (Opaque) */
+    background: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    
+    /* 2. SIGURADUHING WALANG KAHIT ANONG BLUR O TRANSPARENCY */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    
+    /* 3. ALISIN ANG ANINO O GUHIT NA PUMAPARUMI SA PUTI */
+    box-shadow: none !important; 
+    border-bottom: none !important; 
+    
+    /* 4. PWERSAHING PUMUNTA SA PINAKA-IBABAW (Z-INDEX) */
+    z-index: 1000 !important;
+    
+    /* Swabeng fade-in kapag naka-scroll na */
+    transition: background-color 0.4s ease-in-out !important; 
+}
+
+/* Siguraduhin ring dark colors ang texts para litaw sa white bg */
+.custom-luxury-nav.scrolled .navbar-brand {
+    color: #110f0d !important; 
+}
+.custom-luxury-nav.scrolled .nav-link {
+    color: #4a4a4a !important; 
+}
+
+
+/* Binagong button para maging hugis pill / bilugan */
+.btn-book-now {
+    background-color: #c49a45;
+    color: white !important;
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.btn-book-now:hover {
+    background-color: #b08737;
+    transform: translateY(-1px);
+    color: #ffffff !important;
+}
+
+/* ==========================================
+[STYLING BLOCK 2] HERO BANNER BACKGROUND IMAGE
+   ========================================== */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
+                url('images/hero.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    width: 100%;
+}
+.min-vh-75 {
+    min-height: 70vh;
+}
+
+/* Avatar layout formatting alignment overlays */
+.avatar-group img {
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+}
+.guest-overlap {
+    margin-left: -0.7rem;
+}
+
+
+/* ==========================================
+[STYLING BLOCK 3] FEATURED ROOM CARDS 
+   ========================================== */
+.room-card-img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+}
+.bg-orange {
+    background-color: #d26939;
+    color: white;
+    font-size: 0.65rem;
+}
+
+
+/* ==========================================
+[STYLING BLOCK 4] AMENITY CONTAINER ICON BADGES
+   ========================================== */
+.amenity-icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: #f2efe7;
+}
+.special-peach-card {
+    background-color: #f7ede2 !important;
+    border: 1px solid #ebd9c2;
+}
+
+
+/* ==========================================
+[STYLING BLOCK 5] TESTIMONIAL REVIEW PANEL
+   ========================================== */
+/* ======================================================================
+LUXURY HORIZONTAL TESTIMONIAL CAROUSEL
+   ====================================================================== */
+.testimonial-gallery-section {
+    background-color: #fcfbfa;
+    padding-bottom: 80px !important; /* Dagdag space para sa navigation dots sa ilalim */
+}
+
+/* Ang mismong card container */
+.testimonial-card-wrap {
+    max-width: 950px;
+    background-color: #1e2229; /* Ang saktong madilim na kulay ng theme mo kanina */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Siguraduhing pantay at stretch ang picture mula itaas hanggang ibaba */
+.testimonial-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 400px; /* Nililimitahan ang nipis kapag ni-resize */
+}
+
+/* Font formatting inside dark area */
+.testimonial-body p.italic {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Paliparin ng kaunti ang arrows palabas ng card para hindi nakatakip */
+.carousel-control-prev { left: -70px; }
+.carousel-control-next { right: -70px; }
+
+/* Responsive tweaks para sa mobile screen */
+@media (max-width: 992px) {
+    .carousel-control-prev, .carousel-control-next { display: none; } /* Itago arrows sa maliit na phone */
+    .testimonial-card-wrap { max-width: 100%; margin: 0 15px; }
+    .testimonial-img { min-height: 300px; }
+}
+
+
+/* ==========================================
+[STYLING BLOCK 6] CALL TO ACTION BANNER CONTAINER
+   ========================================== */
+.cta-banner {
+    height: 380px;
+}
+.image-dark-cover {
+    object-fit: cover;
+    filter: brightness(0.75);
+}
+.z-index-top {
+    z-index: 5;
+}
+.btn-black {
+    background-color: #121212;
+    color: white;
+}
+.btn-black:hover {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+
+/* ==========================================
+[STYLING BLOCK 7] CLEAN & WIDE FOOTER
+   ========================================== */
+.custom-dark-footer {
+    background-color: #211e1b !important;
+}
+
+/* Links color configuration */
+.custom-dark-footer .footer-link {
+    color: #a3a3a3 !important;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.custom-dark-footer .footer-link:hover {
+    color: #ffffff !important;
+}
+
+/* Setup spacing system for list items */
+.custom-dark-footer ul li {
+    margin-bottom: 0.4rem;
+}
+
+/* Layout system logic for bottom row items */
+.social-icons-wrap a {
+    color: #a3a3a3 !important;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.social-icons-wrap a:hover {
+    color: #ffffff !important;
+}
+
+/* ==========================================
+Featured rooms zoom effect on hover
+   ========================================== */
+
+#rooms .card .overflow-hidden img {
+    transition: transform 0.3s ease-in-out; /* Para smooth ang pag-zoom ng image */
+}
+
+#rooms .card:hover .overflow-hidden img {
+    transform: scale(1.1); /* Lalaki ng 10% yung picture lang */
+}
+
+
+/* ==========================================
+Everything You Need (Amenities) Zoom Effect on Hover
+   ========================================== */
+
+/* 2. Zoom effect para sa buong Amenities (Everything You Need) box */
+#amenities .shadow-sm {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 1. Para sa mismong card hover (Dito lang dapat ang transform at transition para sa galaw) */
+#amenities .shadow-sm:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Para smooth ang pag-zoom */
+}
+
+/* 2. Para sa kulay (Dito natin gagamitin yung asterisk * para pilitin ang lahat sa loob na magkulay gold) */
+#amenities .shadow-sm:hover * {
+    color: #c49a45 !important;
+}
+
+/* ==========================================
+kaoag pininpindot yung about about sa nav bar dapat sakto siya
+   ========================================== */
+
+#about {
+    scroll-margin-top: 100px; /* Nilalagyan nito ng invisible margin sa itaas kapag pinindot yung about link sa navbar */
+}
+
+/* ========================================== [AMENITIES NEW PAGE STYLES] ========================================== */
+
+.text-gold {
+    color: #c49a45 !important;
+}
+
+.amenity-icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: #f5eedc;
+    border-radius: 50%;
+    color: #161310;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effects for the separate page cards */
+.custom-amenity-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.custom-amenity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08) !important;
+    cursor: pointer;
+}
+
+.custom-amenity-card:hover .amenity-icon-box {
+    background-color: #c49a45;
+    color: #ffffff;
+}
+
+/* Custom Zoom Styling para sa malalaking litrato ng Amenities */
+.amenity-zoom-img {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.overflow-hidden:hover .amenity-zoom-img {
+    transform: scale(1.06);
+}
+
+.text-gold {
+    color: #c49a45 !important;
+}
