@@ -1,0 +1,265 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #FAF6F0; 
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #FFFBF7;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .title-area h1 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 2.5rem;
+            color: #323232;
+            margin-bottom: 5px;
+        }
+
+        .title-area p {
+            color: #6c6965;
+            font-size: 0.95rem;
+        }
+
+        .btn-add-room {
+            background-color: #C68B16; 
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-add-room:hover {
+            background-color: #A47210;
+        }
+
+        .btn-add-room:active {
+            transform: scale(0.98);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 350px;
+            min-width: 250px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #EAE3D8;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .search-container::before {
+            content: "\f002"; 
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            color: #8c857b;
+            opacity: 0.7;
+        }
+
+        .filter-group {
+            display: flex;
+            background-color: #fff;
+            padding: 6px;
+            border-radius: 25px;
+            border: 1px solid #EAE3D8;
+            gap: 5px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background-color: #1A1510;
+            color: white;
+        }
+
+        .filter-btn:hover:not(.active) {
+            background-color: #F0EAE1;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            background-color: #FFF;
+            border-radius: 12px;
+            border: 1px solid #F3EDE4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 800px;
+        }
+
+        th {
+            background-color: #FFFBF7;
+            color: #8C857B;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 16px 24px;
+            border-bottom: 1px solid #F3EDE4;
+        }
+
+        td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #F3EDE4;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .room-title {
+            font-weight: 600;
+            color: #1A1A1A;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .room-sub {
+            font-size: 0.85rem;
+            color: #8C857B;
+        }
+
+        .badge-type {
+            background-color: #F0EAE1;
+            color: #555;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .price-text {
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .status.available {
+            background-color: #E2F6EA;
+            color: #27AE60;
+        }
+
+        .status.occupied {
+            background-color: #FCE8E6;
+            color: #EB5757;
+        }
+
+  
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 0.95rem;
+            color: #646464;
+            border-radius: 4px;
+            transition: all 0.2s;
+            margin-right: 5px;
+        }
+
+        .action-btn:hover {
+            background-color: #F0EAE1;
+            color: #1A1A1A;
+        }
+        
+        .action-btn.delete-btn:hover {
+            color: #e72626;
+        }
+
+   
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn-add-room {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+        }
