@@ -1,381 +1,623 @@
+/* @import "../libraries/bootstrap-icons/font/bootstrap-icons.css"; */
+@import "../libraries/fontawesome-free/css/all.min.css";
 
-/* ====DESIGN BASICS===== */
-body {
-    background-color: #ffffff;
-    color: #2b2b2b;
+:root {
+  --bs-secondary: rgb(26, 21, 15);
+  --bs-secondary-rgb: 26, 21, 15;
+  --text: white;
+  --text-2: oklch(0.42 0.025 76);
+  --text-danger-2: rgb(239 68 68);
+  --bs-background: oklch(0.97 0.01 90);
+
+  --bs-link-color: white;
+  --bs-link-hover-color: black;
+  --bs-link-hover-bg: oklch(0.97 0.01 90);
+
+  --bs-f-spacing-wide: 0.1em;
+
+  --bs-fs-ultra-small: 0.6rem;
+  --bs-fs-ultra-small-height: 0.6rem;
+
+  --bs-color-gray: #fff9;
+  --bs-color-active: oklch(0.65 0.18 85);
 }
 
-/* Re-useable font */
-.font-serif {
-    font-family: 'Playfair Display', serif;
-}
-.font-sans {
-    font-family: 'Inter', sans-serif;
-}
-.font-light {
-    font-weight: 300;
-}
-.tracking-widest {
-    letter-spacing: 0.15em;
-}
-.tracking-wider {
-    letter-spacing: 0.08em;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  padding: 0;
+  margin: 0;
 }
 
-/* Color Background Modifier class styling rules */
-.bg-sand {
-    background-color: #fbf9f4;
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-
-/* ==========================================
-[STYLING BLOCK 1] NAVIGATION BAR COMPONENT
-   ========================================== */
-.header-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: 1.6rem;
-}
-.btn-gold {
-    background-color: #c49a45;
-    color: white !important;
-}
-.btn-gold:hover {
-    background-color: #b08737;
+a {
+  text-decoration: none;
+  color: var(--bs-light);
 }
 
-/* ======================================================================
-[STYLING BLOCK 1] NAVIGATION BAR COMPONENT
-====================================================================== */
-.header-logo {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: 1.6rem;
+.combo-warning {
+  color: rgb(217 119 6);
+  background-color: rgb(250, 246, 230);
 }
 
-/* Bagong layout para sa transparent bar */
-/* ======================================================================
-Dito dapat DEFAULT yung STATE: Fully Transparent sa Hero Section (Puti ang Text)
-   ====================================================================== */
-.custom-luxury-nav {
-    background: transparent !important;
-    background-color: transparent !important;
-    
-    /* Siguraduhing walang anino o filter na sumasali sa simula */
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: none !important;
-    border-bottom: none !important;
-    
-    /* Swabeng transition para sa background change */
-    transition: background 0.3s ease-in-out, background-color 0.3s ease-in-out !important;
-    padding-top: 25px !important;    
-    padding-bottom: 25px !important;
-
+.combo-success {
+  color: rgb(22 163 74);
+  background-color: rgb(240 253 244);
+}
+.combo-danger {
+  color: oklch(0.48 0.14 40);
+  background-color: oklch(0.97 0.02 45);
 }
 
-/* Lahat ng text links ay malinis na puti kapag nasa hero */
-.custom-luxury-nav .navbar-brand,
-.custom-luxury-nav .nav-link {
-    color: #ffffff !important;
-    transition: color 0.3s ease !important;
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: oklch(0.65 0.18 85);
+  --bs-btn-border-color: oklch(0.65 0.18 85);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: oklch(55.515% 0.1146 75.812);
+  --bs-btn-hover-border-color: ;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: oklch(49.235% 0.10121 76.747);
+  --bs-btn-active-border-color: ;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: oklch(27.806% 0.05408 80.592);
+  --bs-btn-disabled-border-color: oklch(27.806% 0.05408 80.592);
 }
 
-.custom-luxury-nav .nav-link.active {
-    color: #c49a45 !important;
-    opacity: 1 !important;
-    font-weight: 700 !important;
+.btn-white {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: #ffffff;
+  --bs-btn-hover-bg: #dfdada;
+  --bs-btn-hover-border-color: oklch(43.7% 0.08993 77.141);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-bg: #bebfc0;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #8a8a8b;
+  --bs-btn-disabled-border-color: #8a8a8a;
 }
 
-/* ====== dito kapag nagscroll ka dapat magiging solid white yung navbar =============== */
-.custom-luxury-nav.scrolled {
-    /* 1. GUMAMIT TAYO NG RGB VERSION NG WHITE NA MAY 100% OPACITY (Opaque) */
-    background: rgba(255, 255, 255, 1) !important;
-    background-color: rgba(255, 255, 255, 1) !important;
-    
-    /* 2. SIGURADUHING WALANG KAHIT ANONG BLUR O TRANSPARENCY */
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    
-    /* 3. ALISIN ANG ANINO O GUHIT NA PUMAPARUMI SA PUTI */
-    box-shadow: none !important; 
-    border-bottom: none !important; 
-    
-    /* 4. PWERSAHING PUMUNTA SA PINAKA-IBABAW (Z-INDEX) */
-    z-index: 1000 !important;
-    
-    /* Swabeng fade-in kapag naka-scroll na */
-    transition: background-color 0.4s ease-in-out !important; 
+.btn-primary-outline {
+  --bs-btn-color: #000;
+  --bs-btn-bg: #fff;
+  --bs-btn-border-color: var(--bs-border-color);
+
+  --bs-btn-hover-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-hover-bg: #fff;
+  --bs-btn-hover-border-color: oklch(68.275% 0.14056 75.989);
+
+  --bs-btn-active-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-active-bg: #fff;
+  --bs-btn-active-border-color: oklch(68.275% 0.14056 75.989);
 }
 
-/* Siguraduhin ring dark colors ang texts para litaw sa white bg */
-.custom-luxury-nav.scrolled .navbar-brand {
-    color: #110f0d !important; 
-}
-.custom-luxury-nav.scrolled .nav-link {
-    color: #4a4a4a !important; 
-}
-
-
-/* Binagong button para maging hugis pill / bilugan */
-.btn-book-now {
-    background-color: #c49a45;
-    color: white !important;
-    padding: 8px 24px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: inline-block;
+.btn-outline {
+  --bs-btn-color: #000000;
+  --bs-btn-bg: ;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-bg: rgba(179, 177, 177, 0.1);
+  --bs-btn-hover-border-color: ;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: ;
+  --bs-btn-active-bg: rgba(17, 17, 17, 0.1);
+  --bs-btn-active-border-color: oklch(68.275% 0.14056 75.989);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #8a8a8b;
+  --bs-btn-disabled-border-color: #8a8a8a;
 }
 
-.btn-book-now:hover {
-    background-color: #b08737;
-    transform: translateY(-1px);
-    color: #ffffff !important;
+.btn-danger {
+  --bs-btn-bg: rgb(220 38 38);
+  --bs-btn-hover-bg: rgb(185, 25, 25);
+  --bs-btn-active-bg: rgb(185, 25, 25);
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-active-shadow: transparent;
+  --bs-btn-focus-shadow-rgb: 0, 0, 0;
+  --bs-btn-active-shadow: transparent;
 }
 
-/* ==========================================
-[STYLING BLOCK 2] HERO BANNER BACKGROUND IMAGE
-   ========================================== */
-.hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
-                url('images/hero.jpg') no-repeat center center;
-    background-size: cover;
-    min-height: 100vh;
-    width: 100%;
-}
-.min-vh-75 {
-    min-height: 70vh;
+.btn-secondary {
+  --bs-btn-color: oklch(0.35 0.022 75);
+  --bs-btn-bg: #eceae5;
+  --bs-btn-border-color: none;
+  --bs-btn-hover-bg: oklch(0.94 0.015 88);
+  --bs-btn-hover-color: oklch(0.35 0.022 75);
+  --bs-btn-active-bg: oklch(0.94 0.015 88);
+  --bs-btn-active-color: oklch(0.35 0.022 75);
 }
 
-/* Avatar layout formatting alignment overlays */
-.avatar-group img {
-    width: 38px;
-    height: 38px;
-    object-fit: cover;
-}
-.guest-overlap {
-    margin-left: -0.7rem;
-}
-
-
-/* ==========================================
-[STYLING BLOCK 3] FEATURED ROOM CARDS 
-   ========================================== */
-.room-card-img {
-    height: 250px;
-    width: 100%;
-    object-fit: cover;
-}
-.bg-orange {
-    background-color: #d26939;
-    color: white;
-    font-size: 0.65rem;
+.btn-plain {
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: inherit;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
-
-/* ==========================================
-[STYLING BLOCK 4] AMENITY CONTAINER ICON BADGES
-   ========================================== */
-.amenity-icon-box {
-    width: 50px;
-    height: 50px;
-    background-color: #f2efe7;
-}
-.special-peach-card {
-    background-color: #f7ede2 !important;
-    border: 1px solid #ebd9c2;
+.bg-main {
+  background-color: var(--bs-background);
 }
 
-
-/* ==========================================
-[STYLING BLOCK 5] TESTIMONIAL REVIEW PANEL
-   ========================================== */
-/* ======================================================================
-LUXURY HORIZONTAL TESTIMONIAL CAROUSEL
-   ====================================================================== */
-.testimonial-gallery-section {
-    background-color: #fcfbfa;
-    padding-bottom: 80px !important; /* Dagdag space para sa navigation dots sa ilalim */
+.link-subtle {
+  --bs-link-color: --text-2;
+  --bs-link-hover-color: ;
 }
 
-/* Ang mismong card container */
-.testimonial-card-wrap {
-    max-width: 950px;
-    background-color: #1e2229; /* Ang saktong madilim na kulay ng theme mo kanina */
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+.link-danger {
+  --bs-link-color: --text-2;
+  --bs-link-hover-bg: rgb(254 242 242);
 }
 
-/* Siguraduhing pantay at stretch ang picture mula itaas hanggang ibaba */
-.testimonial-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    min-height: 400px; /* Nililimitahan ang nipis kapag ni-resize */
+.link {
+  --bs-link-padding-x: 0.75rem;
+  --bs-link-padding-y: 0.375rem;
+  color: var(--bs-link-color);
+  padding: var(--bs-link-padding-y) var(--bs-link-padding-x);
 }
 
-/* Font formatting inside dark area */
-.testimonial-body p.italic {
-    font-style: italic;
-    opacity: 0.9;
+.link-gray {
+  --bs-link-hover-color: white;
+  --bs-link-hover-bg: rgba(255, 255, 255, 0.1);
 }
 
-/* Paliparin ng kaunti ang arrows palabas ng card para hindi nakatakip */
-.carousel-control-prev { left: -70px; }
-.carousel-control-next { right: -70px; }
-
-/* Responsive tweaks para sa mobile screen */
-@media (max-width: 992px) {
-    .carousel-control-prev, .carousel-control-next { display: none; } /* Itago arrows sa maliit na phone */
-    .testimonial-card-wrap { max-width: 100%; margin: 0 15px; }
-    .testimonial-img { min-height: 300px; }
+.link.active {
+  --bs-link-hover-bg: var(--bs-color-active);
+  color: var(--text);
+  background-color: var(--bs-color-active);
 }
 
-
-/* ==========================================
-[STYLING BLOCK 6] CALL TO ACTION BANNER CONTAINER
-   ========================================== */
-.cta-banner {
-    height: 380px;
-}
-.image-dark-cover {
-    object-fit: cover;
-    filter: brightness(0.75);
-}
-.z-index-top {
-    z-index: 5;
-}
-.btn-black {
-    background-color: #121212;
-    color: white;
-}
-.btn-black:hover {
-    background-color: #2b2b2b;
-    color: white;
+.link:hover {
+  color: var(--bs-link-hover-color);
+  background-color: var(--bs-link-hover-bg);
 }
 
-
-/* ==========================================
-[STYLING BLOCK 7] CLEAN & WIDE FOOTER
-   ========================================== */
-.custom-dark-footer {
-    background-color: #211e1b !important;
+.profile-menu {
+  width: 14rem;
 }
 
-/* Links color configuration */
-.custom-dark-footer .footer-link {
-    color: #a3a3a3 !important;
-    text-decoration: none;
-    font-weight: 400;
-    transition: color 0.2s ease;
+.profile-menu .profile-header .profile-name {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
-.custom-dark-footer .footer-link:hover {
-    color: #ffffff !important;
+.profile-menu .profile-header .profile-email {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
-/* Setup spacing system for list items */
-.custom-dark-footer ul li {
-    margin-bottom: 0.4rem;
+.profile-menu .profile-header > p {
+  padding: 0;
+  margin: 0;
 }
 
-/* Layout system logic for bottom row items */
-.social-icons-wrap a {
-    color: #a3a3a3 !important;
-    font-size: 1.25rem;
-    text-decoration: none;
-    transition: color 0.2s ease;
+.profile-menu .profile-items li a,
+.profile-menu .profile-items li button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  color: var(--text-2);
+  font-weight: 600;
 }
 
-.social-icons-wrap a:hover {
-    color: #ffffff !important;
+.btn-default {
+  border: 0;
+  background-color: transparent;
 }
 
-/* ==========================================
-Featured rooms zoom effect on hover
-   ========================================== */
-
-#rooms .card .overflow-hidden img {
-    transition: transform 0.3s ease-in-out; /* Para smooth ang pag-zoom ng image */
+.profile-menu .profile-items li a.danger {
+  color: var(--text-danger-2);
 }
 
-#rooms .card:hover .overflow-hidden img {
-    transform: scale(1.1); /* Lalaki ng 10% yung picture lang */
+.profile-menu .profile-items * p {
+  margin: 0;
 }
 
-
-/* ==========================================
-Everything You Need (Amenities) Zoom Effect on Hover
-   ========================================== */
-
-/* 2. Zoom effect para sa buong Amenities (Everything You Need) box */
-#amenities .shadow-sm {
-    transition: transform 0.3s ease-in-out;
+.status {
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  color: oklch(0.43 0.015 75);
+  background: oklch(0.95 0.01 82);
 }
 
-/* 1. Para sa mismong card hover (Dito lang dapat ang transform at transition para sa galaw) */
-#amenities .shadow-sm:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out; /* Para smooth ang pag-zoom */
+.status-warning {
+  background-color: oklch(0.95 0.06 88);
+  color: oklch(0.46 0.14 83);
 }
 
-/* 2. Para sa kulay (Dito natin gagamitin yung asterisk * para pilitin ang lahat sa loob na magkulay gold) */
-#amenities .shadow-sm:hover * {
-    color: #c49a45 !important;
+.status-success {
+  color: rgb(21 128 61);
+  background-color: rgb(220 252 231);
 }
 
-/* ==========================================
-kaoag pininpindot yung about about sa nav bar dapat sakto siya
-   ========================================== */
-
-#about {
-    scroll-margin-top: 100px; /* Nilalagyan nito ng invisible margin sa itaas kapag pinindot yung about link sa navbar */
+.status-danger {
+  color: rgb(185 28 28);
+  background-color: rgb(220 252 231);
 }
 
-/* ========================================== [AMENITIES NEW PAGE STYLES] ========================================== */
-
-.text-gold {
-    color: #c49a45 !important;
+.text-secondary-2 {
+  color: var(--text-2) !important;
 }
 
-.amenity-icon-box {
-    width: 50px;
-    height: 50px;
-    background-color: #f5eedc;
-    border-radius: 50%;
-    color: #161310;
-    transition: background-color 0.3s ease, color 0.3s ease;
+.text-danger-2 {
+  color: var(--text-danger-2);
 }
 
-/* Hover effects for the separate page cards */
-.custom-amenity-card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.bi-bold {
+  -webkit-text-stroke: 1px; /* Increase pixels for a thicker bold look */
 }
 
-.custom-amenity-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08) !important;
-    cursor: pointer;
+.bi-semibold {
+  -webkit-text-stroke: 0.3px; /* Increase pixels for a thicker bold look */
 }
 
-.custom-amenity-card:hover .amenity-icon-box {
-    background-color: #c49a45;
-    color: #ffffff;
+.cpx-3 {
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
 }
 
-/* Custom Zoom Styling para sa malalaking litrato ng Amenities */
-.amenity-zoom-img {
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+.p-2\.5 {
+  padding: 0.625rem;
 }
 
-.overflow-hidden:hover .amenity-zoom-img {
-    transform: scale(1.06);
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
 }
 
-.text-gold {
-    color: #c49a45 !important;
+.px-2\.5 {
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
+
+.f-spacing-wide {
+  letter-spacing: var(--bs-f-spacing-wide);
+}
+
+.fs-7 {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.line {
+  color: inherit;
+  border: 0;
+  border-top: var(--bs-border-width) solid;
+  opacity: 0.25;
+}
+
+.gray {
+  background-color: gray;
+}
+
+.text-gray {
+  color: var(--bs-color-gray);
+}
+
+.text-gray-light {
+  color: #4e4e4e !important;
+}
+
+.extra-small {
+  font-size: 0.8rem;
+  line-height: 0.6rem;
+}
+
+.ultra-small {
+  font-size: var(--bs-fs-ultra-small);
+  line-height: var(--bs-fs-ultra-small-height);
+}
+
+.backdrop-filter {
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.bg-white-10 {
+  --bs-bg-opacity: 0.1;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem !important;
+
+  padding: 0.625rem 1rem !important;
+  border-radius: var(--bs-border-radius) !important;
+  color: var(--bs-color-gray);
+}
+
+/* px-3 text-uppercase ultra-small opacity-50 f-spacing-wide fw-semibold */
+.sidebar-category {
+  color: var(--bs-color-gray);
+}
+
+.sidebar-category h2 {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+
+  text-transform: uppercase !important;
+
+  opacity: 0.5;
+
+  letter-spacing: var(--bs-f-spacing-wide);
+
+  font-weight: 600;
+
+  font-size: var(--bs-fs-ultra-small);
+  line-height: var(--bs-fs-ultra-small-height);
+}
+
+/* mt-2 small d-flex flex-column gap-1 */
+.sidebar-category .sidebar-list {
+  margin-top: 0.5rem !important;
+  font-size: 0.875em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem !important;
+}
+
+.bg-success-50 {
+  background-color: rgb(240 253 244);
+}
+
+.status-card {
+  --bs-status-card-padding-y: 0.75rem;
+  --bs-status-card-padding-x: 1rem;
+
+  --bs-status-card-bg: oklch(0.99 0.005 90);
+  --bs-status-card-color: black;
+  --bs-status-card-label-color: var(--text-2);
+  --bs-status-card-value-color: black;
+
+  padding: var(--bs-status-card-padding-y) var(--bs-status-card-padding-x);
+  background-color: var(--bs-status-card-bg);
+  color: var(--bs-status-card-color);
+}
+
+.status-card-value {
+  color: var(--bs-status-card-value-color);
+
+  font-size: 1.5rem;
+  line-height: 2rem;
+
+  padding: 0;
+  margin: 0;
+}
+
+.status-card-label {
+  color: var(--bs-status-card-label-color);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.status-card-success {
+  --bs-status-card-bg: rgb(240 253 244);
+  --bs-status-card-label-color: rgb(22 163 74);
+}
+
+.status-card-warning {
+  --bs-status-card-bg: rgb(254 252 232);
+  --bs-status-card-label-color: rgb(202 138 4);
+}
+
+.status-card-gray {
+  --bs-status-card-bg: oklch(0.9 0.01 83);
+  --bs-status-card-color: white;
+  --bs-status-card-label-color: oklch(0.35 0.022 75);
+  --bs-status-card-value-color: black;
+}
+
+.status-card-danger {
+  --bs-status-card-bg: rgb(255 227 227);
+  --bs-status-card-label-color: rgb(220 38 38);
+}
+
+.ps-6 {
+  padding-left: 2.5rem !important;
+}
+
+.outline-hover {
+  --bs-secondary-color: gray;
+  --bs--outline-hover: #dee2e6;
+  --bs--outline-focus: oklch(0.74 0.16 83);
+  --bs-outline-shadow: ;
+}
+
+.outline-hover:hover {
+  border-color: var(--bs--outline-hover);
+  box-shadow: var(--bs-outline-shadow);
+}
+
+.outline-hover:focus {
+  border-color: var(--bs--outline-focus);
+  box-shadow: var(--bs-outline-shadow);
+}
+
+.bg-subtle {
+  background-color: oklch(0.97 0.01 90);
+}
+
+.input-subtle {
+  background-color: oklch(0.97 0.01 90);
+}
+
+.input-subtle:active,
+.input-subtle:focus {
+  background-color: oklch(0.97 0.01 90);
+}
+
+.search-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 24rem;
+}
+
+.search-group i {
+  position: absolute;
+  color: var(--text-2);
+  opacity: 0.75;
+  left: 0.875rem;
+}
+
+.search-group input {
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0.5rem 1rem 0.5rem 2.5rem !important;
+}
+
+.sort-group {
+  display: flex;
+  align-items: center;
+  background-color: oklch(0.99 0.005 90);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+.sort-input label {
+  padding: 0.525rem 1rem;
+  color: var(--text-2);
+}
+
+.sort-input label:hover {
+  cursor: pointer;
+}
+
+.sort-input input {
+  display: none;
+}
+
+.sort-input input:checked + label {
+  color: white;
+  background: oklch(0.2 0.015 72);
+}
+/* 
+.sort-group button {
+  padding: 0.525rem 1rem;
+  color: var(--text-2);
+}
+
+.sort-group button[data-active] {
+  color: white;
+  background: #000;
+}
+
+.sort-group button:hover {
+  color: oklch(0.2 0.015 72);
+}
+
+.sort-group button[data-active="true"]:hover {
+  color: white;
+} */
+
+.table-custom {
+  vertical-align: middle;
+}
+
+.table-custom thead tr > th {
+  padding: 1rem !important;
+
+  color: var(--text-2);
+  text-transform: uppercase;
+
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.table-custom tbody tr > td {
+  padding: 0.875rem 1.25rem;
+  color: oklch(0.2 0.015 72);
+}
+
+.action-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-group button {
+  padding: 0.3rem 0.5rem;
+}
+
+.action-group .action-remove {
+  color: rgba(219, 68, 68, 0.904);
+}
+.action-group .action-edit {
+  color: var(--text-2);
+}
+
+.mx-w-sm {
+  max-width: 24rem;
+}
+
+.mx-w-md {
+  max-width: 35rem;
+}
+
+.mx-w-lg {
+  max-width: 42rem;
+}
+
+.reservation-form * label {
+  color: oklch(0.35 0.022 75);
+}
+
+/* position-absolute  btn-plain extra-small top-50 translate-middle-y z-3" style="right: .75rem; */
+
+.password-group {
+}
+
+.password-group:focus-within .toggle-password {
+  display: block;
+}
+
+.toggle-password {
+  display: none;
+  position: absolute;
+
+  background: transparent;
+  color: inherit;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  text-align: inherit;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+
+  font-size: 0.7rem;
+  line-height: 0.6rem;
+  color: var(--text-2);
+
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0.75rem;
+  z-index: 3;
 }

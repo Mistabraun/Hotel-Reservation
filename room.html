@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grand Horizon Rooms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/room.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm py-3 bg-white bg-opacity-95">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Grand Horizon</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="btn rounded-pill px-4" href="#rooms" style="background-color: oklch(0.46 0.14 83); color: white; border: 1px solid oklch(0.46 0.14 83);">Book Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="hero" class="hero-section d-flex align-items-center text-white">
+        <div class="container text-center hero-content">
+            <h1 class="hero-title mb-4">Our Rooms</h1>
+            <p class="hero-text mx-auto mb-4">Choose from our carefully curated selection of rooms and suites, each designed for your perfect stay.</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="filter-section py-5 bg-light">
+            <div class="container">
+                <div class="row gx-4 gy-3 align-items-center">
+                    <div class="col-lg-8">
+                        <div class="filter-group d-flex flex-wrap gap-2">
+                            <button class="filter-pill active" data-filter="all">All</button>
+                            <button class="filter-pill" data-filter="standard">Standard</button>
+                            <button class="filter-pill" data-filter="deluxe">Deluxe</button>
+                            <button class="filter-pill" data-filter="family">Family</button>
+                            <button class="filter-pill" data-filter="suite">Suite</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="capacity-row d-flex align-items-center justify-content-lg-end gap-2">
+                            <label class="capacity-label text-muted mb-0" for="capacitySelect">Capacity</label>
+                            <div class="capacity-picker">
+                                <select id="capacitySelect" class="form-select capacity-select" aria-label="Select guest capacity">
+                                    <option value="1">1+ guests</option>
+                                    <option value="2">2+ guests</option>
+                                    <option value="3">3+ guests</option>
+                                    <option value="4">4+ guests</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rooms" class="rooms-section py-5">
+            <div class="container">
+                <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+                    <article class="col room-item" data-type="family" data-capacity="4">
+                        <div class="card room-card h-100 overflow-hidden">
+                            <img src="C:\xampp\htdocs\Hotel-Reservation-main\Hotel-Reservation-main\assets\images\background\Rooms\1.jpg" class="card-img-top" alt="Family Suite">
+                            <div class="card-body">
+                                <span class="room-tag">Family</span>
+                                <h2 class="room-title">Family Suite</h2>
+                                <p class="room-price">$260 <span>/ night</span></p>
+                                <p class="room-meta">4 guests · 500 sq ft · 2 Queen Beds</p>
+                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                                    <span>Breakfast</span>
+                                    <span>Living Area</span>
+                                    <span>Room Service</span>
+                                </div>
+                                <a href="room-id.html?roomId=3" class="btn btn-room rounded-pill">View details</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col room-item" data-type="standard" data-capacity="2">
+                        <div class="card room-card h-100 overflow-hidden">
+                            <img src="C:\xampp\htdocs\Hotel-Reservation-main\Hotel-Reservation-main\assets\images\background\Rooms\2.jpg" class="card-img-top" alt="Classic Garden Room">
+                            <div class="card-body">
+                                <span class="room-tag">Standard</span>
+                                <h2 class="room-title">Classic Garden Room</h2>
+                                <p class="room-price">$189 <span>/ night</span></p>
+                                <p class="room-meta">2 guests · 320 sq ft · 1 Queen Bed</p>
+                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                                    <span>Free Wi-Fi</span>
+                                    <span>Smart TV</span>
+                                    <span>Mini Bar</span>
+                                </div>
+                                <a href="room-id.html?roomId=1" class="btn btn-room rounded-pill">View details</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col room-item" data-type="deluxe" data-capacity="2">
+                        <div class="card room-card h-100 overflow-hidden">
+                            <img src="C:\xampp\htdocs\Hotel-Reservation-main\Hotel-Reservation-main\assets\images\background\Rooms\3.jpg" class="card-img-top" alt="Deluxe Room">
+                            <div class="card-body">
+                                <span class="room-tag">Deluxe</span>
+                                <h2 class="room-title">Deluxe Coastal Room</h2>
+                                <p class="room-price">$320 <span>/ night</span></p>
+                                <p class="room-meta">2 guests · 420 sq ft · 1 King Bed</p>
+                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                                    <span>Ocean View</span>
+                                    <span>King Bed</span>
+                                    <span>Balcony</span>
+                                </div>
+                                <a href="room-id.html?roomId=2" class="btn btn-room rounded-pill">View details</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col room-item" data-type="suite" data-capacity="3">
+                        <div class="card room-card h-100 overflow-hidden">
+                            <img src="C:\xampp\htdocs\Hotel-Reservation-main\Hotel-Reservation-main\assets\images\background\Rooms\4.jpg" class="card-img-top" alt="Ocean View Suite">
+                            <div class="card-body">
+                                <span class="room-tag">Suite</span>
+                                <h2 class="room-title">Ocean View Suite</h2>
+                                <p class="room-price">$398 <span>/ night</span></p>
+                                <p class="room-meta">3 guests · 620 sq ft · 1 King Bed</p>
+                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                                    <span>Balcony</span>
+                                    <span>Soaking Tub</span>
+                                    <span>Ocean View</span>
+                                </div>
+                                <a href="room-id.html?roomId=4" class="btn btn-room rounded-pill">View details</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section py-5">
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-6">
+                        <h2 class="section-title">A signature stay in Malibu.</h2>
+                        <p class="section-text">Experience warm coastal design, world-class service, and thoughtfully curated spaces that make every stay unforgettable.</p>
+                        <ul class="list-unstyled feature-list">
+                            <li><i class="fa-solid fa-check text-warning me-2"></i> Oceanfront views and private terraces</li>
+                            <li><i class="fa-solid fa-check text-warning me-2"></i> On-site dining, spa, and concierge service</li>
+                            <li><i class="fa-solid fa-check text-warning me-2"></i> Fast booking and responsive stay support</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about-image rounded-4 overflow-hidden shadow-sm">
+                            <img src="assets/images/background/pexels-chrislyn-dsouza-424969149-34496715.jpg" alt="Hotel experience" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-section py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-4">
+                    <h5 class="footer-title">Grand Horizon</h5>
+                    <p class="footer-text">Where elegance meets the shore. Enjoy a luxurious Malibu stay with premium amenities and personalized service.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="footer-title">Explore</h6>
+                    <ul class="footer-list">
+                        <li><a href="#rooms">Rooms</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#">Dining</a></li>
+                        <li><a href="#">Spa</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="footer-title">Information</h6>
+                    <ul class="footer-list">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Location</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 class="footer-title">Policies</h6>
+                    <ul class="footer-list">
+                        <li><a href="#">Cancellation</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <span class="small">© 2026 Grand Horizon. All rights reserved.</span>
+                <div class="social-links d-flex gap-3">
+                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const navbar = document.querySelector('.navbar');
+        const setNavbarState = () => {
+            if (navbar) {
+                navbar.classList.toggle('scrolled', window.scrollY > 20);
+            }
+        };
+
+        window.addEventListener('scroll', setNavbarState, { passive: true });
+        setNavbarState();
+
+        const filterButtons = document.querySelectorAll('.filter-pill');
+        const capacitySelect = document.getElementById('capacitySelect');
+        const rooms = document.querySelectorAll('.room-item');
+
+        function applyFilters() {
+            const activeType = document.querySelector('.filter-pill.active').dataset.filter;
+            const activeCapacity = Number(capacitySelect.value);
+
+            rooms.forEach(room => {
+                const type = room.dataset.type;
+                const capacity = Number(room.dataset.capacity);
+                const matchesType = activeType === 'all' || type === activeType;
+                const matchesCapacity = capacity >= activeCapacity;
+                room.style.display = (matchesType && matchesCapacity) ? 'block' : 'none';
+            });
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                applyFilters();
+            });
+        });
+
+        capacitySelect.addEventListener('change', applyFilters);
+    </script>
+</body>
+</html>
