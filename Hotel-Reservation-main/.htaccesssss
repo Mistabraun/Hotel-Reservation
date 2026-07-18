@@ -1,0 +1,14 @@
+RewriteEngine On
+RewriteBase /hotel/Hotel-Reservation/
+
+# Redirect .php to extensionless URL
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^(.+)\.php$ $1 [R=302,L]
+
+# Internally rewrite extensionless URL to .php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L]
+
+# Block internal folders
+RewriteRule ^(app|config)(/.*)?$ - [R=404,L]

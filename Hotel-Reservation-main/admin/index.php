@@ -1,0 +1,188 @@
+<?php
+
+include_once __DIR__ . "/../app/middleware/Authmidlleware.php";
+
+AuthMiddleware::guest(false);
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <main class="vh-100">
+    <div class="container-fluid h-100 p-0 overflow-hidden">
+      <div class="row h-100">
+        <div class="col-lg-6 d-none d-lg-block p-0 position-relative">
+          <img src="../assets/images/background/pexels-pixabay-53464.jpg" alt="" class="w-100 h-100 object-fit-cover position-absolute" />
+          <div class="position-absolute bg-black w-100 h-100 opacity-50"></div>
+          <div class="position-relative p-5 mx-2 z-3 text-white d-flex flex-column justify-content-between h-100">
+            <header class="h-auto w-auto">
+              <h1 class="h2">Grand Horizon</h1>
+              <p style="line-height: 0.3rem" class="text-uppercase text-white-50 fw-semibold">Hotel Reservation</p>
+            </header>
+            <div>
+              <p>Admin Panel</p>
+              <h2 class="mb-3">
+                Manage your Hotel, <br />
+                elevate every stay.
+              </h2>
+              <p style="max-width: 29rem" class="text-gray fw-semibold">
+                Access your dashboard to manage rooms, reservations, guests, payments, and everything that keeps Grand Horizon running
+                smoothly.
+              </p>
+              <div class="container-fluid p-0 mt-4">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="bg-white-10 backdrop-filter px-3 py-1 rounded">
+                      <i class="fa-solid fa-bed mx-2 mt-3 extra-small"></i>
+                      <div class="my-3">
+                        <p class="m-0 fw-bold h5">120</p>
+                        <p class="m-0">Rooms</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="bg-white-10 backdrop-filter px-3 py-1 rounded">
+                      <i class="fa-solid fa-calendar-check mx-2 mt-3 extra-small"></i>
+                      <div class="my-3">
+                        <p class="m-0 fw-bold h5">1,247</p>
+                        <p class="m-0">Reservations</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="bg-white-10 backdrop-filter px-3 py-1 rounded">
+                      <i class="fa-solid fa-user mx-2 mt-3 extra-small"></i>
+                      <div class="my-3">
+                        <p class="m-0 fw-bold h5">890</p>
+                        <p class="m-0">Guests</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="text-white-50 extra-small">© 2026 Grand Horizon Hotel. All rights reserved.</p>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center p-5">
+          <div class="w-100 mt-5" style="max-width: 24rem">
+            <header class="text-center d-lg-none mb-4">
+              <h1 class="h4 mb-0">Grand Horizon</h1>
+              <p class="text-muted">Admin Panel</p>
+            </header>
+
+            <section class="mb-4">
+              <h2 class="fs-4 mb-2">Welcome back</h2>
+              <p class="text-muted mb-0">Sign in to access the admin dashboard.</p>
+            </section>
+
+            <form method="post" id="loginForm">
+              <div class="mb-4">
+                <label for="email" class="form-label"> Email address </label>
+                <input
+                  title=""
+                  type="email"
+                  class="form-control outline-hover"
+                  id="email"
+                  name="email"
+                  placeholder="example@mail.com"
+                  autocomplete="email"
+                  required />
+              </div>
+
+              <label for="password" class=""> Password </label>
+              <div class="mb-4 input-group password-group">
+                <input
+                  title=""
+                  type="password"
+                  class="form-control outline-hover rounded z-2"
+                  id="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required />
+
+                <button type="button"
+                  class="toggle-password">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember" name="remember" />
+                  <label class="form-check-label" for="remember"> Remember me </label>
+                </div>
+
+                <a href="/" class="text-gray-light text-decoration-underline">Forgot password?</a>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 fw-semibold">
+                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Sign In
+              </button>
+            </form>
+            <div>
+              <div class="border-0 border-top my-4 p-1"></div>
+              <div class="d-flex align-items-center gap-2 text-secondary mb-3">
+                <div class="border-0 border-top flex-grow-1" style="height: 1px"></div>
+                <span class="small">Demo credentials</span>
+                <div class="border-0 border-top flex-grow-1" style="height: 1px"></div>
+              </div>
+              <div class="d-flex flex-column gap-2">
+                <button class="text-start outline-gray rounded p-3 d-flex justify-content-between align-items-center gap-3 btn btn-primary-outline ">
+                  <div class="bg-warning rounded-circle d-flex align-items-center">
+                    <span class="text-black-50 fw-semibold p-2 text-center extra-small">JC</span>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="fw-semibold m-0">Justine Carl</p>
+                    <p class="m-0 text-gray-light extra-small">Admin</p>
+                  </div>
+                  <i class="fa-solid fa-arrow-right opacity-50"></i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../scripts/app.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async function(element) {
+      element.preventDefault();
+
+      const form = element.target;
+      const formData = new FormData(form);
+
+      try {
+        const response = fetch("../api/auth/login.php", {
+          method: "post",
+          body: formData,
+        })
+
+        const result = await response.json();
+        console.log(result);
+
+      } catch (e) {
+
+      }
+
+    })
+  </script>
+</body>
+
+</html>

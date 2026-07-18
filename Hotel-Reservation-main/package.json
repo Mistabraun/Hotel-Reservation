@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.0",
+    "bootstrap": "^5.3.8",
+    "recharts": "^3.9.2"
+  },
+  "name": "hotel-reservation",
+  "version": "1.0.0",
+  "description": "Hotel reservation website project",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mistabraun/Hotel-Reservation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mistabraun/Hotel-Reservation/issues"
+  },
+  "homepage": "https://github.com/Mistabraun/Hotel-Reservation#readme"
+}
