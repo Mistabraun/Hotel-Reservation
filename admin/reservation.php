@@ -68,13 +68,13 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
                     </li>
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-regular fa-credit-card"></i>
                             Payments
                         </a>
@@ -274,7 +274,7 @@
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
                         <li>
-                            <button class="link link-danger fs-7 btn-default" href="settings.php">
+                            <button class="link link-danger fs-7 btn-default" id="logout">
                                 <i class="fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
                             </button>
@@ -283,13 +283,13 @@
                 </ul>
             </div>
         </header>
-        <main class="p-4 m-1">
+        <main class="p-4 m-1" id="scroll-container">
             <div class="container-fluid m-0 p-0">
                 <header>
                     <h1 class="h4 m-0 p-0">Reservation Management</h1>
                     <p class="text-secondary-2 m-0 p-0">8 total reservations</p>
                 </header>
-                <div class="row my-4 gx-2">
+                <div class="row my-4 gx-2 fade-on-scroll ">
                     <div class="col-md-3 col-6">
                         <div class="status-card status-card-success rounded-3">
                             <h2 class="status-card-value fw-bold">6</h2>
@@ -323,7 +323,7 @@
                         <i class="fa-solid fa-search"></i>
                         <input type="text" name="search" id="search" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
                     </div>
-                    <div class="sort-group rounded-5 gap-2 p-1">
+                    <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
                             <input type="radio" name="sort" id="all" value="active" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
@@ -408,7 +408,7 @@
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../scripts/app.js"></script>>
+    <script src="../scripts/app.js"></script>
 </body>
 
 </html>

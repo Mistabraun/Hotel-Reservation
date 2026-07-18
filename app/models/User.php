@@ -13,7 +13,7 @@ class User
 
     public function findByEmail(String $email)
     {
-        $sql = "SELECT * FROM users WHERE email = ?";
+        $sql = "SELECT * FROM users WHERE email LIKE ?";
         $statement = mysqli_prepare($this->connection, $sql);
         mysqli_stmt_bind_param($statement, "s", $email);
         mysqli_stmt_execute($statement);

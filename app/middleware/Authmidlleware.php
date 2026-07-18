@@ -64,7 +64,6 @@ class AuthMiddleware
     public static function admin(bool $api = true): void
     {
         self::role([
-            Role::SUPER_ADMIN,
             Role::ADMIN
         ], $api);
     }

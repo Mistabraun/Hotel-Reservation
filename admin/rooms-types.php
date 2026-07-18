@@ -1,3 +1,13 @@
+<?php
+
+// require_once "../config/database.php";
+
+// $conn = Database::connect();
+
+// $result = mysqli_query($conn, "SELECT * FROM room_types");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
-    <title>Document</title>
+    <title>Room Types - Grand Horizon</title>
 </head>
 
 <body class="vh-100 d-flex position-relative bg-main">
@@ -115,7 +125,6 @@
                 data-bs-toggle="offcanvas"
                 data-bs-target="#sidebar"
                 aria-controls="sidebar">
-
                 <i class="fa-solid fa-bars"></i>
             </button>
             <div class="dropdown ms-auto">
@@ -152,8 +161,8 @@
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
                         <li>
-                            <button class="link link-danger fs-7 btn-default" id="logout">
-                                <i class=" fa-solid fa-sign-out"></i>
+                            <button class="link link-danger fs-7 btn-default" href="settings.php">
+                                <i class="fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
                             </button>
                         </li>
@@ -161,13 +170,99 @@
                 </ul>
             </div>
         </header>
-        <main class="p-4 m-1">
-            <div class="container-fluid m-0 p-0">
-                <header>
-                    <h1 class="h4 m-0 p-0">Title of the Page</h1>
-                    <p class="text-secondary-2 m-0 p-0">Description of the page</p>
-                </header>
-                <!-- HOTEL RESERVATION ADMIN CONTENT HERE -->
+        <main class="p-4">
+            <div class="container m-0 p-0">
+                <div class="container-fluid">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                            <h2 class="fw-bold">Room Types</h2>
+                            <p class="text-secondary">
+                                Manage hotel room categories and pricing.
+                            </p>
+                        </div>
+                        <a href="room-type-add.php" class="btn btn-warning text-white">
+                            <i class="fa-solid fa-plus"></i> Add Room Type
+                        </a>
+                    </div>
+
+                    <div class="row g-4">
+                        <?php while ($room = mysqli_fetch_assoc($result)) { ?>
+                            <div class="col-md-6">
+                                <div class="card shadow-sm border-0 rounded-4">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <h4 class="fw-bold">
+                                                    <?= htmlspecialchars($room['room_name']); ?>
+                                                </h4>
+                                                <p class="text-secondary">
+                                                    <?= htmlspecialchars($room['description']); ?>
+                                                </p>
+                                            </div>
+                                            <div>
+                                                <a href="room-type-edit.php?id=<?= $room['id']; ?>" class="btn btn-warning text-white">
+                                                    <i class="fa-solid fa-pen"></i> Edit
+                                                </a>
+                                                <a href="room-type-delete.php?id=<?= $room['id']; ?>"
+                                                    class="btn btn-danger ms-1"
+                                                    onclick="return confirm('Are you sure you want to delete this room type?')">
+                                                    <i class="fa-solid fa-trash"></i> Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <small class="text-secondary">Price (per night)</small>
+                                                <h5>₱<?= number_format($room['price'], 2); ?></h5>
+                                            </div>
+                                            <div class="col">
+                                                <small class="text-secondary">Capacity</small>
+                                                <h5><?= htmlspecialchars($room['capacity']); ?> Guests</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-2">
+                                            <?php
+                                            if (!empty($room['amenities'])) {
+                                                $amenities = explode(',', $room['amenities']);
+                                                foreach ($amenities as $amenity) {
+                                                    $amenity = trim($amenity);
+                                                    $lowerAmenity = strtolower($amenity);
+
+                                                    if (str_contains($lowerAmenity, 'wifi')) {
+                                                        $badgeColor = 'bg-warning text-dark opacity-75';
+                                                    } elseif (str_contains($lowerAmenity, 'aircon') || str_contains($lowerAmenity, 'ac')) {
+                                                        $badgeColor = 'bg-secondary text-white opacity-75';
+                                                    } elseif (str_contains($lowerAmenity, 'tv')) {
+                                                        $badgeColor = 'bg-light text-dark border';
+                                                    } elseif (str_contains($lowerAmenity, 'bar')) {
+                                                        $badgeColor = 'bg-warning text-dark bg-opacity-25';
+                                                    } elseif (str_contains($lowerAmenity, 'pool')) {
+                                                        $badgeColor = 'bg-dark text-white bg-opacity-50';
+                                                    } else {
+                                                        $badgeColor = 'bg-light text-secondary border';
+                                                    }
+                                            ?>
+                                                    <span class="badge <?= $badgeColor; ?> me-1 mb-1" style="font-weight: 500; font-size: 0.8rem; padding: 0.4rem 0.6rem;">
+                                                        <?= htmlspecialchars($amenity); ?>
+                                                    </span>
+                                                <?php
+                                                }
+                                            } else { ?>
+                                                <span class="text-secondary small fst-italic">No amenities listed</span>
+                                            <?php } ?>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                </div>
+            </div>
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

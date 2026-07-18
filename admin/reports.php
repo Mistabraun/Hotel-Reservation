@@ -66,7 +66,7 @@
                 <ul class="sidebar-list">
                     <li>
                         <!-- Removed active class from here[cite: 1, 3] -->
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Check-in / Out
                         </a>
                     </li>

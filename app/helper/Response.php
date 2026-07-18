@@ -3,12 +3,12 @@
 class Response
 {
 
-    public static function error(String | array $message, $status_code = 400)
+    public static function error(String | array $message, $status_code = 401)
     {
         return self::json([
             "success" => false,
             "message" => $message
-        ]);
+        ], $status_code);
     }
 
     public static function success(String | array $message, $status_code = 400)

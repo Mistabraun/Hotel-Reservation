@@ -68,13 +68,13 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
                     </li>
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-regular fa-credit-card"></i>
                             Payments
                         </a>
@@ -107,7 +107,7 @@
             </a>
         </div>
     </aside>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1" style="min-width: 0;">
         <div class="modal fade" id="viewDetailsModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-lg">
                 <div class="modal-content p-2 border-0">
@@ -294,7 +294,7 @@
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
                         <li>
-                            <button class="link link-danger fs-7 btn-default" href="settings.php">
+                            <button class="link link-danger fs-7 btn-default" id="logout">
                                 <i class="fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
                             </button>
@@ -367,7 +367,7 @@
                         <i class="fa-solid fa-search"></i>
                         <input type="text" name="search" id="search" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
                     </div>
-                    <div class="sort-group rounded-5 gap-2 p-1">
+                    <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
                             <input type="radio" name="sort" id="all" value="active" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>

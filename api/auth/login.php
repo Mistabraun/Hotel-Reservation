@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $result = $authService->login($_POST);
 
 
-    if (!$result) {
+    if (!$result["success"]) {
         Response::error($result["message"], 401);
     }
 

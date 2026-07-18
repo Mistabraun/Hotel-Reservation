@@ -68,13 +68,13 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
                     </li>
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray">
+                        <a href="payments.php" class="sidebar-link link link-gray">
                             <i class="fa-regular fa-credit-card"></i>
                             Payments
                         </a>
@@ -108,32 +108,31 @@
         </div>
     </aside>
     <div class="flex-grow-1 d-flex flex-column overflow-hidden" style="min-width: 0;">
-        <header class="border-bottom d-flex px-3 px-md-4 py-2 align-items-center bg-white" style="height: 3.5rem;">
-            <button class="btn btn-outline-secondary d-lg-none border-0 px-2 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">
-                <i class="fa-solid fa-bars fs-5"></i>
+        <header class="border-bottom d-flex p-2 px-2 pe-4 ms-0 bg-white" style="height: 3.5rem;">
+            <button
+                class="btn btn-outline d-lg-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sidebar"
+                aria-controls="sidebar">
+
+                <i class="fa-solid fa-bars"></i>
             </button>
-            <div class="d-flex flex-column justify-content-center">
-                <h4 class="m-0 fw-bold fs-5">Dashboard</h4>
-                <p class="m-0 small text-muted-custom" style="font-size: 0.75rem;"></p>
-            </div>
-            <div class="dropdown ms-auto d-flex align-items-center gap-3">
-
-                <i class="fa-regular fa-bell fs-5 text-secondary bell-ring"></i>
-
+            <div class="dropdown ms-auto">
                 <button
                     class="btn border-0 text-start p-0 text-secondary"
                     type="button"
                     id="profile-dropdown-btn"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    <i class="fa fa-user-circle fs-3"></i>
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end mt-2 profile-menu pt-2 pb-1 shadow-sm" aria-labelledby="profile-dropdown-btn">
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-3 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
                     <div class="profile-header p-1 px-3 mb-2">
                         <p class="profile-name fw-semibold">Justine Carl</p>
                         <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
-                        <span class="user-role admin rounded-1">Super Admin</span>
+                        <span class="status status-warning rounded-1">Super Admin</span>
                     </div>
                     <div class="line"></div>
                     <ul class="profile-items my-1">
@@ -153,7 +152,7 @@
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
                         <li>
-                            <button class="link link-danger fs-7 btn-default" href="settings.php">
+                            <button class="link link-danger fs-7 btn-default" id="logout">
                                 <i class="fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
                             </button>
@@ -163,9 +162,13 @@
             </div>
         </header>
 
-        <main class="bg-main flex-grow-1 p-3 p-md-4 overflow-y-auto" id="scroll-container">
+        <main class="bg-main flex-grow-1 p-4 m-1 overflow-y-auto" id="scroll-container">
+            <header class="d-flex justify-content-between align-items-center">
+                <h1 class="h4 m-0 p-0">Room Management</h1>
+            </header>
 
-            <div class="row g-4 mb-4">
+
+            <div class="row g-4 my-1">
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">

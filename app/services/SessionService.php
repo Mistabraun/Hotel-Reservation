@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . "/../enum/Role.php";
+
 class SessionService
 {
     public function start(): void
@@ -64,6 +66,11 @@ class SessionService
         return $_SESSION["user"]["role_id"] ?? null;
     }
 
+    public function isAdmin(): bool
+    {
+        return $this->getRoleId() == Role::ADMIN->value;
+    }
+
     public function hasRole(int ...$roles): bool
     {
         return in_array(
@@ -76,7 +83,6 @@ class SessionService
     public function redirectToDashboard(): void
     {
         switch ($this->getRoleId()) {
-            case Role::SUPER_ADMIN:
             case Role::ADMIN:
                 header("Location: /../admin/dashboard.php");
                 break;

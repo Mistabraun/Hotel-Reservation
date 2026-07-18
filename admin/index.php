@@ -22,7 +22,7 @@ AuthMiddleware::guest(false);
     <div class="container-fluid h-100 p-0 overflow-hidden">
       <div class="row h-100">
         <div class="col-lg-6 d-none d-lg-block p-0 position-relative">
-          <img src="../assets/images/background/pexels-pixabay-53464.jpg" alt="" class="w-100 h-100 object-fit-cover position-absolute" />
+          <img src="../assets/images/pexels-pixabay-53464.jpg" alt="" class="w-100 h-100 object-fit-cover position-absolute" />
           <div class="position-absolute bg-black w-100 h-100 opacity-50"></div>
           <div class="position-relative p-5 mx-2 z-3 text-white d-flex flex-column justify-content-between h-100">
             <header class="h-auto w-auto">
@@ -87,6 +87,8 @@ AuthMiddleware::guest(false);
               <p class="text-muted mb-0">Sign in to access the admin dashboard.</p>
             </section>
 
+            <div class="alert alert-danger p-1 mt-3 d-none" id="errorMessage">Error message here!</div>
+
             <form method="post" id="loginForm">
               <div class="mb-4">
                 <label for="email" class="form-label"> Email address </label>
@@ -102,7 +104,7 @@ AuthMiddleware::guest(false);
               </div>
 
               <label for="password" class=""> Password </label>
-              <div class="mb-4 input-group password-group">
+              <div class="input-group password-group">
                 <input
                   title=""
                   type="password"
@@ -120,7 +122,7 @@ AuthMiddleware::guest(false);
 
               </div>
 
-              <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2">
+              <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2 mt-4">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="remember" name="remember" />
                   <label class="form-check-label" for="remember"> Remember me </label>
@@ -145,7 +147,7 @@ AuthMiddleware::guest(false);
                   <div class="bg-warning rounded-circle d-flex align-items-center">
                     <span class="text-black-50 fw-semibold p-2 text-center extra-small">JC</span>
                   </div>
-                  <div class="flex-grow-1">
+                  <div class="flex-grow-1" id="demoAdmin">
                     <p class="fw-semibold m-0">Justine Carl</p>
                     <p class="m-0 text-gray-light extra-small">Admin</p>
                   </div>
@@ -162,25 +164,9 @@ AuthMiddleware::guest(false);
   <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../scripts/app.js"></script>
   <script>
-    document.getElementById("loginForm").addEventListener("submit", async function(element) {
-      element.preventDefault();
-
-      const form = element.target;
-      const formData = new FormData(form);
-
-      try {
-        const response = fetch("../api/auth/login.php", {
-          method: "post",
-          body: formData,
-        })
-
-        const result = await response.json();
-        console.log(result);
-
-      } catch (e) {
-
-      }
-
+    document.getElementById("demoAdmin").addEventListener("click", (e) => {
+      document.getElementById("email").value = "admin@hotel.com"
+      document.getElementById("password").value = "admin123"
     })
   </script>
 </body>

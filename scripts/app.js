@@ -1,21 +1,8 @@
 function updateCurrency(targetCurrency) {
-    // const priceElements = document.querySelectorAll('[data-currency]');
-
-    // priceElements.forEach(el => {
-    //     const price = parseFloat(el.getAttribute('data-price'));
-    //     // Format the currency string
-    //     el.textContent = new Intl.NumberFormat('en-US', {
-    //         style: 'currency',
-    //         currency: targetCurrency,
-    //         minimumFractionDigits: 0
-    //     }).format(price);
-    // });
-
     const priceElements = document.querySelectorAll('[data-price]');
 
     priceElements.forEach(el => {
         const price = parseFloat(el.getAttribute('data-price'));
-        // Format the currency string
         el.textContent = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: targetCurrency,
@@ -34,11 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const currentPath = window.location.pathname;
-
     document.querySelectorAll(".sidebar-category .sidebar-link").forEach(link => {
         link.classList.remove("active");
 
+        const currentPath = window.location.pathname;
         const linkPath = new URL(link.href, window.location.origin).pathname;
 
         if (linkPath === currentPath) {
@@ -83,39 +69,69 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    const loginForm = document.getElementById("loginForm")
+    const loginForm = document.querySelector("#loginForm");
+
     if (loginForm) {
-        loginForm.addEventListener("submit", async function (element) {
-            element.preventDefault();
+        loginForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
 
-            const form = element.target;
-            const formData = new FormData(form);
+            const formData = new FormData(event.target);
+            const errorMessage = document.querySelector("#errorMessage")
 
-            try {
-                const response = fetch("../api/auth/login.php", {
-                    method: "post",
-                    body: formData,
-                })
+            const response = await fetch("../api/auth/login.php", {
+                method: "POST",
+                body: formData,
+            });
 
-                const result = await response.json();
-                console.log(result);
+            const result = await response.json();
 
-            } catch (e) {
-
+            console.log(!response.ok, !result.success)
+            if (!response.ok || !result.success) {
+                errorMessage.classList.remove("d-none")
+                errorMessage.textContent = result.message ?? "Internal Server Error."
+                return;
             }
 
-        })
+            console.log("redirect")
+            if (result.admin) {
+                window.location.href = "/admin/dashboard.php"
+            } else {
+                window.location.href = "/rooms.php"
+            }
 
+        });
     }
 
     const logout = document.getElementById("logout")
     if (logout) {
         logout.addEventListener("click", async function (e) {
-            const response = fetch("../api/auth/logout.php", {
+            const response = await fetch("../api/auth/logout.php", {
                 method: "post"
             })
 
+            if (response.ok) {
+                window.location.href = "/"
+            }
         })
     }
+
+    const observerOptions = {
+        root: document.getElementById('scroll-container'),
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-on-scroll').forEach((el) => {
+        observer.observe(el);
+    });
 
 });

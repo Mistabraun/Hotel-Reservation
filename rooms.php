@@ -153,7 +153,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="about-image rounded-4 overflow-hidden shadow-sm">
-                            <img src="assets/images/pexels-pixabay-53464.jpg" alt="Hotel experience" />
+                            <img src="assets/images/background/pexels-chrislyn-dsouza-424969149-34496715.jpg" alt="Hotel experience" />
                         </div>
                     </div>
                 </div>

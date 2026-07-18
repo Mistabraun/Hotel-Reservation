@@ -338,7 +338,7 @@
           <!-- SLIDE 1: OLIVIA BENSON -->
           <div class="carousel-item active">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0">
+              <div class="row g-0 h-100">
                 <!-- Left Column Image aspect wrapper -->
                 <div class="col-md-5">
                   <img src="assets/images/Reviewer.jpg" alt="Olivia Reviewer" class="w-100 h-100 review-img" />
@@ -361,7 +361,7 @@
           <!-- SLIDE 2: RAFAEL BARBA -->
           <div class="carousel-item">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0">
+              <div class="row g-0 h-100">
                 <!-- Left Column Image aspect wrapper -->
                 <div class="col-md-5">
                   <img src="assets/images/Reviewer2.jpeg" alt="Rafael Reviewer" class="w-100 h-100 review-img" />
@@ -385,7 +385,7 @@
           <!-- SLIDE 3: CASEY NOVAK -->
           <div class="carousel-item">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0">
+              <div class="row g-0 h-100">
                 <!-- Left Column Image aspect wrapper -->
                 <div class="col-md-5">
                   <img src="assets/images/Reviewer3.jpg" alt="Casey Reviewer" class="w-100 h-100 review-img" />

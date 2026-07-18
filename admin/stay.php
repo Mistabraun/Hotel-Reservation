@@ -65,7 +65,7 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="checking.php" class="sidebar-link link link-gray active">
+                        <a href="payments.php" class="sidebar-link link link-gray active">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Check-in / Out
                         </a>
                     </li>

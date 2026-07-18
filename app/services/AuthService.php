@@ -2,8 +2,9 @@
 
 include_once __DIR__ . "/../models/User.php";
 include_once __DIR__ . "/SessionService.php";
+include_once __DIR__ . "/BaseService.php";
 
-class AuthService
+class AuthService extends BaseService
 {
     private User $user;
     private SessionService $session;
@@ -12,14 +13,6 @@ class AuthService
     {
         $this->user = new User();
         $this->session = new SessionService();
-    }
-
-    private function error(String $message)
-    {
-        return [
-            "success" => false,
-            "message" => $message
-        ];
     }
 
     public function login(array $credentials)
@@ -36,6 +29,9 @@ class AuthService
         }
 
         $userData = $this->user->findByEmail($email);
+        if (!$userData) {
+            return $this->error("User does not exist. ");
+        }
 
         if (!$userData || !password_verify($password, $userData["password"])) {
             return  $this->error("Invalid Credentials");
@@ -44,9 +40,15 @@ class AuthService
 
         $this->session->login($userData);
 
-        return [
+        $result = [
             "success" => true,
-            "message" => "Logged in successfully."
+            "message" => "Logged in successfully.",
         ];
+
+        if ($this->session->isAdmin()) {
+            $result["admin"] = true;
+        }
+
+        return $result;
     }
 }
