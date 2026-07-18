@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amenities - Grand Horizon</title>
-    <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body style="background-color: #fcfaf6;">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm py-3">
         <div class="container-fluid px-4 px-md-5">
-            <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.html">Grand Horizon</a>
-            
+            <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
+
             <div class="ms-auto d-flex align-items-center gap-4">
-                <a href="index.html" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
-                <a href="index.html#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
-                <a href="rooms.html" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Rooms</a>
+                <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
+                <a href="index.php#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
+                <a href="rooms.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Rooms</a>
                 <!-- Naka-highlight na kulay gold ang Amenities gaya ng nasa screen -->
-                <a href="amenities.html" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Amenities</a>
-                <a href="booking.html" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
+                <a href="amenities.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Amenities</a>
+                <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
             </div>
         </div>
     </nav>
@@ -34,7 +35,7 @@
         </div>
     </header>
 
-<!-- ======================================================================
+    <!-- ======================================================================
 [DYNAMIC AMENITIES DETAIL SECTIONS - LOCAL IMAGES VERSION]
 ====================================================================== -->
     <main id="amenities-showcase" class="py-5" style="background-color: #fcfaf6;">
@@ -45,7 +46,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may pool.jpg ka sa images folder mo -->
-                        <img src="images/pool.jpg" alt="Infinity Pool" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/pool.jpg" alt="Infinity Pool" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -55,9 +56,9 @@
                         Perched dramatically over the Pacific horizon, our heated dual-level infinity pools offer a seamless illusion of merging with the ocean. Unwind in exclusive, fully serviced private cabanas while enjoying curated artisan cocktails and panoramic sunset vistas.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Heated water calibrated daily</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Private premium cabana reservations</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Direct pool-side lounge bar service</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Heated water calibrated daily</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Private premium cabana reservations</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Direct pool-side lounge bar service</li>
                     </ul>
                 </div>
             </section>
@@ -67,7 +68,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may dining.jpg ka sa images folder mo -->
-                        <img src="images/dining.jpg" alt="Fine Dining" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/dining.jpg" alt="Fine Dining" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -77,9 +78,9 @@
                         Savor exceptional gastronomic journeys across three signature award-winning beach restaurants. From freshly caught local Pacific seafood to upscale international open-flame grills, our world-class master chefs craft every single dish to be an absolute masterpiece.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Three ocean-view venue decks</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Curated international premium wine pairings</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Private custom candlelight shore dinners</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Three ocean-view venue decks</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Curated international premium wine pairings</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Private custom candlelight shore dinners</li>
                     </ul>
                 </div>
             </section>
@@ -89,7 +90,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may spa.jpg ka sa images folder mo -->
-                        <img src="images/spa.jpg" alt="Luxury Spa" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/spa.jpg" alt="Luxury Spa" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -99,9 +100,9 @@
                         Step into a quiet sanctuary of deep rejuvenation designed to align body and mind. Our highly trained therapists specialize in traditional healing arts, mineral-rich ocean body wraps, and luxury deep-tissue oil massages powered by pure organic seaside extracts.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Therapeutic individual sound baths</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Aromatherapy steam and hot rock rooms</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Customized botanical health facial sessions</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Therapeutic individual sound baths</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Aromatherapy steam and hot rock rooms</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Customized botanical health facial sessions</li>
                     </ul>
                 </div>
             </section>
@@ -111,7 +112,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may fitness.jpg ka sa images folder mo -->
-                        <img src="images/fitness.jpg" alt="Fitness Center" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/booking.jpg" alt="Fitness Center" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -121,9 +122,9 @@
                         Maintain your health regime in our ultra-modern, ocean-facing wellness studio. Fully equipped with world-class strength training machines, panoramic treadmills, and dedicated free-weight spaces, our fitness environment is beautifully designed to keep you inspired, active, and energized 24 hours a day.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> 24/7 keycard access overlooking the Malibu coastline</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Premium cardio machines and dynamic free weights</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> On-demand private personal trainer sessions</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> 24/7 keycard access overlooking the Malibu coastline</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Premium cardio machines and dynamic free weights</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> On-demand private personal trainer sessions</li>
                     </ul>
                 </div>
             </section>
@@ -133,7 +134,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may valet.jpg ka sa images folder mo -->
-                        <img src="images/valet.jpg" alt="Valet Parking" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/valet.jpg" alt="Valet Parking" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -143,9 +144,9 @@
                         Experience standard hospitality the very second you cross our gates. Our professional, round-the-clock white-glove valet service handles your vehicle with absolute care, ensuring swift arrivals and departures so you can focus entirely on immersing yourself in our coastal paradise.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> 24-hour secure underground guest car garage</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Rapid electric vehicle (EV) charging stations</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> On-demand vehicle retrieval via room telephone</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> 24-hour secure underground guest car garage</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Rapid electric vehicle (EV) charging stations</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> On-demand vehicle retrieval via room telephone</li>
                     </ul>
                 </div>
             </section>
@@ -155,7 +156,7 @@
                 <div class="col-12 col-md-6">
                     <div class="overflow-hidden rounded-4 shadow-sm">
                         <!-- LOCAL PATH: Siguraduhing may fitness.jpg ka sa images folder mo -->
-                        <img src="images/wifi.jpg" alt="High Speed WiFi" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
+                        <img src="assets/images/wifi.jpg" alt="High Speed WiFi" class="img-fluid w-100 h-100 object-fit-cover amenity-zoom-img">
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
@@ -165,9 +166,9 @@
                         Stay effortlessly connected with our state-of-the-art gigabit fiber-optic network covering the entire property. Whether you are taking an urgent business call from your private balcony or streaming your favorite playlist directly from a beach lounge chair, experience uninterrupted high-speed internet anywhere the shore takes you.
                     </p>
                     <ul class="list-unstyled d-grid gap-2 font-sans text-dark fw-medium small">
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Complimentary gigabit access for all registered guests</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Complete coverage extending to the beach and pool areas</li>
-                        <li><i class="bi bi-check2-circle me-2 text-gold"></i> Secure enterprise-grade network protocols</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Complimentary gigabit access for all registered guests</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Complete coverage extending to the beach and pool areas</li>
+                        <li><i class="fa-regular fa-check-circle me-2 text-gold"></i> Secure enterprise-grade network protocols</li>
                     </ul>
                 </div>
             </section>
@@ -175,7 +176,7 @@
 
         </div>
     </main>
-<!-- ======================================================================
+    <!-- ======================================================================
 [FOOTER NA ITO]
 ====================================================================== -->
 
@@ -193,16 +194,16 @@
                         <div class="col-4">
                             <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Explore</h6>
                             <ul class="list-unstyled font-sans small d-grid gap-2">
-                                <li><a href="rooms.html" class="footer-link">Our Rooms</a></li> 
+                                <li><a href="rooms.php" class="footer-link">Our Rooms</a></li>
                                 <li><a href="#" class="footer-link">Dining</a></li>
-                                <li><a href="amenities.html" class="footer-link">Spa & Wellness</a></li> 
+                                <li><a href="amenities.php" class="footer-link">Spa & Wellness</a></li>
                                 <li><a href="#" class="footer-link">Gallery</a></li>
                             </ul>
                         </div>
                         <div class="col-4">
                             <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Information</h6>
                             <ul class="list-unstyled font-sans small d-grid gap-2">
-                                <li><a href="index.html#about" class="footer-link">About Us</a></li>
+                                <li><a href="index.php#about" class="footer-link">About Us</a></li>
                                 <li><a href="#" class="footer-link">Contact</a></li>
                                 <li><a href="#" class="footer-link">Location</a></li>
                                 <li><a href="#" class="footer-link">Careers</a></li>
@@ -223,14 +224,15 @@
             <div class="pt-4 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
                 <p class="font-sans small opacity-50 mb-0">&copy; 2026 Grand Horizon. All rights reserved.</p>
                 <div class="d-flex gap-4 social-icons-wrap">
-                    <a href="#" class="footer-icon-link"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="footer-icon-link"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="footer-icon-link"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="footer-icon-link"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="footer-icon-link"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="footer-icon-link"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="footer-icon-link"><i class="fa-brands fa-x"></i></a>
+                    <a href="#" class="footer-icon-link"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
 </body>
+
 </html>
