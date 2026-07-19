@@ -4,15 +4,18 @@ require_once __DIR__ . "/../../app/middleware/Authmidlleware.php";
 require_once __DIR__ . "/../../app/services/RoomService.php";
 require_once __DIR__ . "/../../app/helper/Response.php";
 
+
 AuthMiddleware::admin();
 AuthMiddleware::method("POST");
 
+$id = (int)($_POST["id"] ?? 0);
+
 $roomService = new RoomService();
 
-$result = $roomService->create($_POST);
+$result = $roomService->delete($id);
 
-if ($result["success"]) {
-    return Response::success($result["message"]);
+if (!$result["success"]) {
+    Response::error($result["message"]);
 }
 
-return Response::error($result["message"], 400);
+Response::json($result);

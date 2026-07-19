@@ -101,29 +101,12 @@ class Room
         return mysqli_stmt_execute($statement);
     }
 
-    public function addAmenity(int $roomId, int $amenityId): bool
+    public function delete(int $id): bool
     {
-        $sql = "INSERT INTO room_amenities (room_id, amenity_id)
-                VALUES (?, ?)";
+        $sql = "DELETE FROM rooms WHERE id = ?";
 
         $statement = mysqli_prepare($this->connection, $sql);
-        mysqli_stmt_bind_param(
-            $statement,
-            "ii",
-            $roomId,
-            $amenityId
-        );
-
-        return mysqli_stmt_execute($statement);
-    }
-
-    public function removeAmenities(int $roomId): bool
-    {
-        $sql = "DELETE FROM room_amenities
-            WHERE room_id = ?";
-
-        $statement = mysqli_prepare($this->connection, $sql);
-        mysqli_stmt_bind_param($statement, "i", $roomId);
+        mysqli_stmt_bind_param($statement, "i", $id);
 
         return mysqli_stmt_execute($statement);
     }
@@ -146,10 +129,18 @@ class Room
 
     public function findById(int $id): ?array
     {
-        $sql = "SELECT *
-            FROM rooms
-            WHERE id = ?
-            LIMIT 1";
+        $sql = "
+        SELECT
+            r.*,
+            rt.name AS room_type,
+            rs.name AS status
+        FROM rooms r
+        INNER JOIN room_types rt
+            ON rt.id = r.room_type_id
+        INNER JOIN room_statuses rs
+            ON rs.id = r.status_id
+        WHERE r.id = ?
+    ";
 
         $statement = mysqli_prepare($this->connection, $sql);
         mysqli_stmt_bind_param($statement, "i", $id);

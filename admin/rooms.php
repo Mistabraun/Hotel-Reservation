@@ -134,11 +134,12 @@ $amenities = $amenityService->getAll();
                             Cancel
                         </button>
 
-                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal">
+                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal" data-confirm>
                             Remove
                         </button>
+
                     </div>
-                    </form>
+                    <div class="alert alert-danger py-0 text-center d-none" id="modalMessage">Error occured</div>
 
                 </div>
             </div>
@@ -310,7 +311,7 @@ $amenities = $amenityService->getAll();
                         <h1 class="h4 m-0 p-0">Room Management</h1>
                     </div>
                     <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal"
-                        data-bs-target="#addRoom">
+                        data-bs-target="#addRoom" id="addRoomButton">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
                         Add Room
                     </button>
@@ -323,19 +324,19 @@ $amenities = $amenityService->getAll();
                     </div>
                     <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="all" value="active" checked>
+                            <input type="radio" name="sort" id="all" value="0" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="available">
+                            <input type="radio" name="sort" id="available" value="1">
                             <label for="available" class="extra-small rounded-5 fw-semibold">Available</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="occupied">
+                            <input type="radio" name="sort" id="occupied" value="2">
                             <label for="occupied" class="extra-small rounded-5 fw-semibold">Occupied</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="maintenance">
+                            <input type="radio" name="sort" id="maintenance" value="3">
                             <label for="maintenance" class="extra-small rounded-5 fw-semibold">Maintenance</label>
                         </div>
                     </div>
@@ -382,7 +383,7 @@ $amenities = $amenityService->getAll();
                                                 title="Cancel"
                                                 data-remove
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#removeRoomModal">
+                                                data-bs-target="#removeModal">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
@@ -404,213 +405,9 @@ $amenities = $amenityService->getAll();
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
-    <script src="./js/app.js"></script>
-    <script>
-        const roomsTable = document.querySelector("#roomsTable")
-
-        function renderPagination(table, pagination) {
-            const tfoot = table.querySelector("tfoot");
-            console.log(tfoot)
-
-            // Remove old pagination
-            tfoot.innerHTML = "";
-
-            // Don't show pagination if only one page
-            if (pagination.total_pages <= 1) return;
-
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-        <td colspan="100%" class="bg-body-secondary">
-            <nav class="d-flex justify-content-between align-items-center extra-small text-secondary-2 mx-4 py-0">
-                <span>
-                    Page ${pagination.page} of ${pagination.total_pages}
-                </span>
-
-                <ul class="pagination mb-0">
-                    <li class="page-item">
-                        <button
-                            class="btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small"
-                            id="table-previous">
-                            <i class="fa-solid fa-arrow-left"></i>
-                        </button>
-                    </li>
-
-                    <li class="page-item" id="table-pages"></li>
-
-                    <li class="page-item">
-                        <button
-                            class="btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small"
-                            id="table-next">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </li>
-                </ul>
-
-                <span>
-                    Showing
-                    ${(pagination.page - 1) * pagination.limit + 1}
-                    -
-                    ${Math.min(pagination.page * pagination.limit, pagination.total_records)}
-                    of
-                    ${pagination.total_records} rooms
-                </span>
-            </nav>
-        </td>
-    `;
-
-            tfoot.appendChild(row);
-
-            const pages = document.getElementById("table-pages");
-
-            for (let i = 1; i <= pagination.total_pages; i++) {
-                const btn = document.createElement("button");
-
-                btn.className = "btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small";
-                btn.textContent = i;
-
-                if (i === pagination.page) {
-                    btn.classList.remove("btn-outline", "text-secondary-2");
-                    btn.classList.add("text-black");
-                }
-
-                btn.onclick = () => loadRooms(table, i);
-
-                pages.appendChild(btn);
-            }
-
-            document.getElementById("table-previous").onclick = () => {
-                if (pagination.has_previous) {
-                    loadRooms(table, pagination.page - 1);
-                }
-            };
-
-            document.getElementById("table-next").onclick = () => {
-                if (pagination.has_next) {
-                    loadRooms(table, pagination.page + 1);
-                }
-            };
-        }
-
-
-        function populateTable(table, rooms) {
-            const tbody = table.querySelector("tbody");
-            tbody.innerHTML = "";
-
-            if (rooms.length === 0) {
-                tbody.innerHTML = `
-            <tr>
-                <td colspan="7" class="text-center py-4">
-                    No rooms found.
-                </td>
-            </tr>
-        `;
-                return;
-            }
-
-            rooms.forEach(room => {
-                const tr = document.createElement("tr");
-
-                // Choose the status class
-                let statusClass = "status-secondary";
-
-                switch (room.status.toLowerCase()) {
-                    case "available":
-                        statusClass = "status-success";
-                        break;
-                    case "occupied":
-                        statusClass = "status-danger";
-                        break;
-                    case "maintenance":
-                        statusClass = "status-warning";
-                        break;
-                }
-
-                tr.innerHTML = `
-            <td>
-                <p class="fw-semibold small">${room.room_name}</p>
-                <p class="text-gray-light extra-small mt-1">
-                    ${room.bed_type} · ${room.size} sq ft
-                </p>
-            </td>
-
-            <td>
-                <span class="small text-gray-light fw-semibold">
-                    Room ${room.room_number}
-                </span>
-            </td>
-
-            <td>
-                <span class="status py-1 extra-small rounded-2">
-                    ${room.room_type}
-                </span>
-            </td>
-
-            <td>
-                <p class="fw-semibold small" data-price="${room.price_per_night}">
-                    $${Number(room.price_per_night).toFixed(2)}
-                </p>
-            </td>
-
-            <td>
-                <span class="small text-gray-light">
-                    ${room.capacity} ${room.capacity == 1 ? "guest" : "guests"}
-                </span>
-            </td>
-
-            <td>
-                <span class="status ${statusClass} rounded-2 text-uppercase small fw-bold">
-                    ${room.status}
-                </span>
-            </td>
-
-            <td>
-                <div class="action-group">
-                    <button
-                        class="btn btn-outline action-edit text-gray-light"
-                        title="Edit details"
-                        data-edit
-                        data-id="${room.id}"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editReservationModal">
-                        <i class="fa-regular fa-pen-to-square"></i>
-                    </button>
-
-                    <button
-                        class="btn btn-outline action-remove"
-                        title="Remove"
-                        data-remove
-                        data-id="${room.id}"
-                        data-bs-toggle="modal"
-                        data-bs-target="#removeRoomModal">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-            </td>
-        `;
-
-                tbody.appendChild(tr);
-            });
-        }
-
-        async function loadRooms(element, page = 1) {
-            const response = await fetch(`../../api/rooms/get.php?page=${page}&limit=10`)
-
-            const result = await response.json()
-
-            if (!response.ok || !result.success) {
-                return
-            }
-
-            const rooms = result.data.items;
-            const pagination = result.data.pagination;
-
-            populateTable(element, rooms);
-            renderPagination(element, pagination);
-        }
-
-        loadRooms(roomsTable)
-    </script>
+    <!-- <script src="./js/app.js"></script> -->
+    <script type="module" src="./js/pages/rooms.js"></script>
+    <script type="module" src="./js/admin/rooms.js"></script>
 </body>
 
 </html>

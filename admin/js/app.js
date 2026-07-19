@@ -1,56 +1,34 @@
-const addRoomModalElement = document.querySelector("#addRoom")
-const addRoomForm = addRoomModalElement.querySelector("#addRoomForm");
+document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("click", function (e) {
 
-function popModalMessage() {
+        const button = e.target.closest("[data-remove]");
 
-    addRoomModalElement.addEventListener('hidden.bs.modal', function (event) {
-        modalMessage.classList.add("d-none")
-    });
+        if (!button) return;
 
+        const roomId = button.dataset.id;
 
-    return (status, message) => {
-        modalMessage.classList.remove("d-none")
-
-        if (status) {
-            addRoomForm.reset();
-            modalMessage.classList.remove("alert-danger")
-            modalMessage.classList.add("alert-success")
-            modalMessage.textContent = message
-            return
+        if (!confirm("Delete this room?")) {
+            return;
         }
 
-        shakeElement(modalMessage)
+        const formData = new FormData();
+        formData.append("id", roomId);
 
-        modalMessage.classList.add("alert-danger")
-        modalMessage.classList.remove("alert-success")
-        modalMessage.textContent = message
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    if (addRoomModalElement && addRoomForm) {
-        const closeModalBtn = addRoomModalElement.querySelector("#closeModal")
-        const modalMessage = addRoomModalElement.querySelector("#modalMessage");
-        const popModal = popModalMessage(modalMessage)
-
-        addRoomForm.addEventListener("submit", async function (e) {
-            e.preventDefault()
-
-            const formData = new FormData(e.target);
-
-            const response = await fetch("../../api/rooms/create.php", {
-                method: "post",
-                body: formData
-            })
-
-            const result = await response.json()
-            const status = result["success"];
-            const message = result["message"]
-
-            popModal(status, message)
-
+        fetch("../../api/rooms/delete.php", {
+            method: "POST",
+            body: formData
         })
-    }
+            .then(res => res.json())
+            .then(async result => {
+
+                alert(result.message);
+
+                if (result.success) {
+                    await roomsPagination.refresh();
+                }
+
+            });
+
+    });
 
 })

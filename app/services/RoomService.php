@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../models/Room.php";
 require_once __DIR__ . "/../models/Amenity.php";
+require_once __DIR__ . "/../models/RoomAmenity.php";
 require_once __DIR__ . "/../../config/Database.php";
 require_once __DIR__ . "/../helper/Pagination.php";
 require_once __DIR__ . "/BaseService.php";
@@ -10,6 +11,7 @@ class RoomService extends BaseService
 {
     private Room $room;
     private Amenity $amenity;
+    private RoomAmenity $roomAmenity;
     private mysqli $connection;
 
     public function __construct()
@@ -17,6 +19,7 @@ class RoomService extends BaseService
         $this->connection = Database::connect();
         $this->amenity = new Amenity();
         $this->room = new Room();
+        $this->roomAmenity = new RoomAmenity();
     }
 
     private function saveAmenities(int $roomId, array $amenities): void
@@ -27,7 +30,7 @@ class RoomService extends BaseService
                 throw new Exception("Invalid amenity selected.");
             }
 
-            if (!$this->room->addAmenity($roomId, (int) $amenityId)) {
+            if (!$this->roomAmenity->add($roomId, (int) $amenityId)) {
                 throw new Exception("Unable to save amenities.");
             }
         }
@@ -156,7 +159,7 @@ class RoomService extends BaseService
                 throw new Exception("Unable to update room.");
             }
 
-            if (!$this->room->removeAmenities($id)) {
+            if (!$this->roomAmenity->deleteAll($id)) {
                 throw new Exception("Unable to update amenities.");
             }
 
@@ -178,6 +181,40 @@ class RoomService extends BaseService
         }
     }
 
+    public function delete(int $id): array
+    {
+        if ($id <= 0) {
+            return $this->error("Invalid room.");
+        }
+
+        $room = $this->room->findById($id);
+
+        if (!$room) {
+            return $this->error("Room not found.");
+        }
+
+        mysqli_begin_transaction($this->connection);
+
+        try {
+
+            if (!$this->room->delete($id)) {
+                throw new Exception("Unable to delete room.");
+            }
+
+            mysqli_commit($this->connection);
+
+            return $this->success(
+                "Room deleted successfully."
+            );
+        } catch (Exception $e) {
+
+            mysqli_rollback($this->connection);
+
+            return $this->error(
+                "Internal Server Error."
+            );
+        }
+    }
 
     public function getRooms(array $query): array
     {
@@ -200,6 +237,24 @@ class RoomService extends BaseService
                 $limit,
                 $total
             )
+        );
+    }
+
+    public function getById(int $id): array
+    {
+        $room = $this->room->findById($id);
+
+        if (!$room) {
+            return $this->error("Room not found.");
+        }
+
+        $amenities = $this->roomAmenity->getByRoomId($id);
+
+        $room["amenities"] = array_column($amenities, "id");
+
+        return $this->success(
+            "Room retrieved successfully.",
+            $room
         );
     }
 }

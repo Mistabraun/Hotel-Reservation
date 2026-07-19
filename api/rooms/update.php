@@ -9,10 +9,10 @@ AuthMiddleware::method("POST");
 
 $roomService = new RoomService();
 
-$result = $roomService->create($_POST);
+$result = $roomService->update($_POST);
 
-if ($result["success"]) {
-    return Response::success($result["message"]);
+if (!$result["success"]) {
+    Response::error($result["message"]);
 }
 
-return Response::error($result["message"], 400);
+Response::json($result);

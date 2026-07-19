@@ -20,6 +20,37 @@ function shakeElement(element) {
     }, { once: true });
 }
 
+
+function bindFormToModal(modal, modalMessage) {
+    modal.addEventListener('hidden.bs.modal', function (event) {
+        const modalMessage = modal.querySelector(modalMessage);
+        if (modalMessage) {
+            modalMessage.classList.remove("d-block")
+            modalMessage.classList.add("d-none")
+        }
+    });
+}
+
+function popModalMessage(modalMessage) {
+    return (status, message) => {
+        modalMessage.classList.remove("d-none")
+
+        if (status) {
+            addRoomForm.reset();
+            modalMessage.classList.remove("alert-danger")
+            modalMessage.classList.add("alert-success")
+            modalMessage.textContent = message
+            return
+        }
+
+        shakeElement(modalMessage)
+
+        modalMessage.classList.add("alert-danger")
+        modalMessage.classList.remove("alert-success")
+        modalMessage.textContent = message
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const profileMenu = document.querySelector(".profile-menu")
