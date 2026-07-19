@@ -238,7 +238,7 @@ a {
 .status {
   font-size: 0.625rem;
   font-weight: 600;
-  padding: 0.125rem 0.5rem;
+  padding: 0.15rem 0.5rem;
   color: oklch(0.43 0.015 75);
   background: oklch(0.95 0.01 82);
 }
@@ -254,8 +254,8 @@ a {
 }
 
 .status-danger {
-  color: rgb(185 28 28);
-  background-color: rgb(220 252 231);
+  color: oklch(0.4 0.12 38);
+  background-color: oklch(0.93 0.04 42);
 }
 
 .text-secondary-2 {
@@ -542,6 +542,18 @@ a {
 .sort-group button[data-active="true"]:hover {
   color: white;
 } */
+
+.table-container {
+  max-height: calc(90vh - 12rem);
+  overflow: auto;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;
+}
 
 .table-custom {
   vertical-align: middle;

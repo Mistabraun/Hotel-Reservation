@@ -3,7 +3,8 @@
 abstract class BaseService
 {
     protected function success(
-        mixed $message
+        mixed $message,
+        mixed $data = null
     ): array {
 
         $response = [
@@ -11,6 +12,9 @@ abstract class BaseService
             "message" => $message
         ];
 
+        if ($data) {
+            $response["data"] = $data;
+        }
 
         return $response;
     }

@@ -4,6 +4,18 @@ include_once __DIR__ . "/../enum/Role.php";
 
 class AuthMiddleware
 {
+
+    public static function method(string ...$methods): void
+    {
+        $requestMethod = strtoupper($_SERVER["REQUEST_METHOD"]);
+
+        $methods = array_map("strtoupper", $methods);
+
+        if (!in_array($requestMethod, $methods, true)) {
+            Response::error("Invalid type of method.", 405);
+        }
+    }
+
     private static function session(): SessionService
     {
         $session = new SessionService();

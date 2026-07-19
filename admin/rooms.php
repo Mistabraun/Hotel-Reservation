@@ -159,11 +159,11 @@ $amenities = $amenityService->getAll();
                             <div class="row">
                                 <div class="col-md-9 col-6">
                                     <label for="name" class="form-label extra-small fw-semibold">Room Name *</label>
-                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="e.g. Deluxe Ocean Suite">
+                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="Deluxe Ocean Suite">
                                 </div>
                                 <div class="col-md-3 col-6">
                                     <label for="room_number" class="form-label extra-small fw-semibold">Room Number</label>
-                                    <input type="text" id="room_number" name="room_number" class="form-control outline-hover rounded input-subtle" placeholder="Room 102">
+                                    <input type="text" id="room_number" name="room_number" class="form-control outline-hover rounded input-subtle" placeholder="102">
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -231,165 +231,8 @@ $amenities = $amenityService->getAll();
 
                                     <?php endforeach; ?>
 
-                                </div>>
-                                <!-- <div class="col">
-                                    <p class="extra-small fw-semibold my-2">Ameneties</p>
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="free-wifi" name="amenities[]" value="Free Wi-Fi">
-                                        <span class="extra-small">Free Wi-Fi</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
+                                </div>
 
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="flat-screen-tv" name="amenities[]" value="Flat-screen TV">
-                                        <span class="extra-small">Flat-screen TV</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="mini-bar" name="amenities[]" value="Mini Bar">
-                                        <span class="extra-small">Mini Bar</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="room-service" name="amenities[]" value="Room Service">
-                                        <span class="extra-small">Room Service</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="air-conditioning" name="amenities[]" value="Air Conditioning">
-                                        <span class="extra-small">Air Conditioning</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="coffee-maker" name="amenities[]" value="Coffee Maker">
-                                        <span class="extra-small">Coffee Maker</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="safe-box" name="amenities[]" value="Safe Box">
-                                        <span class="extra-small">Safe Box</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="premium-toiletries" name="amenities[]" value="Premium Toiletries">
-                                        <span class="extra-small">Premium Toiletries</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="ocean-view" name="amenities[]" value="Ocean View">
-                                        <span class="extra-small">Ocean View</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="sitting-area" name="amenities[]" value="Sitting Area">
-                                        <span class="extra-small">Sitting Area</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="bathtub" name="amenities[]" value="Bathtub">
-                                        <span class="extra-small">Bathtub</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="bathrobe-slippers" name="amenities[]" value="Bathrobe &amp; Slippers">
-                                        <span class="extra-small">Bathrobe &amp; Slippers</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="private-terrace" name="amenities[]" value="Private Terrace">
-                                        <span class="extra-small">Private Terrace</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="kids-amenity-kit" name="amenities[]" value="Kids Amenity Kit">
-                                        <span class="extra-small">Kids Amenity Kit</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="crib-available" name="amenities[]" value="Crib Available">
-                                        <span class="extra-small">Crib Available</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="connecting-rooms" name="amenities[]" value="Connecting Rooms">
-                                        <span class="extra-small">Connecting Rooms</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="garden-access" name="amenities[]" value="Garden Access">
-                                        <span class="extra-small">Garden Access</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="private-patio" name="amenities[]" value="Private Patio">
-                                        <span class="extra-small">Private Patio</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="pool-access" name="amenities[]" value="Pool Access">
-                                        <span class="extra-small">Pool Access</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="day-bed" name="amenities[]" value="Day Bed">
-                                        <span class="extra-small">Day Bed</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="butler-service" name="amenities[]" value="Butler Service">
-                                        <span class="extra-small">Butler Service</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="private-study" name="amenities[]" value="Private Study">
-                                        <span class="extra-small">Private Study</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="dining-area" name="amenities[]" value="Dining Area">
-                                        <span class="extra-small">Dining Area</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="walk-in-closet" name="amenities[]" value="Walk-in Closet">
-                                        <span class="extra-small">Walk-in Closet</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="jacuzzi" name="amenities[]" value="Jacuzzi">
-                                        <span class="extra-small">Jacuzzi</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-
-                                    <label class="checkbox mb-2">
-                                        <input type="checkbox" id="panoramic-view" name="amenities[]" value="Panoramic View">
-                                        <span class="extra-small">Panoramic View</span>
-                                        <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
-                                    </label>
-                                </div> -->
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -497,12 +340,13 @@ $amenities = $amenityService->getAll();
                         </div>
                     </div>
                 </div>
-                <div class="overflow-hidden">
-                    <div class="overflow-x-auto mt-4 rounded-4">
-                        <table class="table table-custom">
+                <div class="mt-4">
+                    <div class="table-container rounded-4 p-0">
+                        <table class="table table-custom mb-0 overflow-hidden" id="roomsTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Room</th>
+                                    <th scope="col">Location</th>
                                     <th scope="col">Type</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Capacity</th>
@@ -516,6 +360,7 @@ $amenities = $amenityService->getAll();
                                         <p class="fw-semibold small">Classic Garden Room</p>
                                         <p class="text-gray-light extra-small mt-1">1 Queen Bed · 320 sq ft</p>
                                     </td>
+                                    <td><span class="small text-gray-light fw-semibold">Room 105</span></td>
                                     <td>
                                         <span class="status py-1 extra-small rounded-2">Standard</span>
                                     </td>
@@ -543,49 +388,229 @@ $amenities = $amenityService->getAll();
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- <tr>
-                                    <td>
-                                        <span class="extra-small fw-semibold">PAY-001</span>
-                                    </td>
-                                    <td>
-                                        <span class="extra-small text-gray-light">GH-2026-0738</span>
-                                    </td>
-                                    <td>
-                                        <p class="extra-small fw-semibold">David & Sarah Mitchell</p>
-                                    </td>
-                                    <td><span class="small fw-semibold" data-price="698"></span></td>
-                                    <td><span class="small text-gray-light">Credit Card</span></td>
-                                    <td><span class="small text-gray-light">June 25,2026</span></td>
-                                    <td><span class="status status-success rounded-2 text-uppercase small fw-bold">Paid</span></td>
-                                    <td>
-                                        <div class="action-group">
-                                            <button class="btn btn-outline action-edit text-gray-light"
-                                                title="Edit details"
-                                                data-edit
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editReservationModal">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </button>
-                                            <button class="btn btn-outline action-remove"
-                                                title="Cancel"
-                                                data-remove
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#removeReservationModal">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr> -->
+
                             </tbody>
+
+                            <tfoot>
+
+                            </tfoot>
                         </table>
+
                     </div>
                 </div>
             </div>
+
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
     <script src="./js/app.js"></script>
+    <script>
+        const roomsTable = document.querySelector("#roomsTable")
+
+        function renderPagination(table, pagination) {
+            const tfoot = table.querySelector("tfoot");
+            console.log(tfoot)
+
+            // Remove old pagination
+            tfoot.innerHTML = "";
+
+            // Don't show pagination if only one page
+            if (pagination.total_pages <= 1) return;
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+        <td colspan="100%" class="bg-body-secondary">
+            <nav class="d-flex justify-content-between align-items-center extra-small text-secondary-2 mx-4 py-0">
+                <span>
+                    Page ${pagination.page} of ${pagination.total_pages}
+                </span>
+
+                <ul class="pagination mb-0">
+                    <li class="page-item">
+                        <button
+                            class="btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small"
+                            id="table-previous">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                    </li>
+
+                    <li class="page-item" id="table-pages"></li>
+
+                    <li class="page-item">
+                        <button
+                            class="btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small"
+                            id="table-next">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </li>
+                </ul>
+
+                <span>
+                    Showing
+                    ${(pagination.page - 1) * pagination.limit + 1}
+                    -
+                    ${Math.min(pagination.page * pagination.limit, pagination.total_records)}
+                    of
+                    ${pagination.total_records} rooms
+                </span>
+            </nav>
+        </td>
+    `;
+
+            tfoot.appendChild(row);
+
+            const pages = document.getElementById("table-pages");
+
+            for (let i = 1; i <= pagination.total_pages; i++) {
+                const btn = document.createElement("button");
+
+                btn.className = "btn btn-outline text-secondary-2 h-100 p-1 mx-2 extra-small";
+                btn.textContent = i;
+
+                if (i === pagination.page) {
+                    btn.classList.remove("btn-outline", "text-secondary-2");
+                    btn.classList.add("text-black");
+                }
+
+                btn.onclick = () => loadRooms(table, i);
+
+                pages.appendChild(btn);
+            }
+
+            document.getElementById("table-previous").onclick = () => {
+                if (pagination.has_previous) {
+                    loadRooms(table, pagination.page - 1);
+                }
+            };
+
+            document.getElementById("table-next").onclick = () => {
+                if (pagination.has_next) {
+                    loadRooms(table, pagination.page + 1);
+                }
+            };
+        }
+
+
+        function populateTable(table, rooms) {
+            const tbody = table.querySelector("tbody");
+            tbody.innerHTML = "";
+
+            if (rooms.length === 0) {
+                tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center py-4">
+                    No rooms found.
+                </td>
+            </tr>
+        `;
+                return;
+            }
+
+            rooms.forEach(room => {
+                const tr = document.createElement("tr");
+
+                // Choose the status class
+                let statusClass = "status-secondary";
+
+                switch (room.status.toLowerCase()) {
+                    case "available":
+                        statusClass = "status-success";
+                        break;
+                    case "occupied":
+                        statusClass = "status-danger";
+                        break;
+                    case "maintenance":
+                        statusClass = "status-warning";
+                        break;
+                }
+
+                tr.innerHTML = `
+            <td>
+                <p class="fw-semibold small">${room.room_name}</p>
+                <p class="text-gray-light extra-small mt-1">
+                    ${room.bed_type} · ${room.size} sq ft
+                </p>
+            </td>
+
+            <td>
+                <span class="small text-gray-light fw-semibold">
+                    Room ${room.room_number}
+                </span>
+            </td>
+
+            <td>
+                <span class="status py-1 extra-small rounded-2">
+                    ${room.room_type}
+                </span>
+            </td>
+
+            <td>
+                <p class="fw-semibold small" data-price="${room.price_per_night}">
+                    $${Number(room.price_per_night).toFixed(2)}
+                </p>
+            </td>
+
+            <td>
+                <span class="small text-gray-light">
+                    ${room.capacity} ${room.capacity == 1 ? "guest" : "guests"}
+                </span>
+            </td>
+
+            <td>
+                <span class="status ${statusClass} rounded-2 text-uppercase small fw-bold">
+                    ${room.status}
+                </span>
+            </td>
+
+            <td>
+                <div class="action-group">
+                    <button
+                        class="btn btn-outline action-edit text-gray-light"
+                        title="Edit details"
+                        data-edit
+                        data-id="${room.id}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editReservationModal">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+
+                    <button
+                        class="btn btn-outline action-remove"
+                        title="Remove"
+                        data-remove
+                        data-id="${room.id}"
+                        data-bs-toggle="modal"
+                        data-bs-target="#removeRoomModal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function loadRooms(element, page = 1) {
+            const response = await fetch(`../../api/rooms/get.php?page=${page}&limit=10`)
+
+            const result = await response.json()
+
+            if (!response.ok || !result.success) {
+                return
+            }
+
+            const rooms = result.data.items;
+            const pagination = result.data.pagination;
+
+            populateTable(element, rooms);
+            renderPagination(element, pagination);
+        }
+
+        loadRooms(roomsTable)
+    </script>
 </body>
 
 </html>

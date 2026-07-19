@@ -3,6 +3,7 @@
 require_once __DIR__ . "/../models/Room.php";
 require_once __DIR__ . "/../models/Amenity.php";
 require_once __DIR__ . "/../../config/Database.php";
+require_once __DIR__ . "/../helper/Pagination.php";
 require_once __DIR__ . "/BaseService.php";
 
 class RoomService extends BaseService
@@ -18,6 +19,19 @@ class RoomService extends BaseService
         $this->room = new Room();
     }
 
+    private function saveAmenities(int $roomId, array $amenities): void
+    {
+        foreach ($amenities as $amenityId) {
+
+            if (!$this->amenity->findById((int) $amenityId)) {
+                throw new Exception("Invalid amenity selected.");
+            }
+
+            if (!$this->room->addAmenity($roomId, (int) $amenityId)) {
+                throw new Exception("Unable to save amenities.");
+            }
+        }
+    }
 
     public function create(array $data): array
     {
@@ -82,37 +96,110 @@ class RoomService extends BaseService
             );
 
             if (!$roomId) {
-                return $this->error("Unable to create room.");
+                throw new Exception("Unable to create room.");
             }
 
-            foreach ($amenities as $amenityId) {
-
-                $amenity = $this->amenity->findById($amenityId);
-
-                if (!$amenity) {
-                    return $this->error("Amenity '{$amenityId}' does not exist.");
-                }
-
-                if (!$this->room->addAmenity(
-                    $roomId,
-                    $amenity["id"]
-                )) {
-                    return $this->error("Unable to save amenities.");
-                }
-            }
+            $this->saveAmenities($roomId, $amenities);
 
             mysqli_commit($this->connection);
 
-            return $this->success(
-                [
-                    "room_id" => $roomId
-                ]
-            );
+            return $this->success("Room added successfully.", [
+                "room_id" => $roomId
+            ]);
         } catch (Exception $e) {
 
             mysqli_rollback($this->connection);
 
             return $this->error("Internal Server Error: " . $e);
         }
+    }
+
+    public function update(array $data): array
+    {
+        $id = (int)($data["id"] ?? 0);
+
+        $roomNumber = (int)($data["room_number"] ?? 0);
+        $roomName = trim($data["name"] ?? "");
+        $roomType = (int)($data["type"] ?? 0);
+        $status = (int)($data["status"] ?? 0);
+        $price = (float)($data["price"] ?? 0);
+        $capacity = (int)($data["capacity"] ?? 0);
+        $size = (float)($data["size"] ?? 0);
+        $bedType = trim($data["bed_type"] ?? "");
+        $amenities = $data["amenities"] ?? [];
+
+        if (!$this->room->findById($id)) {
+            return $this->error("Room not found.");
+        }
+
+        $room = $this->room->findByRoomNumber($roomNumber);
+
+        if ($room && $room["id"] != $id) {
+            return $this->error("Room number already exists.");
+        }
+
+        mysqli_begin_transaction($this->connection);
+
+        try {
+
+            if (!$this->room->update(
+                $id,
+                $roomNumber,
+                $roomName,
+                $roomType,
+                $status,
+                $price,
+                $capacity,
+                $size,
+                $bedType
+            )) {
+                throw new Exception("Unable to update room.");
+            }
+
+            if (!$this->room->removeAmenities($id)) {
+                throw new Exception("Unable to update amenities.");
+            }
+
+            $this->saveAmenities($id, $amenities);
+
+            mysqli_commit($this->connection);
+
+            return $this->success(
+                "Room updated successfully.",
+                [
+                    "room_id" => $id
+                ]
+            );
+        } catch (Exception $e) {
+
+            mysqli_rollback($this->connection);
+
+            return $this->error($e->getMessage());
+        }
+    }
+
+
+    public function getRooms(array $query): array
+    {
+        $page = max(1, (int)($query["page"] ?? 1));
+        $limit = (int)($query["limit"] ?? 10);
+
+        // Prevent abuse
+        $limit = max(1, min($limit, 100));
+
+        $offset = ($page - 1) * $limit;
+
+        $rooms = $this->room->getAll($offset, $limit);
+        $total = $this->room->count();
+
+        return $this->success(
+            "Rooms retrieved successfully.",
+            Pagination::create(
+                $rooms,
+                $page,
+                $limit,
+                $total
+            )
+        );
     }
 }
