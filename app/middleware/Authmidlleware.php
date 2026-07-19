@@ -39,32 +39,27 @@ class AuthMiddleware
             Response::error("Unauthorized", 401);
         }
 
-        header("Location: /hotel/Hotel-Reservation/login");
-        exit;
-    }
-
-    public static function role(array $roles, bool $api = true): void
-    {
-        self::user($api);
-
-        $session = self::session();
-
-        if ($session->hasRole(...$roles)) {
-            return;
-        }
-
-        if ($api) {
-            Response::error("Forbidden", 403);
-        }
-
-        header("Location: /hotel/Hotel-Reservation/403");
+        header("Location: /login");
         exit;
     }
 
     public static function admin(bool $api = true): void
     {
-        self::role([
-            Role::ADMIN
-        ], $api);
+        $session = self::session();
+
+        if ($session->isAuthenticated()) {
+            return;
+        }
+
+        if ($session->isAdmin()) {
+            return;
+        }
+
+        if ($api) {
+            Response::error("Unauthorized", 401);
+        }
+
+        header("Location: admin/login");
+        exit;
     }
 }

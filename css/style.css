@@ -669,6 +669,26 @@ a {
   z-index: 3;
 }
 
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+.modal-shake {
+  animation: shake 0.35s ease;
+}
+
 /* ==========================================================================
    Dashboard Interactive Elements & Custom Hover Animations
    ========================================================================== */

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../../config/Database.php.php";
+require_once __DIR__ . "/../../config/Database.php";
 
 class Room
 {
@@ -10,14 +10,44 @@ class Room
     {
         $this->connection = Database::connect();
     }
-
-    public function create(string $roomName): int|false
-    {
-        $sql = "INSERT INTO rooms (room_name)
-                VALUES (?)";
+    public function create(
+        string $roomName,
+        int $roomTypeId,
+        int $statusId,
+        int $roomNumber,
+        float $pricePerNight,
+        int $capacity,
+        string $size,
+        string $bedType
+    ): int|false {
+        $sql = "
+        INSERT INTO rooms (
+            room_name,
+            room_type_id,
+            status_id,
+            room_number,
+            price_per_night,
+            capacity,
+            size,
+            bed_type
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ";
 
         $statement = mysqli_prepare($this->connection, $sql);
-        mysqli_stmt_bind_param($statement, "s", $roomName);
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "siiidiss",
+            $roomName,
+            $roomTypeId,
+            $roomNumber,
+            $statusId,
+            $pricePerNight,
+            $capacity,
+            $size,
+            $bedType
+        );
 
         if (!mysqli_stmt_execute($statement)) {
             return false;
@@ -40,6 +70,22 @@ class Room
         );
 
         return mysqli_stmt_execute($statement);
+    }
+
+    public function findByRoomNumber(int $roomNumber): ?array
+    {
+        $sql = "SELECT *
+            FROM rooms
+            WHERE room_number = ?
+            LIMIT 1";
+
+        $statement = mysqli_prepare($this->connection, $sql);
+        mysqli_stmt_bind_param($statement, "i", $roomNumber);
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        return mysqli_fetch_assoc($result) ?: null;
     }
 
     public function findById(int $id): ?array

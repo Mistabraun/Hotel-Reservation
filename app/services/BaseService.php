@@ -15,7 +15,7 @@ abstract class BaseService
         return $response;
     }
 
-    protected function error(string $message): array
+    protected function error(string $message)
     {
         return [
             "success" => false,

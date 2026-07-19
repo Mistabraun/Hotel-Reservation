@@ -1,3 +1,12 @@
+<?php
+
+include_once __DIR__ . "/../app/services/AmenityService.php";
+
+$amenityService = new AmenityService();
+$amenities = $amenityService->getAll();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -145,29 +154,34 @@
                     </header>
 
                     <div class="modal-body">
+                        <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
                         <form id="addRoomForm" method="post">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-9 col-6">
                                     <label for="name" class="form-label extra-small fw-semibold">Room Name *</label>
                                     <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="e.g. Deluxe Ocean Suite">
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <label for="room_number" class="form-label extra-small fw-semibold">Room Number</label>
+                                    <input type="text" id="room_number" name="room_number" class="form-control outline-hover rounded input-subtle" placeholder="Room 102">
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="type" class="form-label extra-small fw-semibold">Type</label>
                                     <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
-                                        <option value="standard">Standard</option>
-                                        <option value="deluxe">Deluxe</option>
-                                        <option value="familyRoom">FamilyRoom</option>
-                                        <option value="Suite">Suite</option>
+                                        <option value="1">Standard</option>
+                                        <option value="2">Deluxe</option>
+                                        <option value="3">Family Room</option>
+                                        <option value="4">Suite</option>
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label for="status" class="form-label extra-small fw-semibold">Status</label>
                                     <select name="status" id="status" class="form-select outline-hover rounded input-subtle">
-                                        <option value="available">Available</option>
-                                        <option value="occupied">Occupied</option>
-                                        <option value="maintenance">Maintenance</option>
+                                        <option value="1">Available</option>
+                                        <option value="2">Occupied</option>
+                                        <option value="3">Maintenance</option>
                                     </select>
                                 </div>
 
@@ -183,17 +197,42 @@
                                 </div>
                                 <div class="col">
                                     <label for="size" class="form-label extra-small fw-semibold">Size</label>
-                                    <input type="text" id="size" name="size" class="form-control outline-hover rounded input-subtle" placeholder="e.g. 480 sq ft">
+                                    <input type="text" id="size" name="size" class="form-control outline-hover rounded input-subtle" placeholder="480 sq ft">
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="col">
+
+                                <div class="col ">
                                     <label for="bed_type" class="form-label extra-small fw-semibold">Bed Type</label>
-                                    <input type="text" id="bed_type" name="bed_type" class="form-control outline-hover rounded input-subtle" placeholder="e.g. 1 King Bed">
+                                    <input type="text" id="bed_type" name="bed_type" class="form-control outline-hover rounded input-subtle" placeholder="1 King Bed">
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
+                                    <p class="extra-small fw-semibold my-2">Ameneties</p>
+
+                                    <?php
+
+                                    $amenitiesData = $amenities["message"];
+                                    foreach ($amenitiesData as $amenity): ?>
+
+                                        <label class="checkbox mb-2">
+                                            <input
+                                                type="checkbox"
+                                                name="amenities[]"
+                                                value="<?= $amenity["id"] ?>">
+
+                                            <span class="extra-small">
+                                                <?= htmlspecialchars($amenity["name"]) ?>
+                                            </span>
+
+                                            <i class="fa-solid fa-check"></i>
+                                        </label>
+
+                                    <?php endforeach; ?>
+
+                                </div>>
+                                <!-- <div class="col">
                                     <p class="extra-small fw-semibold my-2">Ameneties</p>
                                     <label class="checkbox mb-2">
                                         <input type="checkbox" id="free-wifi" name="amenities[]" value="Free Wi-Fi">
@@ -350,7 +389,7 @@
                                         <span class="extra-small">Panoramic View</span>
                                         <i class="fa-solid fa-check" style="font-size: 0.5rem;"></i>
                                     </label>
-                                </div>
+                                </div> -->
                             </div>
                     </div>
                     <div class="modal-footer">
@@ -358,7 +397,7 @@
                             Cancel
                         </button>
 
-                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                        <button class="btn btn-primary" id="closeModal">
                             Save Changes
                         </button>
                     </div>
@@ -545,8 +584,8 @@
         </main>
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/app.js"></script>
     <script src="../scripts/app.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>

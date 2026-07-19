@@ -12,6 +12,14 @@ function updateCurrency(targetCurrency) {
 
 }
 
+function shakeElement(element) {
+    element.classList.add('modal-shake');
+
+    element.addEventListener('animationend', function () {
+        element.classList.remove('modal-shake');
+    }, { once: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const profileMenu = document.querySelector(".profile-menu")

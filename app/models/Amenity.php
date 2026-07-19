@@ -47,8 +47,8 @@ class Amenity
     public function getAll(): array
     {
         $sql = "SELECT id, name
-                FROM amenities
-                ORDER BY name ASC";
+            FROM amenities
+            ORDER BY id ASC";
 
         $result = mysqli_query($this->connection, $sql);
 

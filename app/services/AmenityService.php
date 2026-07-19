@@ -12,7 +12,7 @@ class AmenityService extends BaseService
         $this->amenity = new Amenity();
     }
 
-    public function getAll(): array
+    public function getAll()
     {
         $amenities = $this->amenity->getAll();
 
