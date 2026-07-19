@@ -320,23 +320,23 @@ $amenities = $amenityService->getAll();
                 <div class="d-flex flex-column flex-md-row gap-3 mt-4">
                     <div class="search-group flex-grow-1">
                         <i class="fa-solid fa-search"></i>
-                        <input type="text" name="search" id="search" placeholder="Search rooms..." class="form-control outline-hover rounded">
+                        <input type="text" name="search" id="roomSearch" placeholder="Search rooms..." class="form-control outline-hover rounded">
                     </div>
                     <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="all" value="0" checked>
+                            <input type="radio" name="sort" id="all" value="all" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="available" value="1">
+                            <input type="radio" name="sort" id="available" value="available">
                             <label for="available" class="extra-small rounded-5 fw-semibold">Available</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="occupied" value="2">
+                            <input type="radio" name="sort" id="occupied" value="occupied">
                             <label for="occupied" class="extra-small rounded-5 fw-semibold">Occupied</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="maintenance" value="3">
+                            <input type="radio" name="sort" id="maintenance" value="maintenance">
                             <label for="maintenance" class="extra-small rounded-5 fw-semibold">Maintenance</label>
                         </div>
                     </div>

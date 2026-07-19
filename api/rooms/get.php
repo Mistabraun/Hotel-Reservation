@@ -9,6 +9,7 @@ AuthMiddleware::method("GET");
 
 $roomService = new RoomService();
 
+
 $result = $roomService->getRooms($_GET);
 
 if (!$result["success"]) {

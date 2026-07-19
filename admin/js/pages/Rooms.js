@@ -135,4 +135,3 @@ export const roomsPagination = new PaginatedTable({
     renderRows: populateTable
 });
 
-roomsPagination.load();

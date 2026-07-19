@@ -11,16 +11,24 @@ export class PaginatedTable {
         this.endpoint = endpoint;
         this.limit = limit;
         this.renderRows = renderRows;
+        this.currentFilter = "all";
+        this.currentSearch = "";
 
         this.currentPage = 1;
     }
 
-    async load(page = this.currentPage) {
+    async load(
+        page = this.currentPage,
+        filter = this.currentFilter,
+        search = this.currentSearch
+    ) {
 
         this.currentPage = page;
+        this.currentFilter = filter;
+        this.currentSearch = search;
 
         const response = await fetch(
-            `${this.endpoint}?page=${page}&limit=${this.limit}`
+            `${this.endpoint}?page=${page}&limit=${this.limit}&filter=${encodeURIComponent(filter)}&search=${encodeURIComponent(search)}`
         );
 
         const result = await response.json();
@@ -37,8 +45,28 @@ export class PaginatedTable {
         this.renderPagination(pagination);
     }
 
+    setSearch(search) {
+        return this.load(
+            1,
+            this.currentFilter,
+            search
+        );
+    }
+
+    setFilter(filter) {
+        return this.load(
+            1,
+            filter,
+            this.currentSearch
+        );
+    }
+
     refresh() {
-        return this.load(this.currentPage);
+        return this.load(
+            this.currentPage,
+            this.currentFilter,
+            this.currentSearch
+        );
     }
 
     renderPagination(pagination) {

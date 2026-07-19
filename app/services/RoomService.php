@@ -131,8 +131,44 @@ class RoomService extends BaseService
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
 
+
+        if (empty($roomName)) {
+            return $this->error("Room name is required.");
+        }
+
+        if (empty($roomType)) {
+            return $this->error("Room type is required.");
+        }
+        if ($roomNumber <= 0) {
+            return $this->error("Room number is required.");
+        }
+
+        if (empty($status)) {
+            return $this->error("Room status is required.");
+        }
+
+        if ($price <= 0) {
+            return $this->error("Price must be greater than zero.");
+        }
+
+        if ($capacity <= 0) {
+            return $this->error("Capacity must be at least 1.");
+        }
+
+        if (empty($size)) {
+            return $this->error("Room size is required.");
+        }
+
+        if (empty($bedType)) {
+            return $this->error("Bed type is required.");
+        }
+
         if (!$this->room->findById($id)) {
             return $this->error("Room not found.");
+        }
+
+        if ($this->room->findByRoomNumber($roomNumber)) {
+            return $this->error("Room number already exists.");
         }
 
         $room = $this->room->findByRoomNumber($roomNumber);
@@ -219,15 +255,24 @@ class RoomService extends BaseService
     public function getRooms(array $query): array
     {
         $page = max(1, (int)($query["page"] ?? 1));
-        $limit = (int)($query["limit"] ?? 10);
+        $limit = max(1, min((int)($query["limit"] ?? 10), 100));
 
-        // Prevent abuse
-        $limit = max(1, min($limit, 100));
+        $filter = strtolower(trim($query["filter"] ?? "all"));
+        $search = trim($query["search"] ?? "");
 
         $offset = ($page - 1) * $limit;
 
-        $rooms = $this->room->getAll($offset, $limit);
-        $total = $this->room->count();
+        $rooms = $this->room->getAll(
+            $offset,
+            $limit,
+            $filter,
+            $search
+        );
+
+        $total = $this->room->count(
+            $filter,
+            $search
+        );
 
         return $this->success(
             "Rooms retrieved successfully.",

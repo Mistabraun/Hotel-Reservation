@@ -144,16 +144,36 @@ new DeleteModal({
 
 
 
-const filter = new ClientFilter({
 
-    container: document.querySelector("#roomFilter"),
+const sortGroup = document.querySelector(".sort-group");
+if (sortGroup) {
+    sortGroup.addEventListener("change", (e) => {
 
-    field: "status",
+        if (e.target.name !== "sort") {
+            return;
+        }
 
-    render(items) {
+        roomsPagination.setFilter(e.target.value);
 
-        populateTable(roomsTable, items);
+    });
+}
 
-    }
+const roomSearch = document.querySelector("#roomSearch");
+if (roomSearch) {
+    let timeout;
+    roomSearch.addEventListener("input", () => {
 
-});
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+
+            roomsPagination.setSearch(
+                roomSearch.value.trim()
+            );
+
+        }, 200);
+
+    });
+}
+
+roomsPagination.load(1, "all");

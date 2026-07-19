@@ -150,40 +150,130 @@ class Room
 
         return mysqli_fetch_assoc($result) ?: null;
     }
+    public function count(
+        string $filter = "all",
+        string $search = ""
+    ): int {
+        $sql = "
+        SELECT COUNT(*) total
+        FROM rooms r
+        INNER JOIN room_types rt
+            ON r.room_type_id = rt.id
+        INNER JOIN room_statuses rs
+            ON r.status_id = rs.id
+        WHERE 1=1
+    ";
 
-    public function count(): int
-    {
-        $sql = "SELECT COUNT(*) AS total FROM rooms";
+        $types = "";
+        $params = [];
 
-        $result = mysqli_query($this->connection, $sql);
+        if ($filter !== "all") {
+            $sql .= " AND LOWER(rs.name) = ?";
+            $types .= "s";
+            $params[] = strtolower($filter);
+        }
+
+        if ($search !== "") {
+
+            $sql .= "
+            AND (
+                r.room_name LIKE ?
+                OR r.room_number LIKE ?
+                OR rt.name LIKE ?
+            )
+        ";
+
+            $keyword = "%{$search}%";
+
+            $types .= "sss";
+
+            $params[] = $keyword;
+            $params[] = $keyword;
+            $params[] = $keyword;
+        }
+
+        $statement = mysqli_prepare($this->connection, $sql);
+
+        if (!empty($params)) {
+            mysqli_stmt_bind_param(
+                $statement,
+                $types,
+                ...$params
+            );
+        }
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
 
         return (int)mysqli_fetch_assoc($result)["total"];
     }
 
-    public function getAll(int $offset, int $limit): array
-    {
+    public function getAll(
+        int $offset,
+        int $limit,
+        string $filter = "all",
+        string $search = ""
+    ): array {
         $sql = "
         SELECT
-            r.id,
-            r.room_number,
-            r.room_name,
+            r.*,
             rt.name AS room_type,
-            rs.name AS status,
-            r.price_per_night,
-            r.capacity,
-            r.size,
-            r.bed_type
+            rs.name AS status
         FROM rooms r
         INNER JOIN room_types rt
-            ON rt.id = r.room_type_id
+            ON r.room_type_id = rt.id
         INNER JOIN room_statuses rs
-            ON rs.id = r.status_id
-        ORDER BY r.room_number
+            ON r.status_id = rs.id
+        WHERE 1=1
+    ";
+
+        $types = "";
+        $params = [];
+
+        if ($filter !== "all") {
+            $sql .= " AND LOWER(rs.name) = ?";
+            $types .= "s";
+            $params[] = strtolower($filter);
+        }
+
+        if ($search !== "") {
+
+            $sql .= "
+            AND (
+                r.room_name LIKE ?
+                OR r.room_number LIKE ?
+                OR rt.name LIKE ?
+            )
+        ";
+
+            $keyword = "%{$search}%";
+
+            $types .= "sss";
+
+            $params[] = $keyword;
+            $params[] = $keyword;
+            $params[] = $keyword;
+        }
+
+        $sql .= "
+        ORDER BY r.id ASC
         LIMIT ?, ?
     ";
 
+        $types .= "ii";
+
+        $params[] = $offset;
+        $params[] = $limit;
+
         $statement = mysqli_prepare($this->connection, $sql);
-        mysqli_stmt_bind_param($statement, "ii", $offset, $limit);
+
+        mysqli_stmt_bind_param(
+            $statement,
+            $types,
+            ...$params
+        );
+
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);
