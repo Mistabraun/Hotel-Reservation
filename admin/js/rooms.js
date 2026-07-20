@@ -55,27 +55,29 @@ if (addRoomModalElement && addRoomForm) {
 
         const room = result.data;
 
-        addRoomForm.name.value = room.room_name;
-        addRoomForm.room_number.value = room.room_number;
-        addRoomForm.type.value = room.room_type_id;
-        addRoomForm.status.value = room.status_id;
-        addRoomForm.price.value = room.price_per_night;
-        addRoomForm.capacity.value = room.capacity;
-        addRoomForm.size.value = room.size;
-        addRoomForm.bed_type.value = room.bed_type;
+        console.log(room)
 
+        form.roomId.value = room.id;
+        form.name.value = room.room_name;
+        form.room_number.value = room.room_number;
+        form.type.value = room.room_type_id;
+        form.status.value = room.status_id;
+        form.size.value = room.size;
+        form.bed_type.value = room.bed_type;
 
-        clearAmenities();
+        form.querySelectorAll('input[name="amenities[]"]')
+            .forEach(cb => cb.checked = false);
 
-        document
-            .querySelectorAll('input[name="amenities[]"]')
-            .forEach(item => {
+        room.amenities.forEach(amenity => {
 
-                item.checked = room.amenities.includes(
-                    Number(item.value)
-                );
+            const checkbox = form.querySelector(
+                `input[name="amenities[]"][value="${amenity.id}"]`
+            );
 
-            });
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+        });
 
     }
 

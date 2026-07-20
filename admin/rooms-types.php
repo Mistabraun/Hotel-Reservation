@@ -1,10 +1,9 @@
 <?php
 
-// require_once "../config/database.php";
+include_once __DIR__ . "/../app/services/AmenityService.php";
 
-// $conn = Database::connect();
-
-// $result = mysqli_query($conn, "SELECT * FROM room_types");
+$amenityService = new AmenityService();
+$amenities = $amenityService->getAll();
 
 ?>
 
@@ -118,6 +117,110 @@
         </div>
     </aside>
     <div class="flex-grow-1">
+        <div class="modal fade" id="removeTypeModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-sm">
+                <div class="modal-content p-2 ">
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center gap-2">
+                        <div class="bg-danger-subtle p-3 rounded-circle">
+                            <i class="fa-solid fa-xmark text-danger"></i>
+                        </div>
+                        <h2 class="fw-semibold fs-4">Delete Room Type?</h2>
+                        <p class="small text-center">This will remove the room type definition. Existing rooms won't be affected..</p>
+                    </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center p-0 pb-2 m-0">
+                        <button class="btn btn-secondary rounded-5" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal" data-confirm>
+                            Remove
+                        </button>
+
+                    </div>
+                    <div class="alert alert-danger py-0 text-center d-none" id="modalMessage">Error occured</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addTypeModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-md">
+                <div class="modal-content p-2">
+                    <header class="modal-header d-flex justify-content-between">
+                        <div>
+                            <h5 class="modal-title" data-title>Add New Room</h5>
+                        </div>
+                    </header>
+
+                    <div class="modal-body">
+                        <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
+                        <form id="addTypeForm" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="name" class="form-label extra-small fw-semibold">Type Name *</label>
+                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="Deluxe Ocean Suite">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="description" class="form-label extra-small fw-semibold">Description</label>
+                                    <textarea name="description" id="description" class="form-control outline-hover rounded input-subtle"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="price" class="form-label extra-small fw-semibold">Base Price/Night *</label>
+                                    <input type="number" id="price" name="price" class="form-control outline-hover rounded input-subtle" value="0">
+                                </div>
+                                <div class="col">
+                                    <label for="capacity" class="form-label extra-small fw-semibold">Capacity</label>
+                                    <input type="number" id="capacity" name="capacity" class="form-control outline-hover rounded input-subtle" value="2">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <p class="extra-small fw-semibold my-2">Ameneties</p>
+
+                                    <?php
+
+                                    $amenitiesData = $amenities["message"];
+                                    foreach ($amenitiesData as $amenity): ?>
+
+                                        <label class="checkbox mb-2">
+                                            <input
+                                                type="checkbox"
+                                                name="amenities[]"
+                                                value="<?= $amenity["id"] ?>">
+
+                                            <span class="extra-small">
+                                                <?= htmlspecialchars($amenity["name"]) ?>
+                                            </span>
+
+                                            <i class="fa-solid fa-check"></i>
+                                        </label>
+
+                                    <?php endforeach; ?>
+
+                                </div>
+
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-primary" id="closeModal">
+                            Save Changes
+                        </button>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
         <header class="border-bottom d-flex p-2 px-2 pe-4 ms-0 bg-white" style="height: 3.5rem;">
             <button
                 class="btn btn-outline d-lg-none"
@@ -181,92 +284,71 @@
                                 Manage hotel room categories and pricing.
                             </p>
                         </div>
-                        <a href="room-type-add.php" class="btn btn-warning text-white">
-                            <i class="fa-solid fa-plus"></i> Add Room Type
-                        </a>
+                        <button
+                            id="addTypeButton"
+                            class="btn btn-warning text-white"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addTypeModal">
+                            <i class="fa-regular fa-plus"></i>
+                            Add Room Type
+                        </button>
                     </div>
 
-                    <div class="row g-4">
-                        <?php while ($room = mysqli_fetch_assoc($result)) { ?>
-                            <div class="col-md-6">
-                                <div class="card shadow-sm border-0 rounded-4">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <h4 class="fw-bold">
-                                                    <?= htmlspecialchars($room['room_name']); ?>
-                                                </h4>
-                                                <p class="text-secondary">
-                                                    <?= htmlspecialchars($room['description']); ?>
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <a href="room-type-edit.php?id=<?= $room['id']; ?>" class="btn btn-warning text-white">
-                                                    <i class="fa-solid fa-pen"></i> Edit
-                                                </a>
-                                                <a href="room-type-delete.php?id=<?= $room['id']; ?>"
-                                                    class="btn btn-danger ms-1"
-                                                    onclick="return confirm('Are you sure you want to delete this room type?')">
-                                                    <i class="fa-solid fa-trash"></i> Delete
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row mb-3">
-                                            <div class="col">
-                                                <small class="text-secondary">Price (per night)</small>
-                                                <h5>₱<?= number_format($room['price'], 2); ?></h5>
-                                            </div>
-                                            <div class="col">
-                                                <small class="text-secondary">Capacity</small>
-                                                <h5><?= htmlspecialchars($room['capacity']); ?> Guests</h5>
-                                            </div>
-                                        </div>
+                    <div class="row g-4" id="roomTypesContainer">
 
-                                        <div class="mt-2">
-                                            <?php
-                                            if (!empty($room['amenities'])) {
-                                                $amenities = explode(',', $room['amenities']);
-                                                foreach ($amenities as $amenity) {
-                                                    $amenity = trim($amenity);
-                                                    $lowerAmenity = strtolower($amenity);
+                        <div class="col-md-6">
+                            <div class="card shadow-sm border-0 rounded-4">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h4 class="fw-bold">
+                                                Name
+                                            </h4>
+                                            <p class="text-secondary">
+                                                This is a description
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#addTypeModal">
+                                                <i class="fa-solid fa-pen"></i>Edit
+                                            </button>
+                                            <button class="btn btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#removeTypeModal">
+                                                <i class="fa-solid fa-trash"></i> Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <small class="text-secondary">Base Price</small>
+                                            <h5>₱199 <span class="extra-small text-secondary-2">/night</span></h5>
+                                        </div>
+                                        <div class="col">
+                                            <small class="text-secondary">Capacity</small>
+                                            <h5>2 Guests</h5>
+                                        </div>
+                                    </div>
 
-                                                    if (str_contains($lowerAmenity, 'wifi')) {
-                                                        $badgeColor = 'bg-warning text-dark opacity-75';
-                                                    } elseif (str_contains($lowerAmenity, 'aircon') || str_contains($lowerAmenity, 'ac')) {
-                                                        $badgeColor = 'bg-secondary text-white opacity-75';
-                                                    } elseif (str_contains($lowerAmenity, 'tv')) {
-                                                        $badgeColor = 'bg-light text-dark border';
-                                                    } elseif (str_contains($lowerAmenity, 'bar')) {
-                                                        $badgeColor = 'bg-warning text-dark bg-opacity-25';
-                                                    } elseif (str_contains($lowerAmenity, 'pool')) {
-                                                        $badgeColor = 'bg-dark text-white bg-opacity-50';
-                                                    } else {
-                                                        $badgeColor = 'bg-light text-secondary border';
-                                                    }
-                                            ?>
-                                                    <span class="badge <?= $badgeColor; ?> me-1 mb-1" style="font-weight: 500; font-size: 0.8rem; padding: 0.4rem 0.6rem;">
-                                                        <?= htmlspecialchars($amenity); ?>
-                                                    </span>
-                                                <?php
-                                                }
-                                            } else { ?>
-                                                <span class="text-secondary small fst-italic">No amenities listed</span>
-                                            <?php } ?>
+                                    <div class="mt-2 border-top">
+                                        <div class="text-secondary-2 fw-semibold mt-3">
+                                            <p class="small mb-2">Amenities (1)</p>
                                         </div>
 
                                     </div>
+
                                 </div>
                             </div>
-                        <?php } ?>
+                        </div>
+
                     </div>
 
                 </div>
             </div>
         </main>
     </div>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="../scripts/app.js"></script>
+    <script type="module" src="./js/admin/room-types.js"></script>
 </body>
 
 </html>

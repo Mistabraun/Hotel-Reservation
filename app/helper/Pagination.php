@@ -4,22 +4,32 @@ class Pagination
 {
     public static function create(
         array $items,
-        int $page,
-        int $limit,
+        QueryOptions $options,
         int $total
     ): array {
 
         return [
             "items" => $items,
+
             "pagination" => [
-                "page" => $page,
-                "limit" => $limit,
+
+                "page" => $options->page,
+
+                "limit" => $options->limit,
+
                 "total_records" => $total,
-                "total_pages" => (int) ceil($total / $limit),
-                "has_previous" => $page > 1,
-                "has_next" => $page * $limit < $total
+
+                "total_pages" => max(
+                    1,
+                    ceil($total / $options->limit)
+                ),
+
+                "has_previous" =>
+                $options->page > 1,
+
+                "has_next" =>
+                $options->page * $options->limit < $total
             ]
         ];
     }
 }
-    

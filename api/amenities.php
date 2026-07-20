@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../app/middleware/Authmidlleware.php";
-include_once __DIR__ . "/../app/helper/Response.php";
+require_once __DIR__ . "/../app/helper/Response.php";
 require_once __DIR__ . "/../app/services/AmenityService.php";
 
 AuthMiddleware::admin();

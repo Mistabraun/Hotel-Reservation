@@ -12,4 +12,4 @@ AuthMiddleware::user();
 
 $session = new SessionService();
 $session->logout();
-Response::success("Logged out successfully.");
+return Response::success("Logged out successfully.");

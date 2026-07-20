@@ -4,6 +4,7 @@ include_once __DIR__ . "/../app/services/AmenityService.php";
 
 $amenityService = new AmenityService();
 $amenities = $amenityService->getAll();
+$amenitiesData = $amenities["message"];
 
 ?>
 
@@ -189,12 +190,12 @@ $amenities = $amenityService->getAll();
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="price" class="form-label extra-small fw-semibold">Price/Night *</label>
-                                    <input value="0" type="number" id="price" name="price" class="form-control outline-hover rounded input-subtle">
+                                    <label class="form-label extra-small fw-semibold">Price/Night *</label>
+                                    <span value="0" type="number" id="price" name="price" class="form-control outline-hover rounded disabled bg-disabled fw-semibold">123</span>
                                 </div>
                                 <div class="col">
-                                    <label for="capacity" class="form-label extra-small fw-semibold">Capacity</label>
-                                    <input value="2" type="number" id="capacity" name="capacity" class="form-control outline-hover rounded input-subtle">
+                                    <label class="form-label extra-small fw-semibold">Capacity</label>
+                                    <span value="2" type="number" id="capacity" name="capacity" class="form-control outline-hover rounded disabled bg-disabled">123</span>
                                 </div>
                                 <div class="col">
                                     <label for="size" class="form-label extra-small fw-semibold">Size</label>
@@ -212,25 +213,25 @@ $amenities = $amenityService->getAll();
                                 <div class="col">
                                     <p class="extra-small fw-semibold my-2">Ameneties</p>
 
-                                    <?php
+                                    <div id="amenitiesEdit">
+                                        <?php foreach ($amenitiesData as $amenity): ?>
+                                            <label class="checkbox mb-2">
+                                                <input
+                                                    type="checkbox"
+                                                    name="amenities[]"
+                                                    value="<?= $amenity["id"] ?>">
 
-                                    $amenitiesData = $amenities["message"];
-                                    foreach ($amenitiesData as $amenity): ?>
+                                                <span class="extra-small">
+                                                    <?= htmlspecialchars($amenity["name"]) ?>
+                                                </span>
 
-                                        <label class="checkbox mb-2">
-                                            <input
-                                                type="checkbox"
-                                                name="amenities[]"
-                                                value="<?= $amenity["id"] ?>">
+                                                <i class="fa-solid fa-check"></i>
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
 
-                                            <span class="extra-small">
-                                                <?= htmlspecialchars($amenity["name"]) ?>
-                                            </span>
-
-                                            <i class="fa-solid fa-check"></i>
-                                        </label>
-
-                                    <?php endforeach; ?>
+                                    <div id="amenitiesView" class="d-none">
+                                    </div>
 
                                 </div>
 

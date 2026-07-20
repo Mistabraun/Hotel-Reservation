@@ -9,7 +9,13 @@ if (addRoomModalElement && addRoomForm) {
 
     const modalTitle = addRoomModalElement.querySelector("[data-title]");
     const modalMessage = addRoomModalElement.querySelector("#modalMessage");
-    const popModal = popModalMessage(modalMessage);
+    const popModal = popModalMessage(addRoomForm, modalMessage);
+
+    const amenitiesEdit = document.getElementById("amenitiesEdit");
+    const amenitiesView = document.getElementById("amenitiesView");
+
+    const price = addRoomForm.querySelector("#price");
+    const capacity = addRoomForm.querySelector("#capacity");
 
     let modalMode = "create";
     let editingRoomId = null;
@@ -30,6 +36,10 @@ if (addRoomModalElement && addRoomForm) {
         addRoomForm.reset();
         clearAmenities();
 
+        amenitiesEdit.classList.remove("d-none");
+        amenitiesView.classList.add("d-none");
+        amenitiesView.innerHTML = "";
+
         modalMessage.classList.add("d-none");
     }
 
@@ -42,39 +52,63 @@ if (addRoomModalElement && addRoomForm) {
 
         modalMessage.classList.add("d-none");
 
-        const response = await fetch(
+        const roomResponse = await fetch(
             `../../api/rooms/getById.php?id=${roomId}`
         );
 
-        const result = await response.json();
+        const roomResult = await roomResponse.json();
 
-        if (!result.success) {
-            popModal(false, result.message);
+        if (!roomResult.success) {
+            popModal(false, roomResult.message);
             return;
         }
 
-        const room = result.data;
+        const room = roomResult.data;
+
+        const amenitiesResponse = await fetch(
+            `../../api/room-types/getById.php?id=${room.room_type_id}`
+        );
+
+        const amenitiesResult = await amenitiesResponse.json();
+
+        if (!amenitiesResult.success) {
+            popModal(false, amenitiesResult.message);
+            return;
+        }
 
         addRoomForm.name.value = room.room_name;
         addRoomForm.room_number.value = room.room_number;
         addRoomForm.type.value = room.room_type_id;
         addRoomForm.status.value = room.status_id;
-        addRoomForm.price.value = room.price_per_night;
-        addRoomForm.capacity.value = room.capacity;
         addRoomForm.size.value = room.size;
         addRoomForm.bed_type.value = room.bed_type;
 
 
-        clearAmenities();
+        price.textContent =
+            `$${Number(room.price_per_night).toFixed(2)}`;
 
-        document
-            .querySelectorAll('input[name="amenities[]"]')
-            .forEach(item => {
+        capacity.textContent =
+            `${room.capacity} ${room.capacity == 1 ? "Guest" : "Guests"}`;
 
-                item.checked = room.amenities.includes(
-                    Number(item.value)
-                );
+        // Hide editable checkboxes
+        amenitiesEdit.classList.add("d-none");
 
+        // Show read-only amenities
+        amenitiesView.classList.remove("d-none");
+        amenitiesView.innerHTML = "";
+
+        amenitiesResult.data.amenities
+            .sort((a, b) => a.id - b.id)
+            .forEach(amenity => {
+                const badge = document.createElement("p");
+                badge.className = "checkbox active mb-2 me-1";
+
+                badge.innerHTML = `
+            <span class="extra-small">${amenity.name}</span>
+            <i class="fa-solid fa-check d-inline"></i>
+        `;
+
+                amenitiesView.appendChild(badge);
             });
 
     }
@@ -90,8 +124,8 @@ if (addRoomModalElement && addRoomForm) {
         if (modalMode === "edit") {
 
             endpoint = "../../api/rooms/update.php";
-
             formData.append("id", editingRoomId);
+
         }
 
         const response = await fetch(endpoint, {
@@ -100,7 +134,6 @@ if (addRoomModalElement && addRoomForm) {
         });
 
         const result = await response.json();
-
 
         popModal(result.success, result.message);
 
@@ -126,7 +159,9 @@ if (addRoomModalElement && addRoomForm) {
 
         const button = e.target.closest("[data-edit]");
 
-        if (!button) return;
+        if (!button) {
+            return;
+        }
 
         prepareEditModal(button.dataset.id);
 
@@ -134,19 +169,16 @@ if (addRoomModalElement && addRoomForm) {
 
 }
 
-
-
 new DeleteModal({
     modal: document.querySelector("#removeRoomModal"),
     endpoint: "../../api/rooms/delete.php",
     refresh: () => roomsPagination.refresh()
 });
 
-
-
-
 const sortGroup = document.querySelector(".sort-group");
+
 if (sortGroup) {
+
     sortGroup.addEventListener("change", (e) => {
 
         if (e.target.name !== "sort") {
@@ -156,11 +188,15 @@ if (sortGroup) {
         roomsPagination.setFilter(e.target.value);
 
     });
+
 }
 
 const roomSearch = document.querySelector("#roomSearch");
+
 if (roomSearch) {
+
     let timeout;
+
     roomSearch.addEventListener("input", () => {
 
         clearTimeout(timeout);
@@ -174,6 +210,7 @@ if (roomSearch) {
         }, 200);
 
     });
+
 }
 
 roomsPagination.load(1, "all");

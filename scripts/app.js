@@ -31,12 +31,12 @@ function bindFormToModal(modal, modalMessage) {
     });
 }
 
-function popModalMessage(modalMessage) {
+function popModalMessage(form, modalMessage) {
     return (status, message) => {
         modalMessage.classList.remove("d-none")
 
         if (status) {
-            addRoomForm.reset();
+            form.reset();
             modalMessage.classList.remove("alert-danger")
             modalMessage.classList.add("alert-success")
             modalMessage.textContent = message
