@@ -21,6 +21,7 @@
             <h1 class="h5">Grand Horizon</h1>
             <p class="f-spacing-wide fw-semibold text-uppercase ultra-small text-gray">Admin Panel</p>
         </header>
+
         <div class="line"></div>
         <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
             <div class="sidebar-category">

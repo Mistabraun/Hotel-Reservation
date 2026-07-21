@@ -34,7 +34,7 @@
         <a href="rooms.php" class="nav-link font-sans small fw-medium text-white text-decoration-none opacity-75">Rooms</a>
         <a href="amenities.php" class="nav-link font-sans small fw-medium text-white text-decoration-none opacity-75">Amenities</a>
 
-        <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
+        <a href="rooms.php#rooms" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
       </div>
     </div>
   </nav>

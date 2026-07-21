@@ -19,7 +19,7 @@ $amenitiesData = $amenities["message"];
     <title>Document</title>
 </head>
 
-<body class="d-flex flex-column flex-lg-row app-wrapper">
+<body class="d-flex flex-column flex-lg-row app-wrapper bg-main">
     <aside id="sidebar"
         class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column flex-shrink-0"
         tabindex="-1"

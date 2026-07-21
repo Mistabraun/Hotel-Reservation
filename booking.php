@@ -21,7 +21,7 @@
     .booking-hero {
       position: relative;
       height: 1200px;
-      background: url("assets/images/booking.jpg") center/cover no-repeat;
+      background: url("assets/images/pexels-bianca-jelezniac-38713659-8918652.jpg") center/contain no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;

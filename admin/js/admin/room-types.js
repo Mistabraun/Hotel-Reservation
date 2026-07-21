@@ -294,12 +294,12 @@ function createCard(roomType) {
                         </div>
 
                         <div class="d-flex flex-wrap gap-2">
-
-                            ${roomType.amenities.map(amenity => `
-                                <span class="badge bg-light text-dark border">
-                                    ${amenity.name}
-                                </span>
-                            `).join("")}
+  ${roomType.amenities.map(amenity => `
+                        <p class="checkbox active">
+                            <span class="extra-small"> ${amenity.name}</span>
+                            <i class="fa-solid fa-check d-inline"></i>
+                        </p>
+`).join("")}
 
                         </div>
 

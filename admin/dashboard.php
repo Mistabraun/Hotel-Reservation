@@ -9,20 +9,18 @@
     <title>Document</title>
 </head>
 
-<body class="vh-100 d-flex position-relative bg-main">
-    <aside
-        id="sidebar"
-        data-bs-scroll="true"
-        tabindex="1"
-        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column"
-        style="width: 16rem">
+<body class="d-flex flex-column flex-lg-row app-wrapper bg-main">
+    <aside id="sidebar"
+        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column flex-shrink-0"
+        tabindex="-1"
+        style="width: 16rem;">
 
         <header class="cpx-3 pt-4 pb-2">
             <h1 class="h5">Grand Horizon</h1>
             <p class="f-spacing-wide fw-semibold text-uppercase ultra-small text-gray">Admin Panel</p>
         </header>
         <div class="line"></div>
-        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
+        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto flex-grow-1">
             <div class="sidebar-category">
                 <h2>Overview</h2>
                 <ul class="sidebar-list">
@@ -162,9 +160,9 @@
             </div>
         </header>
 
-        <main class="bg-main flex-grow-1 p-4 m-1 overflow-y-auto" id="scroll-container">
-            <header class="d-flex justify-content-between align-items-center">
-                <h1 class="h4 m-0 p-0">Room Management</h1>
+        <main class="flex-grow-1 p-4 m-1 overflow-y-auto" id="scroll-container">
+            <header>
+                <h1 class="h4 m-0 p-0">Dashboard</h1>
             </header>
 
 
