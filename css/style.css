@@ -380,6 +380,28 @@ a {
   flex-direction: column;
   gap: 0.25rem !important;
 }
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+@media (min-width: 992px) {
+  .app-wrapper {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #sidebar {
+    height: 100vh !important;
+    position: sticky !important;
+    top: 0;
+  }
+
+  .app-main {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}
 
 .bg-success-50 {
   background-color: rgb(240 253 244);
@@ -548,8 +570,8 @@ a {
 } */
 
 .table-container {
-  max-height: calc(90vh - 12rem);
-  overflow: auto;
+  /* max-height: calc(90vh - 12rem); */
+  /* overflow: auto; */
 }
 
 .table-container thead th {

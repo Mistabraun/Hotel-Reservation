@@ -3,7 +3,7 @@ function updateCurrency(targetCurrency) {
 
     priceElements.forEach(el => {
         const price = parseFloat(el.getAttribute('data-price'));
-        el.textContent = new Intl.NumberFormat('en-US', {
+        el.textContent = new Intl.NumberFormat('fil-PH', {
             style: 'currency',
             currency: targetCurrency,
             minimumFractionDigits: 0

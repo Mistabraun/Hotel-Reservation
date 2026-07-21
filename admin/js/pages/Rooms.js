@@ -70,7 +70,7 @@ function populateTable(table, rooms) {
 
             <td>
                 <p class="fw-semibold small">
-                    $${Number(room.price_per_night).toFixed(2)}
+                    ₱${Number(room.price_per_night).toFixed(2)}
                 </p>
             </td>
 

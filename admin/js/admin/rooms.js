@@ -85,7 +85,7 @@ if (addRoomModalElement && addRoomForm) {
 
 
         price.textContent =
-            `$${Number(room.price_per_night).toFixed(2)}`;
+            `₱${Number(room.price_per_night).toFixed(2)}`;
 
         capacity.textContent =
             `${room.capacity} ${room.capacity == 1 ? "Guest" : "Guests"}`;

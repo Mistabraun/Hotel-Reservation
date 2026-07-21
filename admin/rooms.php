@@ -19,20 +19,18 @@ $amenitiesData = $amenities["message"];
     <title>Document</title>
 </head>
 
-<body class="vh-100 d-flex position-relative bg-main">
-    <aside
-        id="sidebar"
-        data-bs-scroll="true"
-        tabindex="1"
-        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column"
-        style="width: 16rem">
+<body class="d-flex flex-column flex-lg-row app-wrapper">
+    <aside id="sidebar"
+        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column flex-shrink-0"
+        tabindex="-1"
+        style="width: 16rem;">
 
         <header class="cpx-3 pt-4 pb-2">
             <h1 class="h5">Grand Horizon</h1>
             <p class="f-spacing-wide fw-semibold text-uppercase ultra-small text-gray">Admin Panel</p>
         </header>
         <div class="line"></div>
-        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
+        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto flex-grow-1">
             <div class="sidebar-category">
                 <h2>Overview</h2>
                 <ul class="sidebar-list">
@@ -117,9 +115,7 @@ $amenitiesData = $amenities["message"];
             </a>
         </div>
     </aside>
-    <div class="flex-grow-1" style="min-width: 0;">
-
-
+    <div class="flex-grow-1 w-100 app-main d-flex flex-column">
         <div class="modal fade" id="removeRoomModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-sm">
                 <div class="modal-content p-2 ">
@@ -343,8 +339,8 @@ $amenitiesData = $amenities["message"];
                     </div>
                 </div>
                 <div class="mt-4">
-                    <div class="table-container rounded-4 p-0">
-                        <table class="table table-custom mb-0 overflow-hidden" id="roomsTable">
+                    <div class="table-container border rounded-3 overflow-hidden rounded-4 p-0 ">
+                        <table class=" table table-custom mb-0" id="roomsTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Room</th>

@@ -87,7 +87,7 @@ AuthMiddleware::guest(false);
               <p class="text-muted mb-0">Sign in to access the admin dashboard.</p>
             </section>
 
-            <div class="alert p-1 mt-3 d-none" id="errorMessage">Error message here!</div>
+            <div class="alert alert-danger p-1 px-2 mt-3 d-none" id="errorMessage">Error message here!</div>
 
             <form method="post" id="loginForm">
               <div class="mb-4">
