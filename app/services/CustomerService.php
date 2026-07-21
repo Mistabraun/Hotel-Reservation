@@ -9,12 +9,13 @@ class CustomerService extends BaseService
     private User $user;
     private Customer $customer;
     private mysqli $connection;
-
+    private SessionService $session;
     public function __construct()
     {
         $this->user = new User();
         $this->customer = new Customer();
         $this->connection = Database::connect();
+        $this->session = new SessionService();
     }
 
     /**
@@ -22,39 +23,53 @@ class CustomerService extends BaseService
      */
     public function register(array $data): array
     {
-        $firstName = trim($data["first_name"] ?? "");
-        $lastName = trim($data["last_name"] ?? "");
+        $firstName = trim($data["fname"] ?? "");
+        $lastName = trim($data["lname"] ?? "");
         $email = trim($data["email"] ?? "");
         $password = $data["password"] ?? "";
-        $phoneNumber = trim($data["phone_number"] ?? "");
+        $phoneNumber = trim($data["phone"] ?? "");
 
         if (
             $firstName === "" ||
             $lastName === "" ||
             $email === "" ||
-            $password === ""
+            $password === "" ||
+            $phoneNumber === ""
         ) {
-            return $this->error("Please complete all required fields.");
+            return $this->error(
+                "Please complete all required fields."
+            );
+        }
+
+        if (!ctype_alpha($firstName) || !ctype_alpha($lastName)) {
+            return $this->error("Invalid name or lastname.");
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->error(
+                "Invalid email address."
+            );
         }
 
         if ($this->user->findByEmail($email)) {
-            return $this->error("Email address already exists.");
+            return $this->error(
+                "Email address already exists."
+            );
         }
 
         mysqli_begin_transaction($this->connection);
 
         try {
 
-            $password = password_hash(
+            $hashedPassword = password_hash(
                 $password,
                 PASSWORD_DEFAULT
             );
 
-            // 2 = Customer
             $userId = $this->user->create(
                 $email,
-                $password,
-                2
+                $hashedPassword,
+                "2"
             );
 
             if (!$userId) {
@@ -78,10 +93,15 @@ class CustomerService extends BaseService
 
             mysqli_commit($this->connection);
 
+            // Automatically log the user in
+            $userData = $this->user->findById($userId);
+
+            $this->session->login($userData);
+
             return $this->success(
-                "Customer registered successfully.",
+                "Registration successful.",
                 [
-                    "id" => $customerId
+                    "customer_id" => $customerId
                 ]
             );
         } catch (Exception $e) {

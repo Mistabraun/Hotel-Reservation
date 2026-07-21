@@ -186,12 +186,12 @@ $amenitiesData = $amenities["message"];
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label class="form-label extra-small fw-semibold">Price/Night *</label>
-                                    <span value="0" type="number" id="price" name="price" class="form-control outline-hover rounded disabled bg-disabled fw-semibold">123</span>
+                                    <label for="price" class="form-label extra-small fw-semibold">Price/Night *</label>
+                                    <input value="0" type="number" id="price" name="price" class="form-control outline-hover rounded input-subtle">
                                 </div>
                                 <div class="col">
-                                    <label class="form-label extra-small fw-semibold">Capacity</label>
-                                    <span value="2" type="number" id="capacity" name="capacity" class="form-control outline-hover rounded disabled bg-disabled">123</span>
+                                    <label for="capacity" class="form-label extra-small fw-semibold">Capacity</label>
+                                    <input value="2" type="number" id="capacity" name="capacity" class="form-control outline-hover rounded input-subtle">
                                 </div>
                                 <div class="col">
                                     <label for="size" class="form-label extra-small fw-semibold">Size</label>

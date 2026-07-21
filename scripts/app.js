@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let icon = eye.querySelector("i")
 
         if (!target && !eye) {
+            console.log("ret")
             return;
         }
 
@@ -139,6 +140,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         });
+    }
+
+    const registerForm = document.querySelector("#registerForm");
+
+    if (registerForm) {
+        registerForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const errorMessage = document.querySelector("#errorMessage")
+
+            const passwordElement = registerForm.querySelector("#password")
+            const confirmPasswordElement = registerForm.querySelector("#cpassword")
+
+            if (passwordElement.value !== confirmPasswordElement.value) {
+                errorMessage.classList.remove("d-none")
+                errorMessage.textContent = "Password doesn't match."
+                return
+            }
+
+            const formData = new FormData(event.target);
+            formData.delete("cpassword")
+
+            const response = await fetch("../api/auth/register.php", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            console.log(!response.ok, !result.success)
+            if (!response.ok || !result.success) {
+                errorMessage.classList.remove("d-none")
+                errorMessage.textContent = result.message ?? "Internal Server Error."
+                return;
+            }
+
+            window.location.href = "/rooms.php"
+
+
+        })
     }
 
     const logout = document.getElementById("logout")

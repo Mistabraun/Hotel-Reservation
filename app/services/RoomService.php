@@ -43,6 +43,9 @@ class RoomService extends BaseService
         $roomType = trim($data["type"] ?? "");
         $roomNumber = (int)($data["room_number"] ?? 0);
         $status = trim($data["status"] ?? "");
+        $price = (float)($data["price"] ?? 0);
+        $capacity = (int)($data["capacity"] ?? 0);
+        $size = trim($data["size"] ?? "");
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
 
@@ -59,6 +62,18 @@ class RoomService extends BaseService
 
         if (empty($status)) {
             return $this->error("Room status is required.");
+        }
+
+        if ($price <= 0) {
+            return $this->error("Price must be greater than zero.");
+        }
+
+        if ($capacity <= 0) {
+            return $this->error("Capacity must be at least 1.");
+        }
+
+        if (empty($size)) {
+            return $this->error("Room size is required.");
         }
 
         if (empty($bedType)) {
@@ -78,6 +93,9 @@ class RoomService extends BaseService
                 $roomType,
                 $roomNumber,
                 $status,
+                $price,
+                $capacity,
+                $size,
                 $bedType
             );
 
@@ -108,6 +126,9 @@ class RoomService extends BaseService
         $roomName = trim($data["name"] ?? "");
         $roomType = (int)($data["type"] ?? 0);
         $status = (int)($data["status"] ?? 0);
+        $price = (float)($data["price"] ?? 0);
+        $capacity = (int)($data["capacity"] ?? 0);
+        $size = (float)($data["size"] ?? 0);
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
 
@@ -125,6 +146,18 @@ class RoomService extends BaseService
 
         if (empty($status)) {
             return $this->error("Room status is required.");
+        }
+
+        if ($price <= 0) {
+            return $this->error("Price must be greater than zero.");
+        }
+
+        if ($capacity <= 0) {
+            return $this->error("Capacity must be at least 1.");
+        }
+
+        if (empty($size)) {
+            return $this->error("Room size is required.");
         }
 
         if (empty($bedType)) {
@@ -152,6 +185,9 @@ class RoomService extends BaseService
                 $roomName,
                 $roomType,
                 $status,
+                $price,
+                $capacity,
+                $size,
                 $bedType
             )) {
                 throw new Exception("Unable to update room.");
@@ -213,6 +249,7 @@ class RoomService extends BaseService
             );
         }
     }
+
     public function getRooms(array $query): array
     {
         $options = QueryOptions::fromArray($query);
@@ -221,8 +258,10 @@ class RoomService extends BaseService
 
         $total = $this->room->count($options);
 
+
         return $this->success(
             "Rooms retrieved successfully.",
+            // $rooms
             Pagination::create(
                 $rooms,
                 $options,
@@ -242,20 +281,6 @@ class RoomService extends BaseService
         $amenities = $this->roomAmenity->getByRoomId($id);
 
         $room["amenities"] = array_column($amenities, "id");
-
-        return $this->success(
-            "Room retrieved successfully.",
-            $room
-        );
-    }
-
-    public function findById(int $id): array
-    {
-        $room = $this->room->findById($id);
-
-        if (!$room) {
-            return $this->error("Room not found.");
-        }
 
         return $this->success(
             "Room retrieved successfully.",

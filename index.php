@@ -1,4 +1,11 @@
-<!doctype html>
+<?php
+
+include_once __DIR__ . "/app/services/SessionService.php";
+
+$sessionService = new SessionService();
+$sessionService->start();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,6 +23,158 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target=".custom-luxury-nav" data-bs-offset="120">
+
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered mx-w-md">
+      <div class="modal-content p-2">
+        <div class="modal-body">
+          <section class="mb-4">
+            <h2 class="fs-4 text-center">Sign up</h2>
+          </section>
+          <div class="line mb-3"></div>
+
+          <div class="alert alert-danger p-1 px-2 mt-3 d-none" id="errorMessage">Error message here!</div>
+
+          <form method="post" id="registerForm">
+
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="fname" class="form-label">First Name</label>
+                <input title="" type="text" class="form-control outline-hover" id="fname" name="fname" placeholder="Ramcel" autocomplete="email" required="">
+              </div>
+
+              <div class="col-md-6 col mb-4">
+                <label for="lname" class="form-label">Last Name</label>
+                <input title="" type="text" class="form-control outline-hover" id="lname" name="lname" placeholder="Esteron" autocomplete="email" required="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="fname" class="form-label">Phone</label>
+                <div class="input-group">
+                  <span class="input-group-text">+63</span>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    oninvalid="this.setCustomValidity('Enter a valid number')"
+                    placeholder="9123456789"
+                    pattern="9[0-9]{9}"
+                    maxlength="10"
+                    required>
+                </div>
+              </div>
+
+              <div class="col-md-6 col mb-4">
+                <label for="email" class="form-label">Email Address</label>
+                <input title="" type="email" class="form-control outline-hover" id="email" name="email" placeholder="example@mail.com" autocomplete="email" required="">
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="password" class="mb-2"> Password </label>
+                <div class="input-group password-group">
+                  <input title="" type="password" class="form-control outline-hover rounded z-2" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required="">
+
+                  <button type="button" class="toggle-password">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+
+              </div>
+              <div class="col-md-6 col mb-4">
+
+                <label for="password" class="mb-2"> Confirm Password </label>
+                <div class="input-group password-group">
+                  <input title="" type="password" class="form-control outline-hover rounded z-2" id="cpassword" name="cpassword" placeholder="Enter your password" autocomplete="current-password" required="">
+
+                  <button type="button" class="toggle-password">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+
+                </div>
+
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-semibold mt-3">
+              <i class="fa-solid fa-user-plus me-2"></i>Sign up
+            </button>
+          </form>
+          <div>
+            <div class="border-0 border-top mt-4 p-1"></div>
+            <p class="text-center">Already have an account?
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+                class="btn-plain text-decoration-underline text-primary p-0">Sign in</button>
+            </p>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered mx-w-sm">
+      <div class="modal-content p-2">
+        <div class="modal-body">
+          <section class="mb-4">
+            <h2 class="fs-4 text-center">Login</h2>
+          </section>
+          <div class="line mb-3"></div>
+
+          <div class="alert alert-danger p-1 px-2 mt-3 d-none" id="errorMessage">Error message here!</div>
+
+          <form method="post" id="loginForm">
+            <div class="mb-4">
+              <label for="email" class="form-label"> Email address </label>
+              <input title="" type="email" class="form-control outline-hover" id="email" name="email" placeholder="example@mail.com" autocomplete="email" required="">
+            </div>
+
+            <label for="password" class=""> Password </label>
+            <div class="input-group password-group">
+              <input title="" type="password" class="form-control outline-hover rounded z-2" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required="">
+
+              <button type="button" class="toggle-password">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2 mt-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                <label class="form-check-label" for="remember"> Remember me </label>
+              </div>
+
+              <a href="/" class="text-gray-light text-decoration-underline">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">
+              <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Sign In
+            </button>
+          </form>
+          <div>
+            <div class="border-0 border-top mt-4 p-1"></div>
+            <p class="text-center">Don't have an account?
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal"
+                class="btn-plain text-decoration-underline text-primary p-0">Sign up</button>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap ScrollSpy making sure the navbar changes color kapag priness mo yung specific section -->
 
   <!-- /* ==========================================
@@ -34,7 +193,57 @@
         <a href="rooms.php" class="nav-link font-sans small fw-medium text-white text-decoration-none opacity-75">Rooms</a>
         <a href="amenities.php" class="nav-link font-sans small fw-medium text-white text-decoration-none opacity-75">Amenities</a>
 
-        <a href="rooms.php#rooms" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
+
+        <?php
+        if ($sessionService->isAuthenticated()) {
+          echo '    <div class="dropdown ms-auto">
+                <button
+                    class="btn border-0 text-start p-0 "
+                    style="color: var(--bg-primary)"
+                    type="button"
+                    id="profile-dropdown-btn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-3 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                    <div class="profile-header p-1 px-3 mb-2">
+                        <p class="profile-name fw-semibold">Justine Carl</p>
+                        <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
+                        <span class="status status-warning rounded-1">Super Admin</span>
+                    </div>
+                    <div class="line"></div>
+                    <ul class="profile-items my-1">
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Profile</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="line"></div>
+                    <ul class="profile-items mt-1">
+                        <li>
+                            <button class="link link-danger fs-7 btn-default" id="logout">
+                                <i class="fa-solid fa-sign-out"></i>
+                                <p>Logout</p>
+                            </button>
+                        </li>
+                    </ul>
+                </ul>
+            </div>';
+        } else {
+          echo '<button class="btn btn-book-now btn-primary border-0 font-sans text-decoration-none fw-medium text-white text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+        }
+        ?>
+
       </div>
     </div>
   </nav>
@@ -539,6 +748,7 @@
 
   <!-- Local Core Bootstrap JavaScript Processing Logic Bundle -->
   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+  <script src="/scripts/app.js"></script>
 
   <!-- Ditong part yung pag-change ng color ng nav bar kapag iniiscroll -->
   <script>

@@ -29,6 +29,7 @@ export class PaginatedTable {
             return;
         }
 
+        console.log(result)
         const rooms = result.data.items;
         const pagination = result.data.pagination;
 
@@ -95,9 +96,9 @@ export class PaginatedTable {
                         ${(pagination.page - 1) * pagination.limit + 1}
                         -
                         ${Math.min(
-                            pagination.page * pagination.limit,
-                            pagination.total_records
-                        )}
+            pagination.page * pagination.limit,
+            pagination.total_records
+        )}
 
                         of
 

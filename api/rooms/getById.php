@@ -10,7 +10,7 @@ $id = (int)($_GET["id"] ?? 0);
 
 $service = new RoomService();
 
-$result = $service->findById($id);
+$result = $service->getById($id);
 
 if (!$result["success"]) {
     Response::error($result["message"], 404);

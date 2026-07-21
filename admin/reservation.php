@@ -140,7 +140,11 @@
                                 </div>
                                 <div class="col">
                                     <label for="room" class="form-label extra-small fw-semibold">Room</label>
-                                    <input type="text" id="room" name="room" class="form-control outline-hover rounded input-subtle">
+                                    <select
+                                        id="room"
+                                        name="room_id"
+                                        class="form-select">
+                                    </select>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -286,9 +290,14 @@
         </header>
         <main class="p-4 m-1" id="scroll-container">
             <div class="container-fluid m-0 p-0">
-                <header>
-                    <h1 class="h4 m-0 p-0">Reservation Management</h1>
-                    <p class="text-secondary-2 m-0 p-0">8 total reservations</p>
+                <header class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1 class="h4 m-0 p-0">Reservation Management</h1>
+                    </div>
+                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal" data-bs-target="#addRoom" id="addRoomButton">
+                        <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
+                        Add Reservatin
+                    </button>
                 </header>
                 <div class="row my-4 gx-2 fade-on-scroll ">
                     <div class="col-md-3 col-6">
