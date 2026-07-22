@@ -16,7 +16,6 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm py-3 bg-white bg-opacity-95">
       <div class="container">
-        <a class="navbar-brand fw-bold" href="room.html">Grand Horizon</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -27,20 +26,16 @@
           aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center gap-3">
-            <li class="nav-item"><a class="nav-link" href="room.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="room.html#rooms">Rooms</a></li>
-            <li class="nav-item"><a class="nav-link" href="room.html#about">About</a></li>
-            <li class="nav-item">
-              <a
-                class="btn rounded-pill px-4"
-                href="room.html#rooms"
-                style="background-color: oklch(0.46 0.14 83); color: white; border: 1px solid oklch(0.46 0.14 83)"
-                >Book Now</a
-              >
-            </li>
-          </ul>
+                    <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
+
+            <div class="ms-auto d-flex align-items-center gap-4">
+                <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
+                <a href="index.php#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
+                <a href="rooms.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Rooms</a>
+                <!-- Naka-highlight na kulay gold ang Amenities gaya ng nasa screen -->
+                <a href="amenities.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Amenities</a>
+                <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
+            </div>
         </div>
       </div>
     </nav>
