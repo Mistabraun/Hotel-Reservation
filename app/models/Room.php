@@ -130,15 +130,19 @@ class Room
     public function findById(int $id): ?array
     {
         $sql = "
-        SELECT
+            SELECT
             r.*,
             rt.name AS room_type,
-            rs.name AS status
+            rs.name AS status,
+            ri.thumbnail,
+            ri.cover_image
         FROM rooms r
         INNER JOIN room_types rt
-            ON rt.id = r.room_type_id
+            ON r.room_type_id = rt.id
         INNER JOIN room_statuses rs
-            ON rs.id = r.status_id
+            ON r.status_id = rs.id
+        LEFT JOIN room_images ri
+            ON ri.room_id = r.id
         WHERE r.id = ?
     ";
 
@@ -150,6 +154,7 @@ class Room
 
         return mysqli_fetch_assoc($result) ?: null;
     }
+
     public function count(QueryOptions $options): int
     {
         $sql = "
@@ -210,16 +215,20 @@ class Room
     public function getAll(QueryOptions $options): array
     {
         $sql = "
-        SELECT
-            r.*,
-            rt.name AS room_type,
-            rs.name AS status
-        FROM rooms r
-        INNER JOIN room_types rt
-            ON r.room_type_id = rt.id
-        INNER JOIN room_statuses rs
-            ON r.status_id = rs.id
-        WHERE 1 = 1
+            SELECT
+                r.*,
+                rt.name AS room_type,
+                rs.name AS status,
+                ri.thumbnail,
+                ri.cover_image
+            FROM rooms r
+            INNER JOIN room_types rt
+                ON r.room_type_id = rt.id
+            INNER JOIN room_statuses rs
+                ON r.status_id = rs.id
+            LEFT JOIN room_images ri
+                ON ri.room_id = r.id
+                     WHERE 1=1
     ";
 
         $types = "";

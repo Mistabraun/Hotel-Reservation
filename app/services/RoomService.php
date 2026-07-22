@@ -3,9 +3,14 @@
 require_once __DIR__ . "/../models/Room.php";
 require_once __DIR__ . "/../models/Amenity.php";
 require_once __DIR__ . "/../models/RoomAmenity.php";
+require_once __DIR__ . "/../models/RoomImage.php";
+
 require_once __DIR__ . "/../../config/Database.php";
+
 require_once __DIR__ . "/../helper/Pagination.php";
 require_once __DIR__ . "/../helper/QueryOptions.php";
+require_once __DIR__ . "/../helper/FileUpload.php";
+
 require_once __DIR__ . "/BaseService.php";
 
 class RoomService extends BaseService
@@ -14,6 +19,7 @@ class RoomService extends BaseService
     private Amenity $amenity;
     private RoomAmenity $roomAmenity;
     private mysqli $connection;
+    private RoomImage $roomImage;
 
     public function __construct()
     {
@@ -21,6 +27,7 @@ class RoomService extends BaseService
         $this->amenity = new Amenity();
         $this->room = new Room();
         $this->roomAmenity = new RoomAmenity();
+        $this->roomImage = new RoomImage;
     }
 
     private function saveAmenities(int $roomId, array $amenities): void
@@ -37,17 +44,24 @@ class RoomService extends BaseService
         }
     }
 
-    public function create(array $data): array
-    {
+    public function create(
+        array $data,
+        array $files,
+    ): array {
+
         $roomName = trim($data["name"] ?? "");
-        $roomType = trim($data["type"] ?? "");
+        $roomType = (int)($data["type"] ?? 0);
         $roomNumber = (int)($data["room_number"] ?? 0);
-        $status = trim($data["status"] ?? "");
+        $status = (int)($data["status"] ?? 0);
         $price = (float)($data["price"] ?? 0);
         $capacity = (int)($data["capacity"] ?? 0);
         $size = trim($data["size"] ?? "");
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
+
+        $thumbnailFile = $files["thumbnail"] ?? null;
+        $coverImageFile = $files["cover_image"] ?? null;
+
 
         if (empty($roomName)) {
             return $this->error("Room name is required.");
@@ -56,6 +70,7 @@ class RoomService extends BaseService
         if (empty($roomType)) {
             return $this->error("Room type is required.");
         }
+
         if ($roomNumber <= 0) {
             return $this->error("Room number is required.");
         }
@@ -84,6 +99,23 @@ class RoomService extends BaseService
             return $this->error("Room number already exists.");
         }
 
+        if (
+            !$thumbnailFile ||
+            ($thumbnailFile["error"] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE
+        ) {
+            return $this->error("Thumbnail image is required.");
+        }
+
+        if (
+            !$coverImageFile ||
+            ($coverImageFile["error"] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE
+        ) {
+            return $this->error("Cover image is required.");
+        }
+
+        $thumbnail = null;
+        $coverImage = null;
+
         mysqli_begin_transaction($this->connection);
 
         try {
@@ -103,23 +135,63 @@ class RoomService extends BaseService
                 throw new Exception("Unable to create room.");
             }
 
-            $this->saveAmenities($roomId, $amenities);
+            $this->saveAmenities(
+                $roomId,
+                $amenities
+            );
+
+            $thumbnail = FileUpload::upload(
+                $thumbnailFile,
+                "rooms"
+            );
+
+            $coverImage = FileUpload::upload(
+                $coverImageFile,
+                "rooms"
+            );
+
+            if (
+                !$this->roomImage->create(
+                    $roomId,
+                    $thumbnail,
+                    $coverImage
+                )
+            ) {
+                throw new Exception("Unable to save room images.");
+            }
 
             mysqli_commit($this->connection);
 
-            return $this->success("Room added successfully.", [
-                "room_id" => $roomId
-            ]);
+            return $this->success(
+                "Room added successfully.",
+                [
+                    "room_id" => $roomId
+                ]
+            );
         } catch (Exception $e) {
 
             mysqli_rollback($this->connection);
 
-            return $this->error("Internal Server Error: " . $e);
+            FileUpload::delete(
+                "rooms",
+                $thumbnail
+            );
+
+            FileUpload::delete(
+                "rooms",
+                $coverImage
+            );
+
+            return $this->error($e->getMessage());
         }
     }
 
-    public function update(array $data): array
-    {
+
+    public function update(
+        array $data,
+        array $files
+    ): array {
+
         $id = (int)($data["id"] ?? 0);
 
         $roomNumber = (int)($data["room_number"] ?? 0);
@@ -132,6 +204,8 @@ class RoomService extends BaseService
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
 
+        $thumbnailFile = $files["thumbnail"] ?? null;
+        $coverImageFile = $files["cover_image"] ?? null;
 
         if (empty($roomName)) {
             return $this->error("Room name is required.");
@@ -140,6 +214,7 @@ class RoomService extends BaseService
         if (empty($roomType)) {
             return $this->error("Room type is required.");
         }
+
         if ($roomNumber <= 0) {
             return $this->error("Room number is required.");
         }
@@ -168,28 +243,37 @@ class RoomService extends BaseService
             return $this->error("Room not found.");
         }
 
+        $existingRoom = $this->room->findByRoomNumber($roomNumber);
 
-        $room = $this->room->findByRoomNumber($roomNumber);
-
-        if ($room && $room["id"] != $id) {
+        if ($existingRoom && $existingRoom["id"] != $id) {
             return $this->error("Room number already exists.");
         }
+
+        $images = $this->roomImage->findByRoomId($id);
+
+        $thumbnail = $images["thumbnail"] ?? null;
+        $coverImage = $images["cover_image"] ?? null;
+
+        $oldThumbnail = $thumbnail;
+        $oldCoverImage = $coverImage;
 
         mysqli_begin_transaction($this->connection);
 
         try {
 
-            if (!$this->room->update(
-                $id,
-                $roomNumber,
-                $roomName,
-                $roomType,
-                $status,
-                $price,
-                $capacity,
-                $size,
-                $bedType
-            )) {
+            if (
+                !$this->room->update(
+                    $id,
+                    $roomNumber,
+                    $roomName,
+                    $roomType,
+                    $status,
+                    $price,
+                    $capacity,
+                    $size,
+                    $bedType
+                )
+            ) {
                 throw new Exception("Unable to update room.");
             }
 
@@ -199,21 +283,94 @@ class RoomService extends BaseService
 
             $this->saveAmenities($id, $amenities);
 
-            mysqli_commit($this->connection);
+            if (
+                $thumbnailFile &&
+                ($thumbnailFile["error"] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE
+            ) {
+                $thumbnail = FileUpload::upload(
+                    $thumbnailFile,
+                    "rooms"
+                );
+            }
 
-            return $this->success(
-                "Room updated successfully.",
-                [
-                    "room_id" => $id
-                ]
-            );
+            if (
+                $coverImageFile &&
+                ($coverImageFile["error"] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE
+            ) {
+                $coverImage = FileUpload::upload(
+                    $coverImageFile,
+                    "rooms"
+                );
+            }
+
+            if ($images) {
+
+                if (
+                    !$this->roomImage->update(
+                        $id,
+                        $thumbnail,
+                        $coverImage
+                    )
+                ) {
+                    throw new Exception("Unable to update room images.");
+                }
+            } else {
+
+                if (
+                    !$this->roomImage->create(
+                        $id,
+                        $thumbnail,
+                        $coverImage
+                    )
+                ) {
+                    throw new Exception("Unable to create room images.");
+                }
+            }
+
+            mysqli_commit($this->connection);
         } catch (Exception $e) {
 
             mysqli_rollback($this->connection);
 
+            if ($thumbnail !== $oldThumbnail) {
+                FileUpload::delete("rooms", $thumbnail);
+            }
+
+            if ($coverImage !== $oldCoverImage) {
+                FileUpload::delete("rooms", $coverImage);
+            }
+
             return $this->error($e->getMessage());
         }
+
+        if (
+            $thumbnail !== $oldThumbnail &&
+            !empty($oldThumbnail)
+        ) {
+            FileUpload::delete(
+                "rooms",
+                $oldThumbnail
+            );
+        }
+
+        if (
+            $coverImage !== $oldCoverImage &&
+            !empty($oldCoverImage)
+        ) {
+            FileUpload::delete(
+                "rooms",
+                $oldCoverImage
+            );
+        }
+
+        return $this->success(
+            "Room updated successfully.",
+            [
+                "room_id" => $id
+            ]
+        );
     }
+
 
     public function delete(int $id): array
     {

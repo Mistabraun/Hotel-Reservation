@@ -9,7 +9,7 @@ AuthMiddleware::method("POST");
 
 $roomService = new RoomService();
 
-$result = $roomService->update($_POST);
+$result = $roomService->update($_POST, $_FILES);
 
 if (!$result["success"]) {
     Response::error($result["message"]);

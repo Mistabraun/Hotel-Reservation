@@ -1,13 +1,19 @@
+function formatCurrency(price, targetCurrency = "PHP") {
+    return new Intl.NumberFormat('fil-PH', {
+        style: 'currency',
+        currency: targetCurrency,
+        minimumFractionDigits: 0
+    }).format(price)
+}
+
 function updateCurrency(targetCurrency) {
     const priceElements = document.querySelectorAll('[data-price]');
 
     priceElements.forEach(el => {
         const price = parseFloat(el.getAttribute('data-price'));
-        el.textContent = new Intl.NumberFormat('fil-PH', {
-            style: 'currency',
-            currency: targetCurrency,
-            minimumFractionDigits: 0
-        }).format(price);
+
+        el.textContent = formatCurrency(price, targetCurrency);
+
     });
 
 }

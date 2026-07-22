@@ -1,3 +1,13 @@
+<?php
+
+include_once __DIR__ . "/../app/services/RoomService.php";
+
+$roomService = new RoomService();
+$rooms = $roomService->getRooms([]);
+$roomsData = $rooms["data"]["items"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -110,7 +120,7 @@
     </aside>
     <div class="flex-grow-1 " style="min-width: 0;">
 
-        <div class="modal fade" id="editReservationModal" tabindex="-1">
+        <div class="modal fade" id="addReservation" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-md">
                 <div class="modal-content p-2">
                     <div class="modal-header d-flex justify-content-between">
@@ -122,29 +132,22 @@
                     </div>
 
                     <div class=" modal-body">
-                        <form id="edit-reservation" class="reservation-form">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="name" class="form-label extra-small fw-semibold">Guest Name</label>
-                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle">
-                                </div>
-                                <div class="col">
-                                    <label for="email" class="form-label extra-small fw-semibold">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control outline-hover rounded input-subtle">
-                                </div>
-                            </div>
+                        <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
+                        <form id="addReservationForm" class="reservation-form">
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="phone" class="form-label extra-small fw-semibold">Phone</label>
-                                    <input type="tel" id="phone" name="phone" class="form-control outline-hover rounded input-subtle">
-                                </div>
-                                <div class="col">
-                                    <label for="room" class="form-label extra-small fw-semibold">Room</label>
+                                    <label for="room_id" class="form-label extra-small fw-semibold ">Room</label>
                                     <select
-                                        id="room"
+                                        id="room_id"
                                         name="room_id"
-                                        class="form-select">
+                                        class="form-select outline-hover rounded input-subtle">
+                                        <?php foreach ($roomsData as $room): ?>
+                                            <option value="<?= $room["id"] ?>" data-amount="<?= $room["price_per_night"] ?>">
+                                                <?= $room["room_name"] ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
+
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -158,31 +161,25 @@
                                 </div>
                                 <div class="col">
                                     <label for="guests" class="form-label extra-small fw-semibold">Guests</label>
-                                    <input type="number" id="guests" name="guests" class="form-control outline-hover rounded input-subtle">
+                                    <input type="number" id="guests" name="guests" min="0" class="form-control outline-hover rounded input-subtle">
                                 </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="status" class="form-label extra-small fw-semibold">Status</label>
                                     <select name="status" id="status" class="form-control form-select outline-hover rounded input-subtle">
-                                        <option value="pending">Pending</option>
-                                        <option value="confirmed">Confirmed</option>
-                                        <option value="checked_out">Checked Out</option>
-                                        <option value="cancelled">Cancelled</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Confirmed</option>
+                                        <option value="3">Checked Out</option>
+                                        <option value="4">Cancelled</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <label for="check_in" class="form-label extra-small fw-semibold">Check-in</label>
-                                    <input type="date" id="check_in" name="check_in" class="form-control outline-hover rounded input-subtle">
-                                </div>
 
-                            </div>
                             <div class="d-flex justify-content-between mt-3 bg-subtle rounded outline-hover border">
                                 <div class="pt-3 px-4">
                                     <p class="extra-small text-gray-light fw-semibold">Nights</p>
-                                    <p id="nights" class="fw-bold">2</p>
+                                    <p id="nights" class="fw-bold" data-nights>2</p>
                                 </div>
                                 <div class="pt-3 px-4">
                                     <p class="extra-small text-gray-light fw-semibold">Rate / Night</p>
@@ -190,7 +187,7 @@
                                 </div>
                                 <div class="pt-3 px-4">
                                     <p class="extra-small text-gray-light fw-semibold">Total</p>
-                                    <p id="total" class="fs-5 fw-bold my-2" data-currency data-price="69420">69420</p>
+                                    <p id="total" class="fs-5 fw-bold my-2" data-currency data-price="69420" data-total>69420</p>
                                 </div>
 
                             </div>
@@ -200,7 +197,7 @@
                             Cancel
                         </button>
 
-                        <button class="btn btn-primary" data-bs-dismiss="modal">
+                        <button class="btn btn-primary">
                             Save Changes
                         </button>
                     </div>
@@ -218,18 +215,19 @@
                             <i class="fa-solid fa-xmark text-danger"></i>
                         </div>
                         <h2 class="fw-semibold fs-4">Cancel Reservation?</h2>
-                        <p class="small text-center">Are you sure you want to cancel GH-2026-0738? This may be irreversible based on hotel policy.</p>
+                        <p class="small text-center" data-remove-id>Are you sure you want to cancel GH-2026-0738? <br>This may be irreversible based on hotel policy.</p>
                     </div>
-                    <div class="modal-footer border-0 d-flex justify-content-center">
+                    <div class="modal-footer border-0 d-flex justify-content-center p-0 pb-2 m-0">
                         <button class="btn btn-secondary rounded-5" data-bs-dismiss="modal">
-                            Go Back
+                            Cancel
                         </button>
 
-                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal">
-                            Cancel Reservation
+                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal" data-confirm>
+                            Remove
                         </button>
+
                     </div>
-                    </form>
+                    <div class="alert alert-danger py-0 text-center d-none" id="modalMessage">Error occured</div>
 
                 </div>
             </div>
@@ -294,35 +292,36 @@
                     <div>
                         <h1 class="h4 m-0 p-0">Reservation Management</h1>
                     </div>
-                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal" data-bs-target="#addRoom" id="addRoomButton">
+                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal" data-bs-target="#addReservation" id="addReservationButton">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
-                        Add Reservatin
+                        Add Reservation
                     </button>
+
                 </header>
                 <div class="row my-4 gx-2 fade-on-scroll ">
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card-success rounded-3">
-                            <h2 class="status-card-value fw-bold">6</h2>
+                        <div class="status-card status-card-success hover-animation rounded-3">
+                            <h2 class="status-card-value fw-bold" id="confirmed-count">6</h2>
                             <p class="status-card-label fw-semibold">Confirmed</p>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card-warning rounded-3">
-                            <h2 class="status-card-value fw-bold">1</h2>
+                        <div class="status-card status-card-warning hover-animation rounded-3">
+                            <h2 class="status-card-value fw-bold" id="pending-count">1</h2>
                             <p class="status-card-label fw-semibold">Pending</p>
                         </div>
                     </div>
 
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card-gray status-card rounded-3">
-                            <h2 class="status-card-value fw-bold">1</h2>
+                        <div class="status-card status-card-gray hover-animation status-card rounded-3">
+                            <h2 class="status-card-value fw-bold" id="checked_out-count">1</h2>
                             <p class="status-card-label fw-semibold">Checked Out</p>
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
-                        <div class="status-card status-card-danger rounded-3">
-                            <h2 class="status-card-value fw-bold">0</h2>
+                        <div class="status-card status-card-danger hover-animation rounded-3">
+                            <h2 class="status-card-value fw-bold" id="cancelled-count">0</h2>
                             <p class="status-card-label fw-semibold">Cancelled</p>
                         </div>
                     </div>
@@ -331,11 +330,11 @@
                 <div class="d-flex flex-column flex-md-row  gap-3 mt-2">
                     <div class="search-group flex-grow-1">
                         <i class="fa-solid fa-search"></i>
-                        <input type="text" name="search" id="search" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
+                        <input type="text" name="search" id="reservationSearch" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
                     </div>
                     <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="all" value="active" checked>
+                            <input type="radio" name="sort" id="all" value="all" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
                         </div>
                         <div class="sort-input">
@@ -359,7 +358,7 @@
 
                 <div class="overflow-hidden">
                     <div class="overflow-x-auto mt-4 rounded-4">
-                        <table class="table table-custom">
+                        <table class="table table-custom" id="reservationsTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Booking Ref</th>
@@ -397,7 +396,7 @@
                                                 title="Edit details"
                                                 data-edit
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#editReservationModal">
+                                                data-bs-target="#addReservation">
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </button>
                                             <button class="btn btn-outline action-remove"
@@ -410,6 +409,9 @@
                                         </div>
                                     </td>
                                 </tr>
+                            <tfoot>
+
+                            </tfoot>
                             </tbody>
                         </table>
                     </div>
@@ -419,6 +421,8 @@
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
+    <script type="module" src="./js/pages/Reservation.js"></script>
+    <script type="module" src="./js/admin/reservation.js"></script>
 </body>
 
 </html>

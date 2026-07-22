@@ -18,7 +18,6 @@ class Reservation
         string $checkIn,
         string $checkOut,
         int $guestCount,
-        float $totalAmount,
         int $statusId
     ): int|false {
 
@@ -29,11 +28,10 @@ class Reservation
                 room_id,
                 check_in,
                 check_out,
-                guest_count,
-                total_amount,
+                number_of_guests,
                 status_id
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         ";
 
         $statement = mysqli_prepare(
@@ -43,14 +41,13 @@ class Reservation
 
         mysqli_stmt_bind_param(
             $statement,
-            "siissidi",
+            "siissii",
             $bookingReference,
             $customerId,
             $roomId,
             $checkIn,
             $checkOut,
             $guestCount,
-            $totalAmount,
             $statusId
         );
 
@@ -69,7 +66,6 @@ class Reservation
         string $checkIn,
         string $checkOut,
         int $guestCount,
-        float $totalAmount,
         int $statusId
     ): bool {
 
@@ -79,8 +75,7 @@ class Reservation
                 room_id = ?,
                 check_in = ?,
                 check_out = ?,
-                guest_count = ?,
-                total_amount = ?,
+                number_of_guests = ?,
                 status_id = ?
             WHERE id = ?
         ";
@@ -92,12 +87,11 @@ class Reservation
 
         mysqli_stmt_bind_param(
             $statement,
-            "issidii",
+            "issiii",
             $roomId,
             $checkIn,
             $checkOut,
             $guestCount,
-            $totalAmount,
             $statusId,
             $id
         );
@@ -166,14 +160,20 @@ class Reservation
 
         $sql = "
             SELECT
-                r.*,
-                rs.name AS status,
+                r.booking_reference,
+                 CONCAT(c.first_name, ' ', c.last_name) AS guest,
+                u.email,
                 rm.room_name,
-                rm.room_number,
+                rm.id AS room_id,
+                rm.price_per_night,
+                rm.capacity,
+                DATEDIFF(r.check_out, r.check_in) AS nights,
+                rm.price_per_night * DATEDIFF(r.check_out, r.check_in) AS total_amount,
                 rt.name AS room_type,
-                c.first_name,
-                c.last_name,
-                u.email
+                r.check_in,
+                r.check_out,
+                r.number_of_guests,
+                rs.id AS status
             FROM reservations r
             INNER JOIN reservation_statuses rs
                 ON r.status_id = rs.id
@@ -248,14 +248,18 @@ class Reservation
             SELECT
                 r.id,
                 r.booking_reference,
-                CONCAT(c.first_name, ' ', c.last_name) AS guest,
+                 CONCAT(c.first_name, ' ', c.last_name) AS guest,
                 u.email,
                 rm.room_name,
+                rm.id AS room_id,
+                rm.price_per_night,
+                rm.capacity,
+                DATEDIFF(r.check_out, r.check_in) AS nights,
+                rm.price_per_night * DATEDIFF(r.check_out, r.check_in) AS total_amount,
                 rt.name AS room_type,
                 r.check_in,
                 r.check_out,
-                r.guest_count,
-                r.total_amount,
+                r.number_of_guests,
                 rs.name AS status
             FROM reservations r
             INNER JOIN customers c
@@ -268,7 +272,8 @@ class Reservation
                 ON rm.room_type_id = rt.id
             INNER JOIN reservation_statuses rs
                 ON r.status_id = rs.id
-            WHERE 1 = 1
+                    WHERE 1=1
+
         ";
 
         $types = "";
@@ -419,5 +424,30 @@ class Reservation
         );
 
         return (int)mysqli_fetch_assoc($result)["total"];
+    }
+
+    public function countByStatus(string $status): int
+    {
+        $sql = "
+        SELECT COUNT(*) AS total
+        FROM reservations r
+        INNER JOIN reservation_statuses rs
+            ON r.status_id = rs.id
+        WHERE LOWER(rs.name) = LOWER(?)
+    ";
+
+        $statement = mysqli_prepare($this->connection, $sql);
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "s",
+            $status
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        return (int) mysqli_fetch_assoc($result)["total"];
     }
 }

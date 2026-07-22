@@ -199,10 +199,19 @@ $amenitiesData = $amenities["message"];
                                 </div>
                             </div>
                             <div class="row mt-2">
-
-                                <div class="col ">
+                                <div class="col">
                                     <label for="bed_type" class="form-label extra-small fw-semibold">Bed Type</label>
                                     <input type="text" id="bed_type" name="bed_type" class="form-control outline-hover rounded input-subtle" placeholder="1 King Bed">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6 col">
+                                    <label for="thumbnail" class="form-label extra-small fw-semibold">Image</label>
+                                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" class="form-control outline-hover rounded input-subtle" required>
+                                </div>
+                                <div class="col-md-6 col">
+                                    <label for="cover_image" class="form-label extra-small fw-semibold">Image</label>
+                                    <input type="file" id="cover_image" name="cover_image" accept="image/*" class="form-control outline-hover rounded input-subtle" required>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -238,7 +247,7 @@ $amenitiesData = $amenities["message"];
                             Cancel
                         </button>
 
-                        <button class="btn btn-primary" id="closeModal">
+                        <button class="btn btn-primary hover-animation" id="closeModal">
                             Save Changes
                         </button>
                     </div>
@@ -307,7 +316,7 @@ $amenitiesData = $amenities["message"];
                     <div>
                         <h1 class="h4 m-0 p-0">Room Management</h1>
                     </div>
-                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal"
+                    <button class="btn btn-primary rounded-5 fw-bold small hover-animation" data-bs-toggle="modal"
                         data-bs-target="#addRoom" id="addRoomButton">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
                         Add Room

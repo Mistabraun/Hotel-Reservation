@@ -39,12 +39,12 @@ class AuthMiddleware
         $session->redirectToDashboard();
     }
 
-    public static function user(bool $api = true): void
+    public static function user(bool $api = true): ?int
     {
         $session = self::session();
 
         if ($session->isAuthenticated()) {
-            return;
+            return $session->getUserId();
         }
 
         if ($api) {

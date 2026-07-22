@@ -1,12 +1,15 @@
 <?php
 
 require_once __DIR__ . "/BaseService.php";
+
 require_once __DIR__ . "/../models/Reservation.php";
 require_once __DIR__ . "/../models/Room.php";
 require_once __DIR__ . "/../models/Customer.php";
+
+require_once __DIR__ . "/../services/SessionService.php";
+
 require_once __DIR__ . "/../helper/QueryOptions.php";
 require_once __DIR__ . "/../helper/Pagination.php";
-require_once __DIR__ . "/../services/SessionService.php";
 
 class ReservationService extends BaseService
 {
@@ -17,13 +20,11 @@ class ReservationService extends BaseService
 
     public function __construct()
     {
-        parent::__construct();
 
         $this->reservation = new Reservation();
         $this->room = new Room();
         $this->customer = new Customer();
         $this->session = new SessionService();
-
         $this->session->start();
     }
 
@@ -77,31 +78,36 @@ class ReservationService extends BaseService
         );
     }
 
+
     public function create(array $data): array
     {
         $roomId = (int)($data["room_id"] ?? 0);
         $checkIn = trim($data["check_in"] ?? "");
         $checkOut = trim($data["check_out"] ?? "");
-        $guestCount = (int)($data["guest_count"] ?? 1);
+        $guestCount = (int)($data["guests"] ?? 1);
+        $statusId = (int)($data["status"] ?? 1);
+
+
+        if (!$this->session->isAuthenticated()) {
+            $this->error("Unauthorized");
+        }
+
+        $userId = $this->session->getUserId();
 
         if (
             $roomId <= 0 ||
             empty($checkIn) ||
-            empty($checkOut)
+            empty($checkOut) ||
+            empty($userId) ||
+            $guestCount <= 0 ||
+            $statusId <= 0
         ) {
             return $this->error(
                 "Please complete all required fields."
             );
         }
 
-        // TODO:
-        // Verify customer exists
-        $userId = $this->session->getUserId();
-        if (!$userId) {
-            return $this->error(
-                "Invalid authenticatin."
-            );
-        }
+
         $customer = $this->customer->findByUserId($userId);
 
         if (!$customer) {
@@ -117,34 +123,18 @@ class ReservationService extends BaseService
             );
         }
 
-        // TODO:
-        // Verify room availability
-        if ($room["status_id"] !== 3) {
+        if ($room["status_id"] !== 1) {
             return $this->error(
                 "Room is not available."
             );
         }
 
-        // Generate booking reference
-        $bookingReference = $this->generateBookingReference();
-
-        // Pending
-        $statusId = 1;
-
-        // Calculate nights
-        $checkInDate = new DateTime($checkIn);
-        $checkOutDate = new DateTime($checkOut);
-
-        $nights = $checkInDate->diff($checkOutDate)->days;
-
-        if ($nights <= 0) {
-            return $this->error(
-                "Check-out date must be after check-in date."
-            );
+        if ($guestCount > $room["capacity"]) {
+            return $this->error("Invalid guest amount.");
         }
 
-        $totalAmount =
-            $room["price_per_night"] * $nights;
+        // Generate booking reference
+        $bookingReference = $this->generateBookingReference();
 
         $reservationId = $this->reservation->create(
             $bookingReference,
@@ -153,7 +143,6 @@ class ReservationService extends BaseService
             $checkIn,
             $checkOut,
             $guestCount,
-            $totalAmount,
             $statusId
         );
 
@@ -173,6 +162,33 @@ class ReservationService extends BaseService
 
     public function update(int $id, array $data): array
     {
+
+        $roomId = (int)($data["room_id"] ?? 0);
+        $checkIn = trim($data["check_in"] ?? "");
+        $checkOut = trim($data["check_out"] ?? "");
+        $guestCount = (int)($data["guests"] ?? 1);
+        $statusId = (int)($data["status"] ?? 1);
+
+        if (
+            $roomId <= 0 ||
+            empty($checkIn) ||
+            empty($checkOut) ||
+            $guestCount <= 0 ||
+            $statusId <= 0
+        ) {
+            return $this->error(
+                "Please complete all required fields."
+            );
+        }
+
+
+        if (!$this->session->isAuthenticated()) {
+            $this->error("Unauthorized");
+        }
+
+        $userId = $this->session->getUserId();
+
+
         if ($id <= 0) {
             return $this->error("Invalid reservation.");
         }
@@ -183,19 +199,30 @@ class ReservationService extends BaseService
             return $this->error("Reservation not found.");
         }
 
-        $statusId = (int)($data["status_id"] ?? 0);
+        $statusId = (int)($data["status"] ?? 0);
 
         if ($statusId <= 0) {
             return $this->error("Please select a reservation status.");
         }
 
+        $customer = $this->customer->findByUserId($userId);
+
+        if (!$customer) {
+            return $this->error("Customer not found.");
+        }
+
+        if (!$this->session->isAdmin()) {
+            if ($customer["id"] !== $exists["customer_id"]) {
+                return $this->error("Unauthorized");
+            }
+        }
+
         $success = $this->reservation->update(
             $id,
-            (int)$data["room_id"],
-            $data["check_in"],
-            $data["check_out"],
-            (int)$data["guest_count"],
-            (float)$data["total_amount"],
+            $roomId,
+            $checkIn,
+            $checkOut,
+            $guestCount,
             $statusId
         );
         if (!$success) {
@@ -223,6 +250,27 @@ class ReservationService extends BaseService
 
         return $this->success(
             "Reservation deleted successfully."
+        );
+    }
+
+    public function getStatusCounts(): array
+    {
+        return $this->success(
+            "Reservation counts retrieved successfully.",
+            [
+                "confirmed" => $this->reservation->countByStatus("Confirmed"),
+                "pending" => $this->reservation->countByStatus("Pending"),
+                "checked_out" => $this->reservation->countByStatus("Checked Out"),
+                "cancelled" => $this->reservation->countByStatus("Cancelled")
+            ]
+        );
+    }
+
+    public function countByStatus(string $status): array
+    {
+        return $this->success(
+            "Reservation counts retrieved successfully.",
+            $this->reservation->countByStatus($status)
         );
     }
 }

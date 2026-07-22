@@ -154,6 +154,7 @@ if (sortGroup) {
             return;
         }
 
+        console.log(e.target.value)
         roomsPagination.setFilter(e.target.value);
 
     });
