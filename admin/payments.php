@@ -108,143 +108,159 @@
         </div>
     </aside>
     <div class="flex-grow-1" style="min-width: 0;">
-        <div class="modal fade" id="viewDetailsModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered mx-w-lg">
-                <div class="modal-content p-2 border-0">
-                    <div class="modal-header d-flex justify-content-start align-items-start gap-3 border-0">
-                        <div class="bg-warning-subtle p-4 rounded-circle extra-small">
-                            <span class="fw-bold text-secondary-2 h6">ER</span>
+
+        <div class="modal fade" id="refundModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-sm">
+                <div class="modal-content p-2 ">
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center gap-2">
+                        <div class="bg-danger-subtle p-3 rounded-circle">
+                            <i class="fa-solid fa-xmark text-danger"></i>
                         </div>
+                        <h2 class="fw-semibold fs-4">Process Refund?</h2>
+                        <p class="small text-center" id="refund-message"> This will refund payment PAY-001. This action may be irreversible.</p>
+                    </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center p-0 pb-2 m-0">
+                        <button class="btn btn-secondary rounded-5 hover-animation" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-danger rounded-5" id="refund-confirm">
+                            Refund
+                        </button>
+                    </div>
+                    <div class="alert alert-danger py-0 text-center d-none" id="modalMessage">Error occured</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addPaymentModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-md-2">
+                <div class="modal-content p-2 border-0">
+                    <div class="modal-header pb-0 d-flex justify-content-between align-items-start gap-3 border-0">
                         <div>
-                            <h4 class="fs-5 fw-semibold">Emma Richardson</h4>
-                            <div class="extra-small text-gray-light mt-2">
-                                <span><i class="fa-regular fa-envelope"></i> eemma.r@mail.com</span>
-                                <span><i class="fa-solid fa-phone"></i> +1 (415) 555-0123</span>
-                            </div>
+                            <h4 class="fs-4 fw-semibold mb-2">Record Payment</h4>
                         </div>
                     </div>
 
-                    <div class=" modal-body">
-                        <div class="row text-black">
-                            <div class="col">
-                                <div class="bg-subtle text-center rounded-4 p-3">
-                                    <h5>3</h5>
-                                    <p class="text-gray-light fw-semibold extra-small mt-2">Total Stays</p>
+                    <div class="modal-body">
+                        <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
+                        <form id="addRoomForm" method="post">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="name" class="form-label extra-small fw-semibold">Payment ID</label>
+                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="PAY-008" data-id="8">
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="bg-subtle text-center rounded-4 p-3">
-                                    <h5>May 12, 2026</h5>
-                                    <p class="text-gray-light fw-semibold extra-small mt-2">Last Stay</p>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="type" class="form-label extra-small fw-semibold">Resrvation ID</label>
+                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                        <option value="">Select reservation...</option>
+                                        <option value="14">GH-2026-0738 — Yodelle Heyo</option>
+                                        <option value="26">GH-2026-0782 — Mark Sucker</option>
+                                        <option value="32">GH-2026-0803 — Elon Man </option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="bg-subtle text-center rounded-4 p-3">
-                                    <h5>January 1, 2026</h5>
-                                    <p class="text-gray-light fw-semibold extra-small mt-2">Member Since</p>
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <label for="type" class="form-label extra-small fw-semibold">Amount</label>
+                                    <input type="text" value="$101" id="name" name="name" class="form-control outline-hover rounded input-subtle" readonly>
+                                </div>
+                                <div class="col-6">
+                                    <label for="type" class="form-label extra-small fw-semibold">Method</label>
+                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                        <option value="1">Credit Card</option>
+                                        <option value="2">Gcash</option>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <label for="type" class="form-label extra-small fw-semibold">Method</label>
+                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                        <option value="1">Paid</option>
+                                        <option value="2">Pending</option>
+                                        <option value="3">Refunded</option>
+                                        <option value="4">Failed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="type" class="form-label extra-small fw-semibold">Date</label>
+                                    <input type="date" id="name" name="name" class="form-control outline-hover rounded input-subtle">
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-primary hover-animation" id="closeModal">
+                            Save Changes
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="viewDetailsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-md-2">
+                <div class="modal-content py-2 pb-4 px-3 border-0">
+                    <div class="modal-header d-flex justify-content-between align-items-start gap-3 border-0">
+                        <div>
+                            <h4 class="fs-4 fw-semibold mb-2">Payment Receipt</h4>
+                            <p class="extra-small text-secondary-2" data-id="PAY-001">PAY-001</p>
                         </div>
-                        <h4 class="fs-7 fw-semibold mb-2 mt-4">Resrvation History</h4>
-                        <div class="overflow-y-auto position-relative" style="max-height: 20rem;">
-                            <table class="table-custom w-100 bg-subtle rounded-4">
-                                <thead class="position-sticky top-0 z-1 bg-subtle">
-                                    <tr>
-                                        <th scope="col">Ref</th>
-                                        <th scope="col">Dates</th>
-                                        <th scope="col">Guets</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="extra-small">
-                                        <td class="fw-bold">GH-2026-0742</td>
-                                        <td>
-                                            <p>Jul 15, 2026</p>
-                                            <p class="mt-2 text-secondary-2">to Jul 18, 2026</p>
-                                        </td>
-                                        <td>2</td>
-                                        <td class="fw-bold" data-currency data-price="1047"></td>
-                                        <td>
-                                            <div class="status status-success text-uppercase fw-bold">Confirmed</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="d-flex gap-1 text-secondary-2">
+                            <button class="btn btn-outline text-gray-light hover-animation extra-small px-1" onclick="window.print">
+                                <i class="fa-solid fa-print"></i>
+                            </button>
+                            <button class="btn btn-outline text-gray-light hover-animation extra-small px-1">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
+                    </div>
+
+                    <div class="modal-body bg-main rounded-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <h5 class="h6 fw-bold">Grand Horizon</h5>
+                            <p class="extra-small text-secondary-2" style="letter-spacing: 0.3pt;">1278 Oceanfront Blvd, Malibu, CA 90265</p>
+                        </div>
+                        <div class="line my-3"></div>
+                        <div class="d-flex flex-column small gap-2">
+                            <div class="d-flex justify-content-between">
+                                <span class="text-secondary-2 fw-semibold">Guest</span>
+                                <span class="fw-semibold">David & Sarah Mitchell</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-secondary-2 fw-semibold">Reservation</span>
+                                <span class="fw-semibold">GH-2026-0738 </span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-secondary-2 fw-semibold">Method</span>
+                                <span class="fw-semibold">Credit Card</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-secondary-2 fw-semibold">Date</span>
+                                <span class="fw-semibold">Jun 25, 2026</span>
+                            </div>
+                            <div class="line"></div>
+                            <div class="d-flex justify-content-between">
+                                <span class="text-secondary-2 fw-semibold">Amount</span>
+                                <span class="fs-5 fw-bold">$698</span>
+                            </div>
+                            <div class="combo-success py-2 rounded-3 text-center">
+                                <i class="fa-solid fa-check-double"></i>
+                                <span class="fw-semibold">Payment Received</span>
+                            </div>
+                            <p class="text-center ultra-small my-2 text-secondary-2">Thank you for choosing Grand Horizon</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer p-0 border-top-0 mt-3">
+                        <button class="btn btn-secondary w-100 rounded-5 m-0 fw-semibold" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -310,14 +326,14 @@
                         <h1 class="h4 m-0 p-0">Payment Management</h1>
                         <p class="text-secondary-2 m-0 p-0">1 guest on record</p>
                     </div>
-                    <button class="btn btn-primary rounded-5 fw-bold small">
+                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-target="#addPaymentModal" data-bs-toggle="modal">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
                         Record Payment
                     </button>
                 </header>
                 <div class="row my-4 gx-2">
                     <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
                             <div class="combo-success p-3 rounded extra-small">
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                             </div>
@@ -328,7 +344,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
                             <div class="combo-warning p-3 rounded extra-small">
                                 <i class="fa-regular fa-clock"></i>
                             </div>
@@ -339,7 +355,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
                             <div class="combo-danger p-3 rounded extra-small">
                                 <i class="fa-solid fa-undo text-danger"></i>
                             </div>
@@ -350,7 +366,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
                             <div class="combo-warning p-3 rounded extra-small">
                                 <i class="fa-solid fa-exchange text-gray-light"></i>
                             </div>
@@ -415,27 +431,92 @@
                                     <td><span class="small fw-semibold" data-price="698"></span></td>
                                     <td><span class="small text-gray-light">Credit Card</span></td>
                                     <td><span class="small text-gray-light">June 25,2026</span></td>
-                                    <td><span class="status status-success rounded-2 text-uppercase small fw-bold">Paid</span></td>
+                                    <td><span class="status status-warning rounded-2 text-uppercase small fw-bold">Pending</span></td>
                                     <td>
                                         <div class="action-group">
-                                            <button class="btn btn-outline action-edit text-gray-light"
+                                            <button class="btn btn-outline action-edit text-gray-light hover-animation px-1"
                                                 title="Edit details"
                                                 data-edit
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#editReservationModal">
-                                                <i class="fa-regular fa-pen-to-square"></i>
+                                                data-bs-target="#viewDetailsModal">
+                                                <i class="fa-regular fa-file-alt"></i>
                                             </button>
-                                            <button class="btn btn-outline action-remove"
+                                            <button class="btn btn-outline action-remove hover-animation px-1"
+                                                title="Cancel"
+                                                data-confirm-payment>
+                                                <i class="fa-solid fa-check text-success"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="extra-small fw-semibold">PAY-001</span>
+                                    </td>
+                                    <td>
+                                        <span class="extra-small text-gray-light">GH-2026-0738</span>
+                                    </td>
+                                    <td>
+                                        <p class="extra-small fw-semibold">David & Sarah Mitchell</p>
+                                    </td>
+                                    <td><span class="small fw-semibold" data-price="698"></span></td>
+                                    <td><span class="small text-gray-light">Credit Card</span></td>
+                                    <td><span class="small text-gray-light">June 25,2026</span></td>
+                                    <td><span class="status status-success rounded-2 text-uppercase small fw-bold">Paid</span></td>
+                                    <td>
+                                        <div class="action-group">
+                                            <button class="btn btn-outline action-edit text-gray-light hover-animation px-1"
+                                                title="Edit details"
+                                                data-edit
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#viewDetailsModal">
+                                                <i class="fa-regular fa-file-alt"></i>
+                                            </button>
+                                            <button class="btn btn-outline action-remove hover-animation px-1"
                                                 title="Cancel"
                                                 data-remove
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#removeReservationModal">
+                                                data-bs-target="#refundModal">
+                                                <i class="fa-solid fa-undo"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="extra-small fw-semibold">PAY-001</span>
+                                    </td>
+                                    <td>
+                                        <span class="extra-small text-gray-light">GH-2026-0738</span>
+                                    </td>
+                                    <td>
+                                        <p class="extra-small fw-semibold">David & Sarah Mitchell</p>
+                                    </td>
+                                    <td><span class="small fw-semibold" data-price="698"></span></td>
+                                    <td><span class="small text-gray-light">Credit Card</span></td>
+                                    <td><span class="small text-gray-light">June 25,2026</span></td>
+                                    <td><span class="status status-danger rounded-2 text-uppercase small fw-bold">Refunded</span></td>
+                                    <td>
+                                        <div class="action-group">
+                                            <button class="btn btn-outline action-edit text-gray-light hover-animation px-1"
+                                                title="Edit details"
+                                                data-edit
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#viewDetailsModal">
+                                                <i class="fa-regular fa-file-alt"></i>
+                                            </button>
+                                            <button class="btn btn-outline action-remove hover-animation px-1"
+                                                title="Cancel"
+                                                data-delete
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#refundModal">
                                                 <i class="fa-solid fa-xmark"></i>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
+
                         </table>
                     </div>
                 </div>

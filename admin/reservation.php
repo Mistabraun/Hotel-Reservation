@@ -197,7 +197,7 @@ $roomsData = $rooms["data"]["items"];
                             Cancel
                         </button>
 
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary hover-animation">
                             Save Changes
                         </button>
                     </div>
@@ -292,13 +292,13 @@ $roomsData = $rooms["data"]["items"];
                     <div>
                         <h1 class="h4 m-0 p-0">Reservation Management</h1>
                     </div>
-                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-toggle="modal" data-bs-target="#addReservation" id="addReservationButton">
+                    <button class="btn btn-primary rounded-5 fw-bold small hover-animation" data-bs-toggle="modal" data-bs-target="#addReservation" id="addReservationButton">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
                         Add Reservation
                     </button>
 
                 </header>
-                <div class="row my-4 gx-2 fade-on-scroll ">
+                <div class="row my-4 gx-2 ">
                     <div class="col-md-3 col-6">
                         <div class="status-card status-card-success hover-animation rounded-3">
                             <h2 class="status-card-value fw-bold" id="confirmed-count">6</h2>
@@ -338,26 +338,26 @@ $roomsData = $rooms["data"]["items"];
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="pending">
+                            <input type="radio" name="sort" id="pending" value="pending">
                             <label for="pending" class="extra-small rounded-5 fw-semibold">Pending</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="confirmed">
+                            <input type="radio" name="sort" id="confirmed" value="confirmed">
                             <label for="confirmed" class="extra-small rounded-5 fw-semibold">Confirmed</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="checkout">
+                            <input type="radio" name="sort" id="checkout" value="checked out">
                             <label for="checkout" class="extra-small rounded-5 fw-semibold">Checked Out</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="cancelled">
+                            <input type="radio" name="sort" id="cancelled" value="cancelled">
                             <label for="cancelled" class="extra-small rounded-5 fw-semibold">Cancelled</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="overflow-hidden">
-                    <div class="overflow-x-auto mt-4 rounded-4">
+                    <div class="overflow-x-auto mt-4 rounded-4 fade-on-scroll ">
                         <table class="table table-custom" id="reservationsTable">
                             <thead>
                                 <tr>

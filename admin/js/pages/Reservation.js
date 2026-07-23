@@ -139,7 +139,7 @@ function populateTable(table, reservations) {
             <div class="action-group">
 
                 <button
-                    class="btn btn-outline action-edit text-gray-light"
+                    class="btn btn-outline action-edit text-gray-light hover-animation "
                     title="Edit details"
                         data-edit
                         data-id="${reservation.id}"
@@ -151,7 +151,7 @@ function populateTable(table, reservations) {
                 </button>
 
                 <button
-                    class="btn btn-outline action-remove"
+                    class="btn btn-outline action-remove hover-animation "
                     title="Cancel"
                  data-remove
                         data-id="${reservation.id}"

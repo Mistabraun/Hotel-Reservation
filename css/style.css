@@ -134,9 +134,9 @@ a {
 
 .btn-secondary {
   --bs-btn-color: oklch(0.35 0.022 75);
-  --bs-btn-bg: #eceae5;
+  --bs-btn-bg: oklch(0.94 0.015 88);
   --bs-btn-border-color: none;
-  --bs-btn-hover-bg: oklch(0.94 0.015 88);
+  --bs-btn-hover-bg: #eceae5;
   --bs-btn-hover-color: oklch(0.35 0.022 75);
   --bs-btn-active-bg: oklch(0.94 0.015 88);
   --bs-btn-active-color: oklch(0.35 0.022 75);
@@ -329,6 +329,7 @@ a {
 .ultra-small {
   font-size: var(--bs-fs-ultra-small);
   line-height: var(--bs-fs-ultra-small-height);
+  letter-spacing: 0.3pt;
 }
 
 .backdrop-filter {
@@ -632,6 +633,10 @@ body {
 
 .mx-w-sm {
   max-width: 24rem;
+}
+
+.mx-w-md-2 {
+  max-width: 28rem;
 }
 
 .mx-w-md {

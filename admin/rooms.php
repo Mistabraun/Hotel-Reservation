@@ -142,7 +142,7 @@ $amenitiesData = $amenities["message"];
             </div>
         </div>
 
-        <div class="modal fade" id="addRoom" tabindex="-1">
+        <div class="modal fade overflow-hidden" id="addRoom" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-md">
                 <div class="modal-content p-2">
                     <header class="modal-header d-flex justify-content-between">
@@ -151,7 +151,7 @@ $amenitiesData = $amenities["message"];
                         </div>
                     </header>
 
-                    <div class="modal-body">
+                    <div class="modal-body overflow-y-auto" style="max-height: 35rem;">
                         <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
                         <form id="addRoomForm" method="post">
                             <div class="row">
@@ -323,7 +323,7 @@ $amenitiesData = $amenities["message"];
                     </button>
                 </header>
 
-                <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                <div class="d-flex flex-column flex-md-row gap-3 mt-4 ">
                     <div class="search-group flex-grow-1">
                         <i class="fa-solid fa-search"></i>
                         <input type="text" name="search" id="roomSearch" placeholder="Search rooms..." class="form-control outline-hover rounded">
@@ -347,8 +347,8 @@ $amenitiesData = $amenities["message"];
                         </div>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <div class="table-container border rounded-3 overflow-hidden rounded-4 p-0 ">
+                <div class="mt-4 ">
+                    <div class="table-container border rounded-3 overflow-hidden rounded-4 p-0 fade-on-scroll ">
                         <table class=" table table-custom mb-0" id="roomsTable">
                             <thead>
                                 <tr>
