@@ -51,7 +51,7 @@ body {
 }
 
 .nav-link {
-  color: #1f232b !important;
+  color: #b8862f !important;
   font-weight: 500;
   position: relative;
   transition:
@@ -271,7 +271,7 @@ body {
 
 .btn-room {
   background: var(--accent);
-  color: #ffffff;
+  color: #bb7474;
   border: 1px solid var(--accent);
   transition:
     background 0.2s ease,
