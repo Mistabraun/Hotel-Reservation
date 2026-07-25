@@ -11,7 +11,7 @@ class Response
         ], $status_code);
     }
 
-    public static function success(String | array $message, $status_code = 400)
+    public static function success(String | array $message, $status_code = 200)
     {
         return self::json([
             "success" => true,

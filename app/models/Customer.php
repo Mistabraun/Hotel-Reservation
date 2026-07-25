@@ -113,6 +113,35 @@ class Customer
     }
 
 
+    public function findByEmail(string $email): ?array
+    {
+        $sql = "
+        SELECT *
+        FROM customers
+        WHERE email = ?
+        LIMIT 1
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "s",
+            $email
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $customer = mysqli_fetch_assoc($result);
+
+        return $customer ?: null;
+    }
+
     public function findById(int $id): array|null
     {
         $sql = "
@@ -312,5 +341,31 @@ class Customer
         );
 
         return mysqli_fetch_assoc($result) ?: null;
+    }
+
+    public function linkUser(
+        int $customerId,
+        int $userId
+    ): bool {
+
+        $sql = "
+        UPDATE customers
+        SET user_id = ?
+        WHERE id = ?
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "ii",
+            $userId,
+            $customerId
+        );
+
+        return mysqli_stmt_execute($statement);
     }
 }

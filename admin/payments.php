@@ -107,7 +107,7 @@
             </a>
         </div>
     </aside>
-    <div class="flex-grow-1" style="min-width: 0;">
+    <div class="flex-grow-1 " style="min-width: 0;">
 
         <div class="modal fade" id="deletePaymentModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-sm">
@@ -350,7 +350,7 @@
                 </ul>
             </div>
         </header>
-        <main class="p-4 m-1">
+        <main class="p-4 m-1 ">
             <div class="container-fluid m-0 p-0">
                 <header class="d-flex justify-content-between align-items-center">
                     <div>
@@ -362,7 +362,7 @@
                         Record Payment
                     </button>
                 </header>
-                <div class="row my-4 gx-2">
+                <div class="row my-4 gx-2 fade-on-scroll">
                     <div class="col-md-3 col-6">
                         <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
                             <div class="combo-success p-3 rounded extra-small">
@@ -410,7 +410,7 @@
 
 
                 </div>
-                <div class="d-flex flex-column flex-md-row  gap-3 mt-2">
+                <div class="d-flex flex-column flex-md-row  gap-3 mt-2 fade-on-scroll">
                     <div class="search-group flex-grow-1">
                         <i class="fa-solid fa-search"></i>
                         <input type="text" name="search" id="paymentSearch" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
@@ -434,7 +434,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-hidden">
+                <div class="overflow-hidden fade-on-scroll">
                     <div class="overflow-x-auto mt-4 rounded-4">
                         <table class="table table-custom" id="paymentsTable">
                             <thead>

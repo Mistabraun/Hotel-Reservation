@@ -173,7 +173,7 @@
                         <div class="row g-4 align-items-start">
                             <div class="col-lg-7">
                                 <div class="image-card shadow-sm overflow-hidden rounded-4">
-                                    <img src="assets/images/rooms/${room.thumbnail}" alt="${room.room_name}" />
+                                    <img src="assets/images/rooms/${room.images[0].cover_image}" alt="${room.room_name}" />
                                 </div>
                             </div>
                             <div class="col-lg-5">
@@ -216,7 +216,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="#" class="btn btn-room w-100 rounded-pill mb-3">Book Now</a>
+                                    <a href="/booking.php?roomId=${room.id}" class="btn btn-room w-100 rounded-pill mb-3">Book Now</a>
                                     <div class="detail-perks">
                                         ${highlights.map((item) => `<div><i class="fa-solid fa-check me-2"></i>${item}</div>`).join("")}
                                     </div>

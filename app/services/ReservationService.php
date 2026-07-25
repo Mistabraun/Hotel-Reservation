@@ -5,11 +5,15 @@ require_once __DIR__ . "/BaseService.php";
 require_once __DIR__ . "/../models/Reservation.php";
 require_once __DIR__ . "/../models/Room.php";
 require_once __DIR__ . "/../models/Customer.php";
+require_once __DIR__ . "/../models/User.php";
 
 require_once __DIR__ . "/../services/SessionService.php";
 
 require_once __DIR__ . "/../helper/QueryOptions.php";
 require_once __DIR__ . "/../helper/Pagination.php";
+
+require_once __DIR__ . "/../../config/Database.php";
+
 
 class ReservationService extends BaseService
 {
@@ -17,31 +21,41 @@ class ReservationService extends BaseService
     private Room $room;
     private Customer $customer;
     private SessionService $session;
+    private mysqli $connection;
+    private User $user;
+
+    private static string $PASSWORD;
 
     public function __construct()
     {
 
+        $this->connection = Database::connect();
         $this->reservation = new Reservation();
         $this->room = new Room();
+        $this->user = new User();
         $this->customer = new Customer();
         $this->session = new SessionService();
         $this->session->start();
+
+        self::$PASSWORD = password_hash(".__TEMPORARY PASSWORD__.", PASSWORD_DEFAULT);
     }
 
 
 
-    private function generateBookingReference(): string
-    {
-        $year = date("Y");
 
-        $count = $this->reservation->countAll() + 1;
+    public function generateBookingReference(): string
+    {
+
+        $year = date("Y");
+        $next = $this->reservation->getNextReferenceNumber();
 
         return sprintf(
             "GH-%s-%04d",
             $year,
-            $count
+            $next
         );
     }
+
 
     public function getAll(array $query): array
     {
@@ -82,40 +96,50 @@ class ReservationService extends BaseService
 
     public function create(array $data): array
     {
+        $firstName = trim($data["first_name"] ?? "");
+        $lastName = trim($data["last_name"] ?? "");
+        $email = trim($data["email"] ?? "");
+        $phone = trim($data["phone"] ?? "");
+
         $roomId = (int)($data["room_id"] ?? 0);
+
         $checkIn = trim($data["check_in"] ?? "");
         $checkOut = trim($data["check_out"] ?? "");
+
         $guestCount = (int)($data["guests"] ?? 1);
+
         $statusId = (int)($data["status"] ?? 1);
 
+        $requests = trim($data["special_requests"] ?? "");
 
-        if (!$this->session->isAuthenticated()) {
-            $this->error("Unauthorized");
+        if ($firstName === "") {
+            return $this->error("First name is required.");
         }
 
-        $userId = $this->session->getUserId();
-
-        if (
-            $roomId <= 0 ||
-            empty($checkIn) ||
-            empty($checkOut) ||
-            empty($userId) ||
-            $guestCount <= 0 ||
-            $statusId <= 0
-        ) {
-            return $this->error(
-                "Please complete all required fields."
-            );
+        if ($lastName === "") {
+            return $this->error("Last name is required.");
         }
 
-
-        $customer = $this->customer->findByUserId($userId);
-
-        if (!$customer) {
-            return $this->error("Customer not found.");
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->error("Invalid email address.");
         }
 
-        $customerId = $customer["id"];
+        if ($phone === "") {
+            return $this->error("Phone number is required.");
+        }
+
+        if ($roomId <= 0) {
+            return $this->error("Please select a room.");
+        }
+
+        if ($checkIn === "" || $checkOut === "") {
+            return $this->error("Reservation dates are required.");
+        }
+
+        if (strtotime($checkIn) >= strtotime($checkOut)) {
+            return $this->error("Check-out must be after check-in.");
+        }
+
 
         $room = $this->room->findById($roomId);
         if (!$room) {
@@ -149,58 +173,109 @@ class ReservationService extends BaseService
         // Generate booking reference
         $bookingReference = $this->generateBookingReference();
 
-        $reservationId = $this->reservation->create(
-            $bookingReference,
-            $customerId,
-            $roomId,
-            $checkIn,
-            $checkOut,
-            $guestCount,
-            $statusId
-        );
 
-        if (!$reservationId) {
-            return $this->error(
-                "Failed to create reservation."
+        mysqli_begin_transaction($this->connection);
+
+        try {
+
+            $user = $this->user->findByEmail($email);
+            $userId = 0;
+
+            if (!$user) {
+                $userId = $this->user->create($email, self::$PASSWORD, "2");
+            } else {
+                $userId = $user["id"];
+            }
+
+            $customerId = $this->customer->findByUserId($userId);
+            if (!$customerId) {
+                $customerId = $this->customer->create(
+                    $userId,
+                    $firstName,
+                    $lastName,
+                    $phone
+                );;
+            } else {
+                $customerId = $customerId["id"];
+            }
+
+            $reservationId = $this->reservation->create(
+                $bookingReference,
+                $customerId,
+                $roomId,
+                $checkIn,
+                $checkOut,
+                $guestCount,
+                $statusId,
+                $requests
             );
-        }
 
-        return $this->success(
-            "Reservation created successfully.",
-            [
-                "id" => $reservationId
-            ]
-        );
+            if (!$reservationId) {
+                throw new Exception("Unable to create reservation.");
+            }
+
+            mysqli_commit($this->connection);
+
+            return $this->success(
+                "Reservation created successfully.",
+                [
+                    "reservation_id" => $reservationId
+                ]
+            );
+        } catch (Exception $e) {
+
+            mysqli_rollback($this->connection);
+
+            return $this->error($e->getMessage());
+        }
     }
 
     public function update(int $id, array $data): array
     {
 
+        $firstName = trim($data["first_name"] ?? "");
+        $lastName = trim($data["last_name"] ?? "");
+        $email = trim($data["email"] ?? "");
+        $phone = trim($data["phone"] ?? "");
+
         $roomId = (int)($data["room_id"] ?? 0);
+
         $checkIn = trim($data["check_in"] ?? "");
         $checkOut = trim($data["check_out"] ?? "");
+
         $guestCount = (int)($data["guests"] ?? 1);
+
         $statusId = (int)($data["status"] ?? 1);
 
-        if (
-            $roomId <= 0 ||
-            empty($checkIn) ||
-            empty($checkOut) ||
-            $guestCount <= 0 ||
-            $statusId <= 0
-        ) {
-            return $this->error(
-                "Please complete all required fields."
-            );
+        $requests = trim($data["special_requests"] ?? "");
+
+        if ($firstName === "") {
+            return $this->error("First name is required.");
         }
 
-
-        if (!$this->session->isAuthenticated()) {
-            $this->error("Unauthorized");
+        if ($lastName === "") {
+            return $this->error("Last name is required.");
         }
 
-        $userId = $this->session->getUserId();
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return $this->error("Invalid email address.");
+        }
 
+        if ($phone === "") {
+            return $this->error("Phone number is required.");
+        }
+
+        if ($roomId <= 0) {
+            return $this->error("Please select a room.");
+        }
+
+        if ($checkIn === "" || $checkOut === "") {
+            return $this->error("Reservation dates are required.");
+        }
+
+        if (strtotime($checkIn) >= strtotime($checkOut)) {
+            return $this->error("Check-out must be after check-in.");
+        }
 
         if ($id <= 0) {
             return $this->error("Invalid reservation.");
@@ -216,18 +291,6 @@ class ReservationService extends BaseService
 
         if ($statusId <= 0) {
             return $this->error("Please select a reservation status.");
-        }
-
-        $customer = $this->customer->findByUserId($userId);
-
-        if (!$customer) {
-            return $this->error("Customer not found.");
-        }
-
-        if (!$this->session->isAdmin()) {
-            if ($customer["id"] !== $exists["customer_id"]) {
-                return $this->error("Unauthorized");
-            }
         }
 
         if (
@@ -249,7 +312,8 @@ class ReservationService extends BaseService
             $checkIn,
             $checkOut,
             $guestCount,
-            $statusId
+            $statusId,
+            $requests
         );
         if (!$success) {
             return $this->error("Failed to update reservation.");
@@ -279,17 +343,15 @@ class ReservationService extends BaseService
         );
     }
 
-    public function getUnavailableDates(int $roomId): array
+    public function getUnavailableDates(int $roomId, int $reservationId): array
     {
         if (!$this->room->findById($roomId)) {
             return $this->error("Invalid room");
         }
 
-        $dates = $this->reservation->getUnavailableDates($roomId);
-
         return $this->success(
             "Unavailable dates retrieved successfully.",
-            $this->reservation->getUnavailableDates($roomId)
+            $this->reservation->getUnavailableDates($roomId, $reservationId)
         );
     }
 

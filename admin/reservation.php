@@ -158,6 +158,30 @@ $roomsData = $rooms["data"]["items"];
 
                                 </div>
                             </div>
+
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="first_name" class="form-label extra-small fw-semibold ">First Name</label>
+                                    <input type="text" id="first_name" name="first_name" min="0" class="form-control outline-hover rounded input-subtle" placeholder="Leinox">
+                                </div>
+                                <div class="col">
+                                    <label for="last_name" class="form-label extra-small fw-semibold ">Last Name</label>
+                                    <input type="text" id="last_name" name="last_name" min="0" class="form-control outline-hover rounded input-subtle" placeholder="Saraspe">
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <label for="phone" class="form-label extra-small fw-semibold ">Phone</label>
+                                    <input type="number" id="phone" name="phone" min="0" class="form-control outline-hover rounded input-subtle" placeholder="09123456789">
+                                </div>
+                                <div class="col">
+                                    <label for="email" class="form-label extra-small fw-semibold ">Email</label>
+                                    <input type="email" id="email" name="email" min="0" class="form-control outline-hover rounded input-subtle" placeholder="customer@email.com">
+                                </div>
+
+                            </div>
+
                             <div class="row mt-2">
                                 <div class="col">
                                     <label for="reservation_dates" class="form-label extra-small fw-semibold">
@@ -168,7 +192,7 @@ $roomsData = $rooms["data"]["items"];
                                         type="text"
                                         id="reservation_dates"
                                         class="form-control outline-hover rounded input-subtle"
-                                        placeholder="Select check-in and check-out"
+                                        placeholder="Select a date"
                                         readonly>
                                 </div>
 
@@ -176,7 +200,7 @@ $roomsData = $rooms["data"]["items"];
                                 <input type="hidden" id="check_out" name="check_out">
                                 <div class="col">
                                     <label for="guests" class="form-label extra-small fw-semibold">Guests</label>
-                                    <input type="number" id="guests" name="guests" min="0" class="form-control outline-hover rounded input-subtle">
+                                    <input type="number" id="guests" name="guests" min="0" class="form-control outline-hover rounded input-subtle" placeholder="2">
                                 </div>
                             </div>
                             <div class="row mt-2">

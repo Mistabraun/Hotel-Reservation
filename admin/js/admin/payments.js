@@ -359,10 +359,7 @@ if (paymentModal && paymentForm) {
         const transactionContainer =
             modal.querySelector("[data-transaction]").parentElement;
 
-        if (
-            payment.status.toLowerCase() === "paid" ||
-            payment.status.toLowerCase() === "refunded"
-        ) {
+        if (payment.transaction_reference) {
 
             transactionContainer.classList.remove("d-none");
 
@@ -389,6 +386,8 @@ if (paymentModal && paymentForm) {
         switch (payment.status.toLowerCase()) {
 
             case "paid":
+                status.parentElement.className =
+                    "combo-success py-2 rounded-3 text-center";
 
                 status.innerHTML = `
                 <i class="fa-solid fa-check-double"></i>
@@ -400,6 +399,9 @@ if (paymentModal && paymentForm) {
                 break;
 
             case "pending":
+
+                status.parentElement.className =
+                    "combo-warning py-2 rounded-3 text-center";
 
                 status.className =
                     "combo-warning py-2 rounded-3 text-center";
@@ -415,6 +417,9 @@ if (paymentModal && paymentForm) {
 
             case "refunded":
 
+                status.parentElement.className =
+                    "combo-danger py-2 rounded-3 text-center";
+
                 status.className =
                     "combo-danger py-2 rounded-3 text-center";
 
@@ -426,7 +431,20 @@ if (paymentModal && paymentForm) {
             `;
 
                 break;
+            case "cancelled":
+                status.parentElement.className =
+                    "combo-gray py-2 rounded-3 text-center";
 
+                status.className =
+                    "combo-gray py-2 rounded-3 text-center";
+
+                status.innerHTML = `
+                <i class="fa-solid fa-cancel"></i>
+                <span class="fw-semibold">
+                    Cancelled
+                </span>`
+
+                break;
         }
 
     }
@@ -495,7 +513,7 @@ if (paymentModal && paymentForm) {
                 button.dataset.id;
 
             const response = await fetch(
-                `../../api/payments/getById.php?id=${refundPaymentId}`
+                `../../ api / payments / getById.php ? id = ${refundPaymentId} `
             );
 
             const result =

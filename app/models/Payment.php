@@ -543,6 +543,66 @@ class Payment
         );
     }
 
+    public function findPaymentMethodById(string $id): ?array
+    {
+        $sql = "
+        SELECT *
+        FROM payment_methods
+        WHERE id = ?
+        LIMIT 1
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "i",
+            $name
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $paymentMethod = mysqli_fetch_assoc($result);
+
+        return $paymentMethod ?: null;
+    }
+
+
+    public function findPaymentMethodByName(string $name): ?array
+    {
+        $sql = "
+        SELECT *
+        FROM payment_methods
+        WHERE name = ?
+        LIMIT 1
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "s",
+            $name
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $paymentMethod = mysqli_fetch_assoc($result);
+
+        return $paymentMethod ?: null;
+    }
+
+
     public function getStatuses(): array
     {
         $sql = "

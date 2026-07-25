@@ -22,6 +22,15 @@ class PaymentService extends BaseService
         $this->connection = Database::connect();
     }
 
+    public function generateCardTransactionReference(): string
+    {
+        return sprintf(
+            "CARD-%s-%s",
+            date("YmdHis"),
+            strtoupper(bin2hex(random_bytes(3)))
+        );
+    }
+
     /**
      * Generates the next payment reference.
      * Example: PAY-0001
@@ -119,7 +128,7 @@ class PaymentService extends BaseService
             ]
         );
     }
-
+    
     public function create(array $data): array
     {
         $reservationId = (int)($data["reservation_id"] ?? 0);
@@ -131,7 +140,7 @@ class PaymentService extends BaseService
         );
 
         $paidAt = trim(
-            $data["paid_at"] ?? ""
+            $data["paid_at"] ?? date('Y-m-d')
         );
 
         if ($reservationId <= 0) {
@@ -360,6 +369,14 @@ class PaymentService extends BaseService
 
         return $this->success(
             "Payment deleted successfully."
+        );
+    }
+
+    public function getPaymentMethodName(string $name)
+    {
+        return $this->success(
+            "Payment method retrieved successfully.",
+            $this->payment->findPaymentMethodByName($name)
         );
     }
 

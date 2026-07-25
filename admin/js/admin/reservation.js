@@ -41,40 +41,10 @@ async function initializeReservationPicker() {
 
     });
 
-    document
-        .querySelector("#room_id")
-        .addEventListener("change", async function () {
-
-            const dates = await loadUnavailableDates(this.value)
-            console.log(this.value, dates)
-            reservationPicker.set(
-                "disable",
-                dates
-            );
-
-            reservationPicker.clear();
-
-            document.querySelector("#check_in").value = "";
-            document.querySelector("#check_out").value = "";
-
-        });
 
 }
 
-async function updatePicker(id) {
-    const unavailableDates = await loadUnavailableDates(id)
-    console.log(unavailableDates)
-    reservationPicker.set(
-        "disable",
-        unavailableDates
-    );
 
-    reservationPicker.clear();
-
-    document.querySelector("#check_in").value = "";
-    document.querySelector("#check_out").value = "";
-
-}
 
 if (addReservationModalElement && addReservationForm) {
 
@@ -138,7 +108,7 @@ if (addReservationModalElement && addReservationForm) {
 
     }
 
-    function prepareCreateModal() {
+    async function prepareCreateModal() {
         modalMode = "create";
         editingReservationId = null;
 
@@ -147,6 +117,22 @@ if (addReservationModalElement && addReservationForm) {
         addReservationForm.reset();
 
         modalMessage.classList.add("d-none");
+        reservationPicker.clear()
+        reservationPicker.setDate([])
+
+        const roomElement = document
+            .querySelector("#room_id")
+
+        console.log(roomElement.value)
+        if (roomElement.value) {
+            const unavailableDates = await loadUnavailableDates(roomElement.value)
+            reservationPicker.set(
+                "disable",
+                unavailableDates
+            );
+        }
+
+
     }
 
     async function prepareEditModal(reservationId) {
@@ -170,14 +156,35 @@ if (addReservationModalElement && addReservationForm) {
         }
 
         const reservation = result.data;
-        // updatePicker(reservation.room_id)
+
+        const unavailableDates = await loadUnavailableDates(reservation.room_id, reservationId)
+        reservationPicker.set(
+            "disable",
+            unavailableDates
+        );
+        console.log(unavailableDates)
+
+        reservationPicker.clear();
+
+        document.querySelector("#check_in").value = "";
+        document.querySelector("#check_out").value = "";
+
 
         modalReference.textContent = reservation.booking_reference
+
+
+        addReservationForm.first_name.value = reservation.first_name
+        addReservationForm.last_name.value = reservation.last_name
+        addReservationForm.phone.value = reservation.phone_number
+        addReservationForm.email.value = reservation.email
+
         addReservationForm.room_id.value = reservation.room_id
         addReservationForm.check_in.value = reservation.check_in
 
         addReservationForm.check_out.value = reservation.check_out
         addReservationForm.check_out.min = reservation.check_in
+
+
 
         addReservationForm.guests.value = Math.min(reservation.number_of_guests, reservation.capacity)
         addReservationForm.guests.max = reservation.capacity
@@ -186,6 +193,9 @@ if (addReservationModalElement && addReservationForm) {
         modalNights.textContent = reservation.nights
         modalPricePerNight.textContent = formatCurrency(reservation.price_per_night)
         modalTotal.textContent = formatCurrency(reservation.total_amount)
+
+        console.log("new picker")
+        reservationPicker.setDate([reservation.check_in, reservation.check_out], true)
         updateSummary()
 
     }
@@ -265,6 +275,26 @@ if (addReservationModalElement && addReservationForm) {
         "change",
         updateSummary
     );
+
+
+    document
+        .querySelector("#room_id")
+        .addEventListener("change", async function () {
+
+            const dates = await loadUnavailableDates(this.value, editingReservationId)
+            reservationPicker.set(
+                "disable",
+                dates
+            );
+
+            console.log("clear")
+            reservationPicker.clear();
+
+            document.querySelector("#check_in").value = "";
+            document.querySelector("#check_out").value = "";
+
+        });
+
 
 }
 

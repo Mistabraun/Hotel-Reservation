@@ -61,6 +61,11 @@ a {
   background-color: oklch(0.97 0.02 45);
 }
 
+.combo-gray {
+  background-color: oklch(0.95 0.01 82);
+  color: oklch(0.43 0.015 75);
+}
+
 .btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: oklch(0.65 0.18 85);

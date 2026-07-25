@@ -10,8 +10,9 @@ AuthMiddleware::method("GET");
 $reservationService = new ReservationService();
 
 $id = (int)($_GET["id"] ?? 0);
+$reservationId = (int)($_GET["reservation"] ?? 0);
 
 
-$response = $reservationService->getUnavailableDates($id);
+$response = $reservationService->getUnavailableDates($id, $reservationId);
 
 Response::json($response);

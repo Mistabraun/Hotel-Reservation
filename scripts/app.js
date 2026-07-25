@@ -7,10 +7,10 @@ function formatCurrency(price, targetCurrency = "PHP") {
 }
 
 
-async function loadUnavailableDates(roomId) {
+async function loadUnavailableDates(roomId, reservationId) {
 
     const response = await fetch(
-        `../../api/reservations/unavailableDates.php?id=${roomId}`
+        `../../api/reservations/unavailableDates.php?id=${roomId}&reservation=${reservationId}`
     );
 
     const result = await response.json();

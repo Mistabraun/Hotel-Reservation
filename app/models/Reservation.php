@@ -11,6 +11,19 @@ class Reservation
         $this->connection = Database::connect();
     }
 
+    public function getNextReferenceNumber(): int
+    {
+        $sql = "
+        SELECT COALESCE(MAX(id), 0) + 1 AS next_number
+        FROM reservations
+    ";
+
+        $result = mysqli_query($this->connection, $sql);
+
+        return (int) mysqli_fetch_assoc($result)["next_number"];
+    }
+
+
     public function create(
         string $bookingReference,
         int $customerId,
@@ -18,7 +31,8 @@ class Reservation
         string $checkIn,
         string $checkOut,
         int $guestCount,
-        int $statusId
+        int $statusId,
+        ?string $requests = ""
     ): int|false {
 
         $sql = "
@@ -29,9 +43,10 @@ class Reservation
                 check_in,
                 check_out,
                 number_of_guests,
-                status_id
+                status_id,
+                requests
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ";
 
         $statement = mysqli_prepare(
@@ -41,14 +56,15 @@ class Reservation
 
         mysqli_stmt_bind_param(
             $statement,
-            "siissii",
+            "siissiis",
             $bookingReference,
             $customerId,
             $roomId,
             $checkIn,
             $checkOut,
             $guestCount,
-            $statusId
+            $statusId,
+            $requests
         );
 
         if (!mysqli_stmt_execute($statement)) {
@@ -66,7 +82,8 @@ class Reservation
         string $checkIn,
         string $checkOut,
         int $guestCount,
-        int $statusId
+        int $statusId,
+        ?string $requests = ""
     ): bool {
 
         $sql = "
@@ -76,7 +93,8 @@ class Reservation
                 check_in = ?,
                 check_out = ?,
                 number_of_guests = ?,
-                status_id = ?
+                status_id = ?,
+                requests = ?
             WHERE id = ?
         ";
 
@@ -87,12 +105,13 @@ class Reservation
 
         mysqli_stmt_bind_param(
             $statement,
-            "issiii",
+            "issiisi",
             $roomId,
             $checkIn,
             $checkOut,
             $guestCount,
             $statusId,
+            $requests,
             $id
         );
 
@@ -216,6 +235,9 @@ class Reservation
             SELECT
                 r.booking_reference,
                  CONCAT(c.first_name, ' ', c.last_name) AS guest,
+                 c.first_name, 
+                 c.last_name,
+                 c.phone_number,
                 u.email,
                 rm.room_name,
                 rm.id AS room_id,
@@ -294,7 +316,7 @@ class Reservation
         return mysqli_fetch_assoc($result) ?: null;
     }
 
-    public function getUnavailableDates(int $roomId): array
+    public function getUnavailableDates(int $roomId, ?int $reservationId = null): array
     {
         $sql = "
         SELECT
@@ -307,12 +329,23 @@ class Reservation
             ON r.status_id = rs.id
 
         WHERE
-            r.room_id = ?
-            AND LOWER(rs.name) <> 'cancelled'
-            AND check_out >= CURDATE()
+            r.room_id = ? ";
 
+        $params = [$roomId];
+        $types = "s";
+
+        if ($reservationId) {
+            $sql .= "AND r.id <> ? ";
+            $types .= "s";
+            $params[] = $reservationId;
+        }
+
+        $sql .= "AND LOWER(rs.name) <> 'cancelled'
+        AND check_out >= CURDATE()
         ORDER BY check_in ASC
-    ";
+        ";
+
+
 
         $statement = mysqli_prepare(
             $this->connection,
@@ -321,8 +354,8 @@ class Reservation
 
         mysqli_stmt_bind_param(
             $statement,
-            "i",
-            $roomId
+            $types,
+            ...$params
         );
 
         mysqli_stmt_execute($statement);
@@ -552,4 +585,7 @@ class Reservation
 
         return (int) mysqli_fetch_assoc($result)["total"];
     }
+
+    
+
 }
