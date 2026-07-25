@@ -14,6 +14,8 @@ abstract class BaseService
 
         if ($data) {
             $response["data"] = $data;
+        }else {
+            $response["data"] = [];
         }
 
         return $response;

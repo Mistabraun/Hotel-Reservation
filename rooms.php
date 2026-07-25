@@ -15,7 +15,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                        <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
+            <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
 
             <div class="ms-auto d-flex align-items-center gap-4">
                 <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
@@ -42,11 +42,11 @@
                 <div class="row gx-4 gy-3 align-items-center">
                     <div class="col-lg-8">
                         <div class="filter-group d-flex flex-wrap gap-2">
-                            <button class="filter-pill active" data-filter="all">All</button>
-                            <button class="filter-pill" data-filter="standard">Standard</button>
-                            <button class="filter-pill" data-filter="deluxe">Deluxe</button>
-                            <button class="filter-pill" data-filter="family">Family</button>
-                            <button class="filter-pill" data-filter="suite">Suite</button>
+                            <button class="filter-pill active" data-type="All">All</button>
+                            <button class="filter-pill" data-type="Standard">Standard</button>
+                            <button class="filter-pill" data-type="Deluxe">Deluxe</button>
+                            <button class="filter-pill" data-type="Family Room">Family Room</button>
+                            <button class="filter-pill" data-type="Suite">Suite</button>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -68,7 +68,7 @@
 
         <section id="rooms" class="rooms-section py-5">
             <div class="container">
-                <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+                <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3" id="roomsContainer">
                     <article class="col room-item" data-type="family" data-capacity="4">
                         <div class="card room-card h-100 overflow-hidden">
                             <img src="assets/images/Room1.jpg" class="card-img-top" alt="Family Suite">
@@ -211,45 +211,153 @@
     </footer>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/scripts/app.js"></script>
     <script>
-        const navbar = document.querySelector('.navbar');
-        const setNavbarState = () => {
-            if (navbar) {
-                navbar.classList.toggle('scrolled', window.scrollY > 20);
-            }
-        };
+        let selectedType = "All";
+        let selectedCapacity = 1;
 
-        window.addEventListener('scroll', setNavbarState, {
-            passive: true
-        });
-        setNavbarState();
-
+        const container = document.getElementById("roomsContainer")
         const filterButtons = document.querySelectorAll('.filter-pill');
         const capacitySelect = document.getElementById('capacitySelect');
-        const rooms = document.querySelectorAll('.room-item');
 
-        function applyFilters() {
-            const activeType = document.querySelector('.filter-pill.active').dataset.filter;
-            const activeCapacity = Number(capacitySelect.value);
+        function generateRooms(items) {
 
-            rooms.forEach(room => {
-                const type = room.dataset.type;
-                const capacity = Number(room.dataset.capacity);
-                const matchesType = activeType === 'all' || type === activeType;
-                const matchesCapacity = capacity >= activeCapacity;
-                room.style.display = (matchesType && matchesCapacity) ? 'block' : 'none';
+            container.innerHTML = "";
+
+            items.forEach(room => {
+
+                const visibleAmenities = room.amenities.slice(0, 3);
+
+                const amenities = visibleAmenities
+                    .map(amenity => `<span>${amenity.name}</span>`)
+                    .join("");
+
+                const remaining =
+                    room.amenities.length - visibleAmenities.length;
+
+                const more =
+                    remaining > 0 ?
+                    `<span>+${remaining} More</span>` :
+                    "";
+
+                container.insertAdjacentHTML(
+                    "beforeend",
+                    `
+            <article
+                class="col room-item"
+                data-type="${room.room_type}"
+                data-capacity="${room.capacity}">
+
+                <div class="card room-card h-100 overflow-hidden">
+
+                    <img
+                        src="assets/images/rooms/${room.thumbnail}"
+                        class="card-img-top"
+                        alt="${room.room_name}">
+
+                    <div class="card-body">
+
+                        <span class="room-tag">
+                            ${room.room_type}
+                        </span>
+
+                        <h2 class="room-title">
+                            ${room.room_name}
+                        </h2>
+
+                        <p class="room-price">
+                            ${formatCurrency(room.price_per_night)}
+                            <span>/ night</span>
+                        </p>
+
+                        <p class="room-meta">
+                            ${room.capacity}
+                            ${room.capacity === 1 ? "guest" : "guests"}
+                            ·
+                            ${parseInt(room.size)}
+                            sq ft
+                            ·
+                            ${room.bed_type}
+                        </p>
+
+                        <div class="room-features d-flex flex-wrap gap-2 mb-4">
+
+                            ${amenities}
+
+                            ${more}
+
+                        </div>
+
+                        <a
+                            href="room-id.php?roomId=${room.id}"
+                            class="btn btn-room rounded-pill">
+
+                            View details
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+            `
+                );
+
             });
+
+        }
+
+        async function loadRooms() {
+
+            const params = new URLSearchParams();
+
+            if (selectedType !== "All") {
+                params.append("type", selectedType);
+            }
+
+            if (selectedCapacity) {
+                params.append("capacity", selectedCapacity);
+            }
+
+            const response = await fetch(
+                `api/users/rooms/get.php?${params.toString()}`, {
+                    headers: {
+                        Accept: "application/json"
+                    }
+                }
+            );
+
+            const result = await response.json();
+            if (!response.ok || !result.success) {
+                return
+            }
+            generateRooms(result.data)
         }
 
         filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                applyFilters();
+
+            button.addEventListener("click", () => {
+
+                filterButtons.forEach(btn =>
+                    btn.classList.remove("active")
+                );
+
+                button.classList.add("active");
+
+                selectedType = button.dataset.type;
+
+                loadRooms();
+
             });
+
         });
 
-        capacitySelect.addEventListener('change', applyFilters);
+        capacitySelect.addEventListener("change", function() {
+            selectedCapacity = Number(capacitySelect.value);
+            loadRooms()
+        })
+        loadRooms()
     </script>
 </body>
 

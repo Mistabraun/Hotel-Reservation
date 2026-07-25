@@ -317,48 +317,119 @@ class Room
     }
 
 
-    public function getClientRooms(): array
-    {
+    public function getClientRooms(
+        ?string $roomType = null,
+        ?int $capacity = null
+    ): array {
+
         $sql = "
-           SELECT
+        SELECT
             r.id,
             r.room_name,
             r.room_type_id,
             r.price_per_night,
             r.capacity,
             r.size,
-            r.description
             r.bed_type,
-
             rt.name AS room_type,
             rs.name AS status,
-
             ri.thumbnail
 
         FROM rooms r
 
-             INNER JOIN room_types rt
-                ON r.room_type_id = rt.id
-            INNER JOIN room_statuses rs
-                ON r.status_id = rs.id
-            LEFT JOIN room_images ri
-                ON ri.room_id = r.id
+        INNER JOIN room_types rt
+            ON r.room_type_id = rt.id
+
+        INNER JOIN room_statuses rs
+            ON r.status_id = rs.id
+
+        LEFT JOIN room_images ri
+            ON ri.room_id = r.id
 
         WHERE LOWER(rs.name) = 'available'
-
-        ORDER BY
-            r.price_per_night ASC,
-            r.room_name ASC;
     ";
 
-        $result = mysqli_query(
+        $types = "";
+        $params = [];
+
+        if (!empty($roomType)) {
+
+            $sql .= " AND LOWER(rt.name) = LOWER(?)";
+
+            $types .= "s";
+            $params[] = trim($roomType);
+        }
+
+        if (!empty($capacity)) {
+
+            $sql .= " AND r.capacity >= ?";
+
+            $types .= "i";
+            $params[] = $capacity;
+        }
+
+        $sql .= "
+        ORDER BY
+            r.price_per_night ASC,
+            r.room_name ASC
+    ";
+
+        $statement = mysqli_prepare(
             $this->connection,
             $sql
         );
 
+        if (!empty($params)) {
+            mysqli_stmt_bind_param(
+                $statement,
+                $types,
+                ...$params
+            );
+        }
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
         $rooms = [];
 
         while ($row = mysqli_fetch_assoc($result)) {
+
+            $amenitySql = "
+        SELECT
+            a.id,
+            a.name
+        FROM room_amenities ra
+
+        INNER JOIN amenities a
+            ON ra.amenity_id = a.id
+
+        WHERE ra.room_id = ?
+
+        ORDER BY a.name
+    ";
+
+            $amenityStatement = mysqli_prepare(
+                $this->connection,
+                $amenitySql
+            );
+
+            mysqli_stmt_bind_param(
+                $amenityStatement,
+                "i",
+                $row["id"]
+            );
+
+            mysqli_stmt_execute($amenityStatement);
+
+            $amenityResult = mysqli_stmt_get_result($amenityStatement);
+
+            $row["amenities"] = [];
+
+            while ($amenity = mysqli_fetch_assoc($amenityResult)) {
+                $row["amenities"][] = $amenity;
+            }
+
             $rooms[] = $row;
         }
 
@@ -378,7 +449,6 @@ class Room
             r.capacity,
             r.size,
             r.bed_type,
-
             rt.name AS room_type,
             rs.name AS status
 
@@ -392,7 +462,6 @@ class Room
 
         WHERE
             r.id = ?
-            AND LOWER(rs.name) = 'available'
 
         LIMIT 1
     ";

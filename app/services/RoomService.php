@@ -461,13 +461,17 @@ class RoomService extends BaseService
 
 
 
-    public function getClientRooms(): array
+    public function getClientRooms(array $data): array
     {
         return $this->success(
             "Rooms retrieved successfully.",
-            $this->room->getClientRooms()
+            $this->room->getClientRooms(
+                $data["type"] ?? null,
+                $data["capacity"] ?? null
+            )
         );
     }
+
 
     public function getClientRoomById(array $data): array
     {
