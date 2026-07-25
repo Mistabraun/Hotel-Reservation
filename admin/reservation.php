@@ -24,21 +24,18 @@ $roomsData = $rooms["data"]["items"];
     <title>Document</title>
 </head>
 
-<body class="vh-100 d-flex position-relative bg-main">
-    <aside
-        id="sidebar"
-        data-bs-scroll="true"
-        tabindex="1"
-        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column"
-        style="width: 16rem">
+<body class="d-flex flex-column flex-lg-row app-wrapper bg-main">
+    <aside id="sidebar"
+        class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column flex-shrink-0"
+        tabindex="-1"
+        style="width: 16rem;">
 
         <header class="cpx-3 pt-4 pb-2">
             <h1 class="h5">Grand Horizon</h1>
             <p class="f-spacing-wide fw-semibold text-uppercase ultra-small text-gray">Admin Panel</p>
         </header>
-
         <div class="line"></div>
-        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto">
+        <nav class="px-2.5 pt-4 pb-2 d-flex flex-column gap-4 overflow-y-auto flex-grow-1">
             <div class="sidebar-category">
                 <h2>Overview</h2>
                 <ul class="sidebar-list">
@@ -50,7 +47,7 @@ $roomsData = $rooms["data"]["items"];
                     </li>
                 </ul>
             </div>
-            <div class="sidebar-category ">
+            <div class="sidebar-category">
                 <h2>Management</h2>
                 <ul class="sidebar-list">
                     <li>
@@ -123,7 +120,7 @@ $roomsData = $rooms["data"]["items"];
             </a>
         </div>
     </aside>
-    <div class="flex-grow-1 " style="min-width: 0;">
+    <div class="flex-grow-1 w-100 app-main d-flex flex-column">
 
         <div class="modal fade" id="addReservation" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-md">

@@ -1,9 +1,18 @@
 <?php
 
 include_once __DIR__ . "/app/services/SessionService.php";
+include_once __DIR__ . "/app/services/CustomerProfileService.php";
 
 $sessionService = new SessionService();
 $sessionService->start();
+
+$userId = $sessionService->getUserId();
+if (!$userId) {
+  return;
+}
+
+$customerProfile = new CustomerProfile();
+$profile = $customerProfile->findByUserId($userId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -208,10 +217,9 @@ $sessionService->start();
                     <i class="fa fa-user-circle fs-2 mt-1"></i>
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end mt-2 me-3 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
                     <div class="profile-header p-1 px-3 mb-2">
-                        <p class="profile-name fw-semibold">Justine Carl</p>
-                        <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
+                        <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
                         <span class="status status-warning rounded-1">Super Admin</span>
                     </div>
                     <div class="line"></div>

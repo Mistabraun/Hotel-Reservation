@@ -117,6 +117,10 @@ class StayService extends BaseService
             return $this->error("Guest has already checked out.");
         }
 
+        if (!$this->reservation->updateStatus($reservationId, 3)) {
+            return $this->error("Unable to check out guest.");
+        }
+
         if (!$this->stay->checkOut($reservationId)) {
             return $this->error("Unable to check out guest.");
         }
