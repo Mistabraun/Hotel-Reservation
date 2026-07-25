@@ -66,7 +66,7 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
@@ -167,38 +167,42 @@
 
 
             <div class="row g-4 my-1">
+
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-solid fa-building text-warning fs-4 mb-4 card-icon hover-glow-building"></i>
-                            <h3 class="fw-bold mb-1">120</h3>
+                            <h3 class="fw-bold mb-1" data-total-rooms>0</h3>
                             <p class="text-muted-custom small m-0">Total Rooms</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-regular fa-circle-check text-success fs-4 mb-4 card-icon hover-pop-check"></i>
-                            <h3 class="fw-bold mb-1">87</h3>
+                            <h3 class="fw-bold mb-1" data-available-rooms>0</h3>
                             <p class="text-muted-custom small m-0">Available</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2" onclick="window.location.href='guests.php'">
                         <div class="card-body">
                             <i class="fa-solid fa-user text-danger fs-4 mb-4 card-icon hover-jump-user"></i>
-                            <h3 class="fw-bold mb-1">30</h3>
+                            <h3 class="fw-bold mb-1" data-occupied-rooms>0</h3>
                             <p class="text-muted-custom small m-0">Occupied</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-solid fa-wrench text-warning fs-4 mb-4 card-icon hover-twist-wrench"></i>
-                            <h3 class="fw-bold mb-1">3</h3>
+                            <h3 class="fw-bold mb-1" data-maintenance-rooms>0</h3>
                             <p class="text-muted-custom small m-0">Maintenance</p>
                         </div>
                     </div>
@@ -208,7 +212,7 @@
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-regular fa-calendar-check text-secondary fs-4 mb-4 card-icon hover-swing-calendar"></i>
-                            <h3 class="fw-bold mb-1">8</h3>
+                            <h3 class="fw-bold mb-1" data-today-reservations>0</h3>
                             <p class="text-muted-custom small m-0">Today's Reservations</p>
                         </div>
                     </div>
@@ -218,7 +222,7 @@
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-solid fa-arrow-right-to-bracket text-info fs-4 mb-4 card-icon hover-slide-right"></i>
-                            <h3 class="fw-bold mb-1">12</h3>
+                            <h3 class="fw-bold mb-1" data-expected-checkins>0</h3>
                             <p class="text-muted-custom small m-0">Expected Check-ins</p>
                         </div>
                     </div>
@@ -228,7 +232,7 @@
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-solid fa-arrow-right-from-bracket text-danger fs-4 mb-4 card-icon hover-slide-left"></i>
-                            <h3 class="fw-bold mb-1">9</h3>
+                            <h3 class="fw-bold mb-1" data-expected-checkouts>0</h3>
                             <p class="text-muted-custom small m-0">Expected Check-outs</p>
                         </div>
                     </div>
@@ -238,14 +242,15 @@
                     <div class="card summary-card border-0 shadow-sm rounded-4 h-100 p-2">
                         <div class="card-body">
                             <i class="fa-solid fa-circle-dollar-to-slot text-success fs-4 mb-4 card-icon hover-flip-coin"></i>
-                            <h3 class="fw-bold mb-1">$284.5k</h3>
+                            <h3 class="fw-bold mb-1" data-monthly-revenue>$0</h3>
                             <p class="text-muted-custom small m-0">Monthly Revenue</p>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="row g-4 mb-4 fade-on-scroll">
+            <div class="row mt-1 g-4 mb-4 fade-on-scroll">
                 <div class="col-12 col-lg-6">
                     <div class="card border-0 shadow-sm rounded-4 p-2 h-100">
                         <div class="card-body">
@@ -352,8 +357,75 @@
     <script src="../scripts/app.js"></script>
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", async function() {
             // Chart Configuration
+
+            function getHighest(array) {
+                let highest = 0
+                array.forEach(element => {
+                    if (element > highest) {
+                        highest = element
+                    }
+                });
+                return highest
+            }
+
+            function sum(array) {
+                let total = 0
+                array.forEach(element => {
+
+                    total += element
+                });
+                return total
+            }
+
+            const response = await fetch("/api/dashboard/summary.php", {
+                headers: {
+                    Accept: "application/json"
+                }
+            });
+
+            const result = await response.json();
+            if (!response.ok || !result.success) {
+                return;
+            }
+
+            const data = result.data
+
+            const summary = result.data;
+
+            document.querySelector("[data-total-rooms]").textContent =
+                summary.rooms.total;
+
+            document.querySelector("[data-available-rooms]").textContent =
+                summary.rooms.available;
+
+            document.querySelector("[data-occupied-rooms]").textContent =
+                summary.rooms.occupied;
+
+            document.querySelector("[data-maintenance-rooms]").textContent =
+                summary.rooms.maintenance;
+
+            document.querySelector("[data-today-reservations]").textContent =
+                summary.reservations.today;
+
+            document.querySelector("[data-expected-checkins]").textContent =
+                summary.reservations.arrivals;
+
+            document.querySelector("[data-expected-checkouts]").textContent =
+                summary.reservations.departures;
+
+            document.querySelector("[data-monthly-revenue]").textContent =
+                formatCurrency(summary.revenue.month);
+
+            const roomsData = data.rooms
+            const resevationsData = data.reservation
+            const revenueData = data.revenueData
+
+            const chart = data.charts
+            const occupancyChart = chart.occupancy
+            const revenueChart = chart.monthly_revenue
+
             const commonOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -386,10 +458,10 @@
             new Chart(ctxOccupancy, {
                 type: 'bar',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    labels: occupancyChart.labels,
                     datasets: [{
                         label: 'Occupancy Rate (%)',
-                        data: [60, 70, 82, 75, 85, 90, 80],
+                        data: occupancyChart.data,
                         backgroundColor: '#8bc5fa',
                         borderWidth: 0,
                         barPercentage: 0.6
@@ -401,7 +473,7 @@
                         ...commonOptions.scales,
                         y: {
                             ...commonOptions.scales.y,
-                            max: 90,
+                            max: Math.max(getHighest(occupancyChart.data), 20),
                             ticks: {
                                 stepSize: 10
                             }
@@ -413,10 +485,10 @@
             new Chart(ctxRevenue, {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    labels: revenueChart.labels,
                     datasets: [{
-                        label: 'Revenue ($k)',
-                        data: [150, 190, 210, 250, 280, 320],
+                        label: `Revenue (${formatCurrency(sum(revenueChart.data))})`,
+                        data: revenueChart.data,
                         backgroundColor: '#8bc5fa',
                         borderWidth: 0,
                         barPercentage: 0.6
@@ -428,7 +500,7 @@
                         ...commonOptions.scales,
                         y: {
                             ...commonOptions.scales.y,
-                            max: 350,
+                            max: Math.max(getHighest(revenueChart.data), 100000),
                             ticks: {
                                 stepSize: 50
                             }

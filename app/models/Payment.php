@@ -21,6 +21,70 @@ class Payment
         return (int) mysqli_fetch_assoc($result)["total"];
     }
 
+    public function getNextReferenceNumber(): int
+    {
+        $sql = "
+        SELECT COALESCE(MAX(id), 0) + 1 AS next_number
+        FROM payments
+    ";
+
+        $result = mysqli_query($this->connection, $sql);
+
+        return (int) mysqli_fetch_assoc($result)["next_number"];
+    }
+
+    public function getSummary(): array
+    {
+        $sql = "
+        SELECT
+            COUNT(*) AS count,
+
+            SUM(
+                CASE
+                    WHEN ps.name = 'Pending'
+                    THEN 1
+                    ELSE 0
+                END
+            ) AS pending,
+
+            SUM(
+                CASE
+                    WHEN ps.name = 'Paid'
+                    THEN 1
+                    ELSE 0
+                END
+            ) AS paid,
+
+            SUM(
+                CASE
+                    WHEN ps.name = 'Refunded'
+                    THEN 1
+                    ELSE 0
+                END
+            ) AS refunded,
+
+            COALESCE(
+                SUM(
+                    CASE
+                        WHEN ps.name = 'Paid'
+                        THEN p.amount
+                        ELSE 0
+                    END
+                ),
+                0
+            ) AS collected
+
+        FROM payments p
+
+        INNER JOIN payment_statuses ps
+            ON p.status_id = ps.id
+    ";
+
+        $result = mysqli_query($this->connection, $sql);
+
+        return mysqli_fetch_assoc($result);
+    }
+
     public function getAll(QueryOptions $options): array
     {
         $sql = "
@@ -219,9 +283,37 @@ class Payment
         $statement = mysqli_prepare(
             $this->connection,
             "
-                SELECT *
-                FROM payments
-                WHERE id = ?
+               SELECT
+                p.id,
+                p.payment_reference,
+                p.transaction_reference,
+                p.amount,
+                p.paid_at,
+
+                p.reservation_id,
+
+                r.booking_reference,
+
+                CONCAT(c.first_name, ' ', c.last_name) AS guest,
+
+                pm.name AS payment_method,
+                ps.name AS status
+
+            FROM payments p
+
+            INNER JOIN reservations r
+                ON p.reservation_id = r.id
+
+            INNER JOIN customers c
+                ON r.customer_id = c.id
+
+            INNER JOIN payment_methods pm
+                ON p.payment_method_id = pm.id
+
+            INNER JOIN payment_statuses ps
+                ON p.status_id = ps.id
+
+            WHERE p.id = ?
             "
         );
 
@@ -443,6 +535,27 @@ class Payment
             FROM payment_methods
             ORDER BY name ASC
         "
+        );
+
+        return mysqli_fetch_all(
+            $result,
+            MYSQLI_ASSOC
+        );
+    }
+
+    public function getStatuses(): array
+    {
+        $sql = "
+        SELECT
+            id,
+            name
+        FROM payment_statuses
+        ORDER BY id ASC
+    ";
+
+        $result = mysqli_query(
+            $this->connection,
+            $sql
         );
 
         return mysqli_fetch_all(

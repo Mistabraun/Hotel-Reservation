@@ -68,7 +68,7 @@
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
@@ -109,6 +109,33 @@
     </aside>
     <div class="flex-grow-1" style="min-width: 0;">
 
+        <div class="modal fade" id="deletePaymentModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered mx-w-sm">
+                <div class="modal-content p-2 ">
+                    <div class="modal-body d-flex flex-column justify-content-center align-items-center gap-2">
+                        <div class="bg-danger-subtle p-3 rounded-circle">
+                            <i class="fa-solid fa-xmark text-danger"></i>
+                        </div>
+                        <h2 class="fw-semibold fs-4">Delete Room?</h2>
+                        <p class="small text-center">This action cannot be undone. All associated data will be removed.</p>
+                    </div>
+                    <div class="modal-footer border-0 d-flex justify-content-center p-0 pb-2 m-0">
+                        <button class="btn btn-secondary rounded-5" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <button class="btn btn-danger rounded-5" data-bs-dismiss="modal" data-confirm>
+                            Remove
+                        </button>
+
+                    </div>
+                    <div class="alert alert-danger py-0 text-center d-none" id="modalMessage">Error occured</div>
+
+                </div>
+            </div>
+        </div>
+
+
         <div class="modal fade" id="refundModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered mx-w-sm">
                 <div class="modal-content p-2 ">
@@ -139,23 +166,23 @@
                 <div class="modal-content p-2 border-0">
                     <div class="modal-header pb-0 d-flex justify-content-between align-items-start gap-3 border-0">
                         <div>
-                            <h4 class="fs-4 fw-semibold mb-2">Record Payment</h4>
+                            <h4 class="fs-4 fw-semibold mb-2" data-title>Record Payment</h4>
                         </div>
                     </div>
 
                     <div class="modal-body">
                         <div class="alert alert-danger py-2 d-none" id="modalMessage"></div>
                         <form id="addRoomForm" method="post">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col">
-                                    <label for="name" class="form-label extra-small fw-semibold">Payment ID</label>
-                                    <input type="text" id="name" name="name" class="form-control outline-hover rounded input-subtle" placeholder="PAY-008" data-id="8">
+                                    <label for="payment_reference" class="form-label extra-small fw-semibold">Payment ID</label>
+                                    <input type="text" value="payment_reference" name="payment_reference" class="form-control outline-hover rounded input-subtle" placeholder="PAY-008" data-id="8">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="type" class="form-label extra-small fw-semibold">Resrvation ID</label>
-                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                    <label for="reservation_id" class="form-label extra-small fw-semibold">Resrvation ID</label>
+                                    <select name="reservation_id" id="reservation_id" class="form-select outline-hover rounded input-subtle">
                                         <option value="">Select reservation...</option>
                                         <option value="14">GH-2026-0738 — Yodelle Heyo</option>
                                         <option value="26">GH-2026-0782 — Mark Sucker</option>
@@ -165,12 +192,12 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6">
-                                    <label for="type" class="form-label extra-small fw-semibold">Amount</label>
-                                    <input type="text" value="$101" id="name" name="name" class="form-control outline-hover rounded input-subtle" readonly>
+                                    <label class="form-label extra-small fw-semibold">Amount</label>
+                                    <input type="text" id="amount" value="$101" class="form-control outline-hover rounded input-subtle" readonly>
                                 </div>
                                 <div class="col-6">
-                                    <label for="type" class="form-label extra-small fw-semibold">Method</label>
-                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                    <label for="payment_method_id" class="form-label extra-small fw-semibold">Method</label>
+                                    <select name="payment_method_id" id="payment_method_id" class="form-select outline-hover rounded input-subtle">
                                         <option value="1">Credit Card</option>
                                         <option value="2">Gcash</option>
                                     </select>
@@ -178,8 +205,8 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6">
-                                    <label for="type" class="form-label extra-small fw-semibold">Method</label>
-                                    <select name="type" id="type" class="form-select outline-hover rounded input-subtle">
+                                    <label for="status_id" class="form-label extra-small fw-semibold">Method</label>
+                                    <select name="status_id" id="status_id" class="form-select outline-hover rounded input-subtle">
                                         <option value="1">Paid</option>
                                         <option value="2">Pending</option>
                                         <option value="3">Refunded</option>
@@ -187,8 +214,8 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <label for="type" class="form-label extra-small fw-semibold">Date</label>
-                                    <input type="date" id="name" name="name" class="form-control outline-hover rounded input-subtle">
+                                    <label for="paid_at" class="form-label extra-small fw-semibold">Date</label>
+                                    <input type="date" id="paid_at" name="paid_at" class="form-control outline-hover rounded input-subtle">
                                 </div>
                             </div>
                     </div>
@@ -211,8 +238,8 @@
                 <div class="modal-content py-2 pb-4 px-3 border-0">
                     <div class="modal-header d-flex justify-content-between align-items-start gap-3 border-0">
                         <div>
-                            <h4 class="fs-4 fw-semibold mb-2">Payment Receipt</h4>
-                            <p class="extra-small text-secondary-2" data-id="PAY-001">PAY-001</p>
+                            <h4 class="fs-4 fw-semibold mb-2" data-title>Payment Receipt</h4>
+                            <p class="extra-small text-secondary-2" data-id>PAY-001</p>
                         </div>
                         <div class="d-flex gap-1 text-secondary-2">
                             <button class="btn btn-outline text-gray-light hover-animation extra-small px-1" onclick="window.print">
@@ -233,28 +260,32 @@
                         <div class="d-flex flex-column small gap-2">
                             <div class="d-flex justify-content-between">
                                 <span class="text-secondary-2 fw-semibold">Guest</span>
-                                <span class="fw-semibold">David & Sarah Mitchell</span>
+                                <span class="fw-semibold" data-guest>David & Sarah Mitchell</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span class="text-secondary-2 fw-semibold">Reservation</span>
-                                <span class="fw-semibold">GH-2026-0738 </span>
+                                <span class="fw-semibold" data-reservation>GH-2026-0738 </span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span class="text-secondary-2 fw-semibold">Method</span>
-                                <span class="fw-semibold">Credit Card</span>
+                                <span class="fw-semibold" data-method>Credit Card</span>
+                            </div>
+                            <div class="d-flex justify-content-between d-none">
+                                <span class="text-secondary-2 fw-semibold">Reference</span>
+                                <span class="fw-semibold" data-transaction>TXN-20260724-001</span>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <span class="text-secondary-2 fw-semibold">Date</span>
-                                <span class="fw-semibold">Jun 25, 2026</span>
+                                <span class="fw-semibold" data-date>Jun 25, 2026</span>
                             </div>
                             <div class="line"></div>
                             <div class="d-flex justify-content-between">
                                 <span class="text-secondary-2 fw-semibold">Amount</span>
-                                <span class="fs-5 fw-bold">$698</span>
+                                <span class="fs-5 fw-bold" data-amount>$698</span>
                             </div>
                             <div class="combo-success py-2 rounded-3 text-center">
-                                <i class="fa-solid fa-check-double"></i>
-                                <span class="fw-semibold">Payment Received</span>
+                                <!-- <i class="fa-solid fa-check-double"></i> -->
+                                <span class="fw-semibold" data-status>Payment Received</span>
                             </div>
                             <p class="text-center ultra-small my-2 text-secondary-2">Thank you for choosing Grand Horizon</p>
                         </div>
@@ -326,7 +357,7 @@
                         <h1 class="h4 m-0 p-0">Payment Management</h1>
                         <p class="text-secondary-2 m-0 p-0">1 guest on record</p>
                     </div>
-                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-target="#addPaymentModal" data-bs-toggle="modal">
+                    <button class="btn btn-primary rounded-5 fw-bold small" data-bs-target="#addPaymentModal" data-bs-toggle="modal" id="addPaymentButton">
                         <i class="fa-solid fa-plus extra-small align-middle me-1"></i>
                         Record Payment
                     </button>
@@ -338,30 +369,8 @@
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                             </div>
                             <div>
-                                <h2 class="status-card-value fw-bold" data-price="6146"></h2>
-                                <p class="status-card-label">Total Guests</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
-                            <div class="combo-warning p-3 rounded extra-small">
-                                <i class="fa-regular fa-clock"></i>
-                            </div>
-                            <div>
-                                <h2 class="status-card-value fw-bold" data-price="1716">12</h2>
-                                <p class="status-card-label fw-semibold">Pending</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
-                            <div class="combo-danger p-3 rounded extra-small">
-                                <i class="fa-solid fa-undo text-danger"></i>
-                            </div>
-                            <div>
-                                <h2 class="status-card-value fw-bold" data-price="657">3</h2>
-                                <p class="status-card-label fw-semibold">Refunded</p>
+                                <h2 class="status-card-value fw-bold" data-price="6146" id="collected-count"></h2>
+                                <p class="status-card-label">Total Collected</p>
                             </div>
                         </div>
                     </div>
@@ -371,40 +380,63 @@
                                 <i class="fa-solid fa-exchange text-gray-light"></i>
                             </div>
                             <div>
-                                <h2 class="status-card-value fw-bold">7</h2>
-                                <p class="status-card-label fw-semibold">Transactions</p>
+                                <h2 class="status-card-value fw-bold" id="transactions-count">7</h2>
+                                <p class="status-card-label fw-semibold">Total Transactions</p>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
+                            <div class="combo-warning p-3 rounded extra-small">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold" data-price="1716" id="pending-count">12</h2>
+                                <p class="status-card-label fw-semibold">Total Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="status-card rounded-3 d-flex align-items-center gap-3 hover-animation">
+                            <div class="combo-danger p-3 rounded extra-small">
+                                <i class="fa-solid fa-undo text-danger"></i>
+                            </div>
+                            <div>
+                                <h2 class="status-card-value fw-bold" data-price="657" id="refunded-count">3</h2>
+                                <p class="status-card-label fw-semibold">Total Refunded</p>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
                 <div class="d-flex flex-column flex-md-row  gap-3 mt-2">
                     <div class="search-group flex-grow-1">
                         <i class="fa-solid fa-search"></i>
-                        <input type="text" name="search" id="search" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
+                        <input type="text" name="search" id="paymentSearch" placeholder="Search by guest or reference" class="form-control outline-hover rounded">
                     </div>
                     <div class="sort-group rounded-5 gap-2 p-1 overflow-x-auto">
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="all" value="active" checked>
+                            <input type="radio" name="sort" id="all" value="all" checked>
                             <label for="all" class="extra-small rounded-5 fw-semibold">All</label>
                         </div>
                         <div class="sort-input">
-                            <input type="radio" name="sort" id="pending">
+                            <input type="radio" name="sort" id="pending" value="paid">
                             <label for="pending" class="extra-small rounded-5 fw-semibold">Paid</label>
                         </div>
                         <div class="sort-input">
                             <input type="radio" name="sort" id="confirmed">
-                            <label for="confirmed" class="extra-small rounded-5 fw-semibold">Pending</label>
+                            <label for="confirmed" class="extra-small rounded-5 fw-semibold" value="pending">Pending</label>
                         </div>
                         <div class="sort-input">
                             <input type="radio" name="sort" id="checkout">
-                            <label for="checkout" class="extra-small rounded-5 fw-semibold">Refunded</label>
+                            <label for="checkout" class="extra-small rounded-5 fw-semibold" value="refunded">Refunded</label>
                         </div>
                     </div>
                 </div>
                 <div class="overflow-hidden">
                     <div class="overflow-x-auto mt-4 rounded-4">
-                        <table class="table table-custom">
+                        <table class="table table-custom" id="paymentsTable">
                             <thead>
                                 <tr>
                                     <th scope="col">Payment ID</th>
@@ -516,7 +548,7 @@
                                     </td>
                                 </tr>
                             </tbody>
-
+                            <tfoot></tfoot>
                         </table>
                     </div>
                 </div>
@@ -525,6 +557,7 @@
     </div>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/app.js"></script>
+    <script type="module" src="../admin/js/admin/payments.js"></script>
 </body>
 
 </html>

@@ -154,6 +154,60 @@ class Reservation
         );
     }
 
+    public function hasConflictingReservation(
+        int $roomId,
+        string $checkIn,
+        string $checkOut,
+        ?int $excludeReservationId = null
+    ): bool {
+
+        $sql = "
+        SELECT COUNT(*) AS total
+        FROM reservations r
+
+        INNER JOIN reservation_statuses rs
+            ON r.status_id = rs.id
+
+        WHERE
+            r.room_id = ?
+            AND LOWER(rs.name) <> 'cancelled'
+            AND ? < r.check_out
+            AND ? > r.check_in
+    ";
+
+        $types = "iss";
+        $params = [
+            $roomId,
+            $checkIn,
+            $checkOut
+        ];
+
+        if ($excludeReservationId !== null) {
+
+            $sql .= " AND r.id <> ?";
+
+            $types .= "i";
+            $params[] = $excludeReservationId;
+        }
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            $types,
+            ...$params
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        return (int) mysqli_fetch_assoc($result)["total"] > 0;
+    }
+
     public function findById(
         int $id
     ): array|null {
@@ -238,6 +292,54 @@ class Reservation
         );
 
         return mysqli_fetch_assoc($result) ?: null;
+    }
+
+    public function getUnavailableDates(int $roomId): array
+    {
+        $sql = "
+        SELECT
+            check_in AS `from`,
+            DATE_SUB(check_out, INTERVAL 1 DAY) AS `to`
+
+        FROM reservations r
+
+        INNER JOIN reservation_statuses rs
+            ON r.status_id = rs.id
+
+        WHERE
+            r.room_id = ?
+            AND LOWER(rs.name) <> 'cancelled'
+            AND check_out >= CURDATE()
+
+        ORDER BY check_in ASC
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "i",
+            $roomId
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $ranges = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+            $ranges[] = [
+                "from" => $row["from"],
+                "to"   => $row["to"]
+            ];
+        }
+
+        return $ranges;
     }
 
     public function getAll(

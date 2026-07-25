@@ -28,11 +28,11 @@ class PaymentService extends BaseService
      */
     private function generatePaymentReference(): string
     {
-        $count = $this->payment->countAll() + 1;
+        $next = $this->payment->getNextReferenceNumber();
 
         return sprintf(
-            "PAY-%04d",
-            $count
+            "PAY-%03d",
+            $next
         );
     }
 
@@ -85,6 +85,14 @@ class PaymentService extends BaseService
         return $this->success(
             "Payment retrieved successfully.",
             $payment
+        );
+    }
+
+    public function getStatuses(): array
+    {
+        return $this->success(
+            "Payment statuses retrieved successfully.",
+            $this->payment->getStatuses()
         );
     }
 
@@ -153,7 +161,7 @@ class PaymentService extends BaseService
         }
 
         $paymentReference = $this->generatePaymentReference();
-        
+
         $amount = (float)$reservation["total_amount"];
 
         if ($statusId === 2 && empty($paidAt)) {
@@ -368,6 +376,13 @@ class PaymentService extends BaseService
         );
     }
 
+    public function getSummary(): array
+    {
+        return $this->success(
+            "Payment summary retrieved successfully.",
+            $this->payment->getSummary()
+        );
+    }
 
     public function updateStatus(
         int $id,

@@ -4,6 +4,77 @@ import { FilterGroup } from "../components/FilterGroup.js";
 
 const addReservationModalElement = document.getElementById("addReservation");
 const addReservationForm = document.getElementById("addReservationForm");
+let reservationPicker
+
+async function initializeReservationPicker() {
+
+    const roomId =
+        document.querySelector("#room_id").value;
+
+    if (!roomId) {
+        return;
+    }
+
+    const unavailableDates =
+        await loadUnavailableDates(roomId);
+
+    console.log(unavailableDates)
+
+    reservationPicker = flatpickr("#reservation_dates", {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        disable: unavailableDates,
+        onClose(selectedDates) {
+
+            if (selectedDates.length !== 2) {
+                return;
+            }
+
+            document.querySelector("#check_in").value =
+                this.formatDate(selectedDates[0], "Y-m-d");
+
+            document.querySelector("#check_out").value =
+                this.formatDate(selectedDates[1], "Y-m-d");
+
+        }
+
+    });
+
+    document
+        .querySelector("#room_id")
+        .addEventListener("change", async function () {
+
+            const dates = await loadUnavailableDates(this.value)
+            console.log(this.value, dates)
+            reservationPicker.set(
+                "disable",
+                dates
+            );
+
+            reservationPicker.clear();
+
+            document.querySelector("#check_in").value = "";
+            document.querySelector("#check_out").value = "";
+
+        });
+
+}
+
+async function updatePicker(id) {
+    const unavailableDates = await loadUnavailableDates(id)
+    console.log(unavailableDates)
+    reservationPicker.set(
+        "disable",
+        unavailableDates
+    );
+
+    reservationPicker.clear();
+
+    document.querySelector("#check_in").value = "";
+    document.querySelector("#check_out").value = "";
+
+}
 
 if (addReservationModalElement && addReservationForm) {
 
@@ -75,7 +146,6 @@ if (addReservationModalElement && addReservationForm) {
 
         addReservationForm.reset();
 
-
         modalMessage.classList.add("d-none");
     }
 
@@ -100,6 +170,7 @@ if (addReservationModalElement && addReservationForm) {
         }
 
         const reservation = result.data;
+        // updatePicker(reservation.room_id)
 
         modalReference.textContent = reservation.booking_reference
         addReservationForm.room_id.value = reservation.room_id
@@ -236,4 +307,6 @@ if (reservationSearch) {
     });
 }
 
+
 reservationPagination.load(1, "all");
+initializeReservationPicker()

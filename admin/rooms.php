@@ -76,7 +76,7 @@ $amenitiesData = $amenities["message"];
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
@@ -203,18 +203,25 @@ $amenitiesData = $amenities["message"];
                                     <label for="bed_type" class="form-label extra-small fw-semibold">Bed Type</label>
                                     <input type="text" id="bed_type" name="bed_type" class="form-control outline-hover rounded input-subtle" placeholder="1 King Bed">
                                 </div>
+
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6 col">
-                                    <label for="thumbnail" class="form-label extra-small fw-semibold">Image</label>
-                                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" class="form-control outline-hover rounded input-subtle" required>
+                                    <label for="thumbnail" class="form-label extra-small fw-semibold">Thumbnail Image</label>
+                                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" class="form-control outline-hover rounded input-subtle">
                                 </div>
                                 <div class="col-md-6 col">
-                                    <label for="cover_image" class="form-label extra-small fw-semibold">Image</label>
-                                    <input type="file" id="cover_image" name="cover_image" accept="image/*" class="form-control outline-hover rounded input-subtle" required>
+                                    <label for="cover_image" class="form-label extra-small fw-semibold">Cover Image</label>
+                                    <input type="file" id="cover_image" name="cover_image" accept="image/*" class="form-control outline-hover rounded input-subtle">
                                 </div>
                             </div>
                             <div class="row mt-2">
+                                <div class="col">
+                                    <label for="description" class="form-label extra-small fw-semibold">Description</label>
+                                    <textarea name="description" id="description" class="form-control outline-hover rounded"></textarea>
+                                </div>
+                            </div>
+                            <div class=" row mt-2">
                                 <div class="col">
                                     <p class="extra-small fw-semibold my-2">Ameneties</p>
 

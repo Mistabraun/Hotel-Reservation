@@ -58,6 +58,7 @@ class RoomService extends BaseService
         $size = trim($data["size"] ?? "");
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
+        $description = $data["description"] ?? "";
 
         $thumbnailFile = $files["thumbnail"] ?? null;
         $coverImageFile = $files["cover_image"] ?? null;
@@ -95,6 +96,10 @@ class RoomService extends BaseService
             return $this->error("Bed type is required.");
         }
 
+        if (empty($description)) {
+            return $this->error("Description is required");
+        }
+
         if ($this->room->findByRoomNumber($roomNumber)) {
             return $this->error("Room number already exists.");
         }
@@ -128,7 +133,8 @@ class RoomService extends BaseService
                 $price,
                 $capacity,
                 $size,
-                $bedType
+                $bedType,
+                $description
             );
 
             if (!$roomId) {
@@ -203,6 +209,7 @@ class RoomService extends BaseService
         $size = (float)($data["size"] ?? 0);
         $bedType = trim($data["bed_type"] ?? "");
         $amenities = $data["amenities"] ?? [];
+        $description = $data["description"] ?? "";
 
         $thumbnailFile = $files["thumbnail"] ?? null;
         $coverImageFile = $files["cover_image"] ?? null;
@@ -239,6 +246,12 @@ class RoomService extends BaseService
             return $this->error("Bed type is required.");
         }
 
+
+        if (empty($description)) {
+            return $this->error("Description is required");
+        }
+
+
         if (!$this->room->findById($id)) {
             return $this->error("Room not found.");
         }
@@ -271,7 +284,8 @@ class RoomService extends BaseService
                     $price,
                     $capacity,
                     $size,
-                    $bedType
+                    $bedType,
+                    $description
                 )
             ) {
                 throw new Exception("Unable to update room.");
@@ -438,6 +452,40 @@ class RoomService extends BaseService
         $amenities = $this->roomAmenity->getByRoomId($id);
 
         $room["amenities"] = array_column($amenities, "id");
+
+        return $this->success(
+            "Room retrieved successfully.",
+            $room
+        );
+    }
+
+
+
+    public function getClientRooms(): array
+    {
+        return $this->success(
+            "Rooms retrieved successfully.",
+            $this->room->getClientRooms()
+        );
+    }
+
+    public function getClientRoomById(array $data): array
+    {
+        if (empty($data["id"])) {
+            return $this->error(
+                "Room ID is required."
+            );
+        }
+
+        $room = $this->room->getClientRoomById(
+            (int)$data["id"]
+        );
+
+        if (!$room) {
+            return $this->error(
+                "Room not found."
+            );
+        }
 
         return $this->success(
             "Room retrieved successfully.",

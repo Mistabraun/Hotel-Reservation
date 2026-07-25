@@ -3,6 +3,7 @@
     "@fortawesome/fontawesome-free": "^7.3.0",
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
+    "flatpickr": "^4.6.13",
     "recharts": "^3.9.2"
   },
   "name": "hotel-reservation",

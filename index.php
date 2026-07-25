@@ -19,6 +19,7 @@ $sessionService->start();
   <!-- Local Icons for UI Elements | FOR SOCMED ACCOUNTS-->
   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
   <!-- Connection to Main Custom CSS File Link -->
+  <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -528,35 +529,28 @@ $sessionService->start();
 
   <section class="py-5 bg-white">
     <div class="container my-4">
-      <!-- Bootstrap Carousel Wrapper -->
+      <div class="text-center mb-5">
+        <span class="text-uppercase font-sans tracking-widest text-gold small fw-bold d-block mb-2">Guest Experiences</span>
+        <h2 class="font-serif display-5 text-dark">What Our Guests Say</h2>
+      </div>
+
       <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-        <!-- Indicators / Navigation Dots sa ilalim -->
-        <div class="carousel-indicators" style="bottom: -50px">
-          <button
-            type="button"
-            data-bs-target="#testimonialCarousel"
-            data-bs-slide-to="0"
-            class="active"
-            aria-current="true"
-            style="background-color: #c49a45"></button>
-          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" style="background-color: #c49a45"></button>
-          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" style="background-color: #c49a45"></button>
+        <div class="carousel-indicators" style="bottom: -50px;">
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" style="background-color: #c49a45;"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" style="background-color: #c49a45;"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" style="background-color: #c49a45;"></button>
         </div>
 
         <div class="carousel-inner">
-          <!-- SLIDE 1: OLIVIA BENSON -->
           <div class="carousel-item active">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0 h-100">
-                <!-- Left Column Image aspect wrapper -->
+              <div class="row g-0">
                 <div class="col-md-5">
-                  <img src="assets/images/Reviewer.jpg" alt="Olivia Reviewer" class="w-100 h-100 review-img" />
+                  <img src="assets/images/Reviewer.jpg" alt="Olivia Reviewer" class="w-100 h-100 review-img" style="object-fit: cover; min-height: 400px;">
                 </div>
-                <!-- Right Column Text fields -->
                 <div class="col-md-7 p-4 p-lg-5 d-flex flex-column justify-content-center">
                   <p class="font-serif fs-5 font-light lh-base mb-4 fst-italic">
-                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an
-                    atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
+                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
                   </p>
                   <div>
                     <h5 class="font-serif mb-1">Olivia Margaret Benson</h5>
@@ -567,43 +561,34 @@ $sessionService->start();
             </div>
           </div>
 
-          <!-- SLIDE 2: RAFAEL BARBA -->
           <div class="carousel-item">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0 h-100">
-                <!-- Left Column Image aspect wrapper -->
+              <div class="row g-0">
                 <div class="col-md-5">
-                  <img src="assets/images/Reviewer2.jpeg" alt="Rafael Reviewer" class="w-100 h-100 review-img" />
+                  <img src="assets/images/Reviewer2.jpg" alt="Chris Reviewer" class="w-100 h-100 review-img" style="object-fit: cover; min-height: 400px;">
                 </div>
-                <!-- Right Column Text fields -->
                 <div class="col-md-7 p-4 p-lg-5 d-flex flex-column justify-content-center">
                   <p class="font-serif fs-5 font-light lh-base mb-4 fst-italic">
-                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an
-                    atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
+                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
                   </p>
                   <div>
-                    <h5 class="font-serif mb-1">Rafael Barba</h5>
-                    <span class="small font-sans opacity-60">Travel Editor of Wanderlust Magazine and Prosecutor and Assistant District Attorney of Manhattan Special Victims
-                      Unit</span>
+                    <h5 class="font-serif mb-1">Christoper Meloni</h5>
+                    <span class="small font-sans opacity-60">Travel Editor of Wanderlust Magazine and Senior Detective of Manhattan Special Victims Unit</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- SLIDE 3: CASEY NOVAK -->
           <div class="carousel-item">
             <div class="testimonial-box rounded-4 overflow-hidden bg-dark text-white mx-auto">
-              <div class="row g-0 h-100">
-                <!-- Left Column Image aspect wrapper -->
+              <div class="row g-0">
                 <div class="col-md-5">
-                  <img src="assets/images/Reviewer3.jpg" alt="Casey Reviewer" class="w-100 h-100 review-img" />
+                  <img src="assets/images/Reviewer3.jpg" alt="Casey Reviewer" class="w-100 h-100 review-img" style="object-fit: cover; min-height: 400px;">
                 </div>
-                <!-- Right Column Text fields -->
                 <div class="col-md-7 p-4 p-lg-5 d-flex flex-column justify-content-center">
                   <p class="font-serif fs-5 font-light lh-base mb-4 fst-italic">
-                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an
-                    atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
+                    "Grand Horizon redefines coastal luxury. From the moment you step into the marble lobby, you are enveloped in an atmosphere of refined elegance. The ocean suite was spectacular — waking up to the waves was pure magic."
                   </p>
                   <div>
                     <h5 class="font-serif mb-1">Casey Novak</h5>
@@ -615,29 +600,12 @@ $sessionService->start();
           </div>
         </div>
 
-        <!-- Left & Right Navigation Arrows -->
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#testimonialCarousel"
-          data-bs-slide="prev"
-          style="left: -80px">
-          <span
-            class="carousel-control-prev-icon"
-            aria-hidden="true"
-            style="filter: invert(68%) sepia(43%) saturate(542%) cp-color(#c49a45); min-width: 35px; min-height: 35px"></span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(68%) sepia(43%) saturate(542%) cp-color(#c49a45); min-width: 35px; min-height: 35px;"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#testimonialCarousel"
-          data-bs-slide="next"
-          style="right: -80px">
-          <span
-            class="carousel-control-next-icon"
-            aria-hidden="true"
-            style="filter: invert(68%) sepia(43%) saturate(542%) cp-color(#c49a45); min-width: 35px; min-height: 35px"></span>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(68%) sepia(43%) saturate(542%) cp-color(#c49a45); min-width: 35px; min-height: 35px;"></span>
           <span class="visually-hidden">Next</span>
         </button>
       </div>
@@ -687,9 +655,8 @@ $sessionService->start();
       <div class="row g-4 mb-5">
         <div class="col-12 col-lg-4 mb-4 mb-lg-0">
           <h3 class="font-serif h4 mb-3 fw-bold">Grand Horizon</h3>
-          <p class="opacity-60 font-sans font-light small lh-lg" style="max-width: 900px">
-            Where timeless elegance meets the serene beauty of the shore. Immerse yourself in unparalleled luxury, breathtaking ocean
-            views, and unforgettable moments along the pristine Malibu coastline.
+          <p class="opacity-60 font-sans font-light small lh-lg" style="max-width: 900px;">
+            Where timeless elegance meets the serene beauty of the shore. Immerse yourself in unparalleled luxury, breathtaking ocean views, and unforgettable moments along the pristine Malibu coastline.
           </p>
         </div>
 
@@ -698,30 +665,28 @@ $sessionService->start();
             <div class="col-4">
               <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Explore</h6>
               <ul class="list-unstyled font-sans small d-grid gap-2">
-                <li><a href="rooms.php" class="footer-link">Our Rooms</a></li>
-                <li><a href="amenities.php" class="footer-link">Dining</a></li>
-                <li><a href="amenities.php" class="footer-link">Spa & Wellness</a></li>
-                <li><a href="amenities.php" class="footer-link">Pool</a></li>
+                <li><a href="rooms.html" class="footer-link">Our Rooms</a></li>
+                <li><a href="amenities.html" class="footer-link">Dining</a></li>
+                <li><a href="amenities.html" class="footer-link">Spa & Wellness</a></li>
+                <li><a href="amenities.html" class="footer-link">Pool</a></li>
               </ul>
             </div>
-
             <div class="col-4">
               <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Information</h6>
               <ul class="list-unstyled font-sans small d-grid gap-2">
-                <li><a href="#about" class="footer-link">About Us</a></li>
-                <li><a href="#" class="footer-link">Contact</a></li>
-                <li><a href="#" class="footer-link">Location</a></li>
-                <li><a href="#" class="footer-link">Careers</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#locationModal">Location</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#careersModal">Careers</a></li>
               </ul>
             </div>
-
             <div class="col-4">
               <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Policies</h6>
               <ul class="list-unstyled font-sans small d-grid gap-2">
-                <li><a href="#" class="footer-link">Cancellation Policy</a></li>
-                <li><a href="#" class="footer-link">Privacy Policy</a></li>
-                <li><a href="#" class="footer-link">Terms of Service</a></li>
-                <li><a href="#" class="footer-link">FAQ</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#cancellationModal">Cancellation Policy</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#faqModal">FAQ</a></li>
               </ul>
             </div>
           </div>
@@ -730,12 +695,11 @@ $sessionService->start();
 
       <div class="pt-4 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
         <p class="font-sans small opacity-50 mb-0">&copy; 2026 Grand Horizon. All rights reserved.</p>
-
         <div class="d-flex gap-4 social-icons-wrap">
-          <a href="#" class="footer-icon-link"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="footer-icon-link"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" class="footer-icon-link"><i class="fa-brands fa-x"></i></a>
-          <a href="#" class="footer-icon-link"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="footer-icon-link"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="footer-icon-link"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="footer-icon-link"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="footer-icon-link"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
     </div>

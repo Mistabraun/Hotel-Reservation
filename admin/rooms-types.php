@@ -75,7 +75,7 @@ $amenities = $amenityService->getAll();
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>

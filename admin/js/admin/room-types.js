@@ -4,7 +4,7 @@ const container = document.querySelector("#roomTypesContainer");
 
 const modal = document.getElementById("addTypeModal");
 const form = document.getElementById("addTypeForm");
-
+1
 if (container) {
     loadRoomTypes();
 }

@@ -15,6 +15,11 @@ $roomsData = $rooms["data"]["items"];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+        href="../node_modules/flatpickr/dist/flatpickr.min.css">
+
+    <script src="../node_modules/flatpickr/dist/flatpickr.min.js"></script>
     <link rel="stylesheet" href="../css/style.css" />
     <title>Document</title>
 </head>
@@ -79,7 +84,7 @@ $roomsData = $rooms["data"]["items"];
                 <h2>Operations</h2>
                 <ul class="sidebar-list">
                     <li>
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Check-in / Out
                         </a>
@@ -142,6 +147,9 @@ $roomsData = $rooms["data"]["items"];
                                         name="room_id"
                                         class="form-select outline-hover rounded input-subtle">
                                         <?php foreach ($roomsData as $room): ?>
+                                            <?php if ($room["status"] !== "Available") {
+                                                continue;
+                                            } ?>
                                             <option value="<?= $room["id"] ?>" data-amount="<?= $room["price_per_night"] ?>">
                                                 <?= $room["room_name"] ?>
                                             </option>
@@ -152,13 +160,20 @@ $roomsData = $rooms["data"]["items"];
                             </div>
                             <div class="row mt-2">
                                 <div class="col">
-                                    <label for="check_in" class="form-label extra-small fw-semibold">Check-in</label>
-                                    <input type="date" id="check_in" name="check_in" class="form-control outline-hover rounded input-subtle">
+                                    <label for="reservation_dates" class="form-label extra-small fw-semibold">
+                                        Stay Dates
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="reservation_dates"
+                                        class="form-control outline-hover rounded input-subtle"
+                                        placeholder="Select check-in and check-out"
+                                        readonly>
                                 </div>
-                                <div class="col">
-                                    <label for="check_out" class="form-label extra-small fw-semibold">Check-out</label>
-                                    <input type="date" id="check_out" name="check_out" class="form-control outline-hover rounded input-subtle">
-                                </div>
+
+                                <input type="hidden" id="check_in" name="check_in">
+                                <input type="hidden" id="check_out" name="check_out">
                                 <div class="col">
                                     <label for="guests" class="form-label extra-small fw-semibold">Guests</label>
                                     <input type="number" id="guests" name="guests" min="0" class="form-control outline-hover rounded input-subtle">

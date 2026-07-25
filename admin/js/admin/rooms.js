@@ -64,6 +64,7 @@ if (addRoomModalElement && addRoomForm) {
         addRoomForm.capacity.value = room.capacity;
         addRoomForm.size.value = room.size;
         addRoomForm.bed_type.value = room.bed_type;
+        addRoomForm.description.value = room.description
 
 
         clearAmenities();

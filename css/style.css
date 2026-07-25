@@ -1517,3 +1517,10 @@ kaoag pininpindot yung about about sa nav bar dapat sakto siya
 .text-gold {
   color: #c49a45 !important;
 }
+
+.flatpickr-day.flatpickr-disabled {
+  background: repeating-linear-gradient(-45deg, #f8d7da, #f8d7da 4px, #f3c2c8 4px, #f3c2c8 8px);
+
+  color: #842029;
+  opacity: 1;
+}

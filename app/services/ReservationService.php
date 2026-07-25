@@ -29,6 +29,7 @@ class ReservationService extends BaseService
     }
 
 
+
     private function generateBookingReference(): string
     {
         $year = date("Y");
@@ -133,6 +134,18 @@ class ReservationService extends BaseService
             return $this->error("Invalid guest amount.");
         }
 
+        if (
+            $this->reservation->hasConflictingReservation(
+                $roomId,
+                $checkIn,
+                $checkOut
+            )
+        ) {
+            return $this->error(
+                "The selected room is already reserved for the selected dates."
+            );
+        }
+
         // Generate booking reference
         $bookingReference = $this->generateBookingReference();
 
@@ -217,6 +230,19 @@ class ReservationService extends BaseService
             }
         }
 
+        if (
+            $this->reservation->hasConflictingReservation(
+                $roomId,
+                $checkIn,
+                $checkOut,
+                $id
+            )
+        ) {
+            return $this->error(
+                "The selected room is already reserved for the selected dates."
+            );
+        }
+
         $success = $this->reservation->update(
             $id,
             $roomId,
@@ -250,6 +276,20 @@ class ReservationService extends BaseService
 
         return $this->success(
             "Reservation deleted successfully."
+        );
+    }
+
+    public function getUnavailableDates(int $roomId): array
+    {
+        if (!$this->room->findById($roomId)) {
+            return $this->error("Invalid room");
+        }
+
+        $dates = $this->reservation->getUnavailableDates($roomId);
+
+        return $this->success(
+            "Unavailable dates retrieved successfully.",
+            $this->reservation->getUnavailableDates($roomId)
         );
     }
 

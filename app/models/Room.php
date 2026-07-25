@@ -19,7 +19,8 @@ class Room
         float $pricePerNight,
         int $capacity,
         string $size,
-        string $bedType
+        string $bedType,
+        string $description
     ): int|false {
         $sql = "
         INSERT INTO rooms (
@@ -30,16 +31,17 @@ class Room
             price_per_night,
             capacity,
             size,
-            bed_type
+            bed_type,
+            description
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ";
 
         $statement = mysqli_prepare($this->connection, $sql);
 
         mysqli_stmt_bind_param(
             $statement,
-            "siiidiss",
+            "siiidisss",
             $roomName,
             $roomTypeId,
             $roomNumber,
@@ -47,7 +49,8 @@ class Room
             $pricePerNight,
             $capacity,
             $size,
-            $bedType
+            $bedType,
+            $description
         );
 
         if (!mysqli_stmt_execute($statement)) {
@@ -66,7 +69,8 @@ class Room
         float $price,
         int $capacity,
         float $size,
-        string $bedType
+        string $bedType,
+        string $description
     ): bool {
         $sql = "
         UPDATE rooms
@@ -78,7 +82,8 @@ class Room
             price_per_night = ?,
             capacity = ?,
             size = ?,
-            bed_type = ?
+            bed_type = ?,
+            description = ?
         WHERE id = ?
     ";
 
@@ -86,7 +91,7 @@ class Room
 
         mysqli_stmt_bind_param(
             $statement,
-            "isiididsi",
+            "isiididssi",
             $roomNumber,
             $roomName,
             $roomTypeId,
@@ -95,6 +100,7 @@ class Room
             $capacity,
             $size,
             $bedType,
+            $description,
             $id
         );
 
@@ -153,6 +159,22 @@ class Room
         $result = mysqli_stmt_get_result($statement);
 
         return mysqli_fetch_assoc($result) ?: null;
+    }
+
+    public function countAvailable(): int
+    {
+        $sql = "
+        SELECT COUNT(*) AS total
+        FROM rooms
+        WHERE status_id = 1
+    ";
+
+        $result = mysqli_query(
+            $this->connection,
+            $sql
+        );
+
+        return (int) mysqli_fetch_assoc($result)["total"];
     }
 
     public function count(QueryOptions $options): int
@@ -292,5 +314,178 @@ class Room
             $result,
             MYSQLI_ASSOC
         );
+    }
+
+
+    public function getClientRooms(): array
+    {
+        $sql = "
+           SELECT
+            r.id,
+            r.room_name,
+            r.room_type_id,
+            r.price_per_night,
+            r.capacity,
+            r.size,
+            r.description
+            r.bed_type,
+
+            rt.name AS room_type,
+            rs.name AS status,
+
+            ri.thumbnail
+
+        FROM rooms r
+
+             INNER JOIN room_types rt
+                ON r.room_type_id = rt.id
+            INNER JOIN room_statuses rs
+                ON r.status_id = rs.id
+            LEFT JOIN room_images ri
+                ON ri.room_id = r.id
+
+        WHERE LOWER(rs.name) = 'available'
+
+        ORDER BY
+            r.price_per_night ASC,
+            r.room_name ASC;
+    ";
+
+        $result = mysqli_query(
+            $this->connection,
+            $sql
+        );
+
+        $rooms = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rooms[] = $row;
+        }
+
+        return $rooms;
+    }
+
+
+    public function getClientRoomById(int $id): ?array
+    {
+        $sql = "
+        SELECT
+            r.id,
+            r.room_name,
+            r.description,
+            r.room_type_id,
+            r.price_per_night,
+            r.capacity,
+            r.size,
+            r.bed_type,
+
+            rt.name AS room_type,
+            rs.name AS status
+
+        FROM rooms r
+
+        INNER JOIN room_types rt
+            ON r.room_type_id = rt.id
+
+        INNER JOIN room_statuses rs
+            ON r.status_id = rs.id
+
+        WHERE
+            r.id = ?
+            AND LOWER(rs.name) = 'available'
+
+        LIMIT 1
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "i",
+            $id
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $room = mysqli_fetch_assoc($result);
+
+        if (!$room) {
+            return null;
+        }
+
+        // Images
+        $sql = "
+        SELECT
+            thumbnail,
+            cover_image
+        FROM room_images
+        WHERE room_id = ?
+        ORDER BY thumbnail DESC, id ASC
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "i",
+            $id
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $room["images"] = [];
+
+        while ($image = mysqli_fetch_assoc($result)) {
+            $room["images"][] = $image;
+        }
+
+        // Amenities
+        $sql = "
+        SELECT
+            a.id,
+            a.name
+
+        FROM room_amenities ra
+
+        INNER JOIN amenities a
+            ON ra.amenity_id = a.id
+
+        WHERE ra.room_id = ?
+
+        ORDER BY a.name
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "i",
+            $id
+        );
+
+        mysqli_stmt_execute($statement);
+
+        $result = mysqli_stmt_get_result($statement);
+
+        $room["amenities"] = [];
+
+        while ($amenity = mysqli_fetch_assoc($result)) {
+            $room["amenities"][] = $amenity;
+        }
+
+        return $room;
     }
 }

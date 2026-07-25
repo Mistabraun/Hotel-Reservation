@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <title>Reports - Grand Horizon</title>
 </head>
@@ -13,12 +13,12 @@
 <body class="vh-100 d-flex position-relative">
     <!-- Sidebar[cite: 1, 2, 3] -->
     <aside
-        id="sidebar"        
+        id="sidebar"
         data-bs-scroll="true"
         tabindex="1"
         class="offcanvas-lg offcanvas-start bg-secondary text-white d-flex flex-column"
         style="width: 16rem">
-        
+
         <div class="px-4 pt-4 pb-2 sidebar-brand">
             <h1>Grand Horizon</h1>
             <p class="text-white-50">ADMIN PANEL</p>
@@ -66,7 +66,7 @@
                 <ul class="sidebar-list">
                     <li>
                         <!-- Removed active class from here[cite: 1, 3] -->
-                        <a href="payments.php" class="sidebar-link link link-gray">
+                        <a href="stay.php" class="sidebar-link link link-gray">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Check-in / Out
                         </a>
                     </li>
@@ -82,7 +82,7 @@
                 <ul class="sidebar-list">
                     <li>
                         <!-- Added active class to Reports[cite: 3] -->
-                        <a href="Report.php" class="sidebar-link link link-gray active">
+                        <a href="reports.php" class="sidebar-link link link-gray active">
                             <i class="fa-solid fa-chart-simple"></i> Reports
                         </a>
                     </li>
@@ -115,7 +115,7 @@
             </div>
             <div class="dropdown ms-auto d-flex align-items-center gap-3">
                 <i class="fa-regular fa-bell fs-5 text-secondary bell-ring"></i>
-                
+
                 <button class="btn border-0 text-start p-0 text-secondary" type="button" id="profile-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-user-circle fs-3"></i>
                 </button>
@@ -155,20 +155,20 @@
         </header>
 
         <main class="flex-grow-1 p-3 p-md-4 overflow-y-auto" id="scroll-container">
-            
+
             <!-- Page Header & Filters -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 fade-on-scroll">
                 <div>
                     <h2 class="fw-bold mb-1">Performance Overview</h2>
                 </div>
-                <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
+                <!-- <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
                     <div class="d-flex gap-2">
                         <button class="btn btn-link text-muted text-decoration-none px-2">7 Days</button>
                         <button class="btn btn-light shadow-sm fw-bold px-3 rounded-2 text-dark">30 Days</button>
                         <button class="btn btn-link text-muted text-decoration-none px-2">90 Days</button>
                         <button class="btn btn-link text-muted text-decoration-none px-2">1 Year</button>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Summary Cards using Bootstrap utilities -->
@@ -179,8 +179,8 @@
                             <h6 class="text-muted fw-semibold text-uppercase mb-0" style="font-size: 0.75rem;">TOTAL REVENUE</h6>
                             <div class="bg-warning-subtle text-warning rounded-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="fa-solid fa-dollar-sign"></i></div>
                         </div>
-                        <h3 class="fw-bold mb-2">$1,904,500</h3>
-                        <p class="text-info small fw-semibold mb-0"><i class="fa-solid fa-arrow-up"></i> 8.2% vs last period</p>
+                        <h3 class="fw-bold mb-2" data-this-year-revenue>$1,904,500</h3>
+                        <p class="text-info small fw-semibold mb-0" data-last-year-revenue><i class="fa-solid fa-arrow-up"></i> 8.2% vs last period</p>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
@@ -189,8 +189,8 @@
                             <h6 class="text-muted fw-semibold text-uppercase mb-0" style="font-size: 0.75rem;">OCCUPANCY RATE</h6>
                             <div class="bg-danger-subtle text-danger rounded-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="fa-solid fa-bed"></i></div>
                         </div>
-                        <h3 class="fw-bold mb-2">78.4%</h3>
-                        <p class="text-info small fw-semibold mb-0"><i class="fa-solid fa-arrow-up"></i> 3.6% vs last period</p>
+                        <h3 class="fw-bold mb-2" data-this-year-occupancy>78.4%</h3>
+                        <p class="text-info small fw-semibold mb-0" data-last-year-occupancy><i class="fa-solid fa-arrow-up"></i> 3.6% vs last period</p>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
@@ -199,8 +199,8 @@
                             <h6 class="text-muted fw-semibold text-uppercase mb-0" style="font-size: 0.75rem;">AVG DAILY RATE</h6>
                             <div class="bg-secondary-subtle text-secondary rounded-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="fa-solid fa-tag"></i></div>
                         </div>
-                        <h3 class="fw-bold mb-2">$321</h3>
-                        <p class="text-info small fw-semibold mb-0"><i class="fa-solid fa-arrow-up"></i> 4.1% vs last period</p>
+                        <h3 class="fw-bold mb-2" data-this-year-adr>$321</h3>
+                        <p class="text-info small fw-semibold mb-0" data-last-year-adr><i class="fa-solid fa-arrow-up"></i> 4.1% vs last period</p>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-xl-3">
@@ -209,8 +209,8 @@
                             <h6 class="text-muted fw-semibold text-uppercase mb-0" style="font-size: 0.75rem;">REVPAR</h6>
                             <div class="bg-secondary-subtle text-secondary rounded-1 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;"><i class="fa-solid fa-chart-line"></i></div>
                         </div>
-                        <h3 class="fw-bold mb-2">$252</h3>
-                        <p class="text-info small fw-semibold mb-0"><i class="fa-solid fa-arrow-up"></i> 6.8% vs last period</p>
+                        <h3 class="fw-bold mb-2" data-this-year-revpar>$252</h3>
+                        <p class="text-info small fw-semibold mb-0" data-last-year-revpar><i class="fa-solid fa-arrow-up"></i> 6.8% vs last period</p>
                     </div>
                 </div>
             </div>
@@ -247,12 +247,13 @@
                             <div style="position: relative; height: 160px; width: 160px;">
                                 <canvas id="roomTypePie"></canvas>
                             </div>
-                            <div class="d-flex flex-column gap-2 small flex-grow-1" style="max-width: 250px;">
+                            <div class="d-flex flex-column gap-2 small flex-grow-1" style="max-width: 250px;" id="roomTypeLegend">
                                 <div class="d-flex justify-content-between border-bottom pb-1"><span class="text-muted">Standard</span> <strong>$84.5k</strong></div>
                                 <div class="d-flex justify-content-between border-bottom pb-1"><span class="text-muted">Deluxe</span> <strong>$128.0k</strong></div>
                                 <div class="d-flex justify-content-between border-bottom pb-1"><span class="text-muted">Family Room</span> <strong>$96.0k</strong></div>
                                 <div class="d-flex justify-content-between"><span class="text-muted">Suite</span> <strong>$72.0k</strong></div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -281,7 +282,7 @@
                 <h6 class="fw-bold mb-1 fs-5">Room Type Performance</h6>
                 <p class="text-muted small mb-4">Breakdown by room category</p>
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle border-top mb-0">
+                    <table class="table table-hover align-middle border-top mb-0" id="roomTypePerformance">
                         <thead class="text-muted text-uppercase">
                             <tr>
                                 <th class="border-bottom py-3">ROOM TYPE</th>
@@ -363,7 +364,7 @@
                 <h6 class="fw-bold mb-1 fs-5">Top Guests by Spend</h6>
                 <p class="text-muted small mb-4">VIP and high-value guest rankings</p>
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle border-top mb-0">
+                    <table class="table table-hover align-middle border-top mb-0" id="topGuestsTable">
                         <thead class="text-muted text-uppercase">
                             <tr>
                                 <th class="border-bottom py-3">#</th>
@@ -376,7 +377,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">1</div></td>
+                                <td>
+                                    <div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">1</div>
+                                </td>
                                 <td class="fw-semibold">James Whitmore</td>
                                 <td class="text-center text-muted">7</td>
                                 <td class="text-end fw-bold">$18,900</td>
@@ -384,7 +387,9 @@
                                 <td class="text-center"><span class="badge bg-warning-subtle text-warning rounded-pill border border-warning-subtle px-3 py-1 fw-semibold">VIP</span></td>
                             </tr>
                             <tr>
-                                <td><div class="rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">2</div></td>
+                                <td>
+                                    <div class="rounded-circle bg-light text-secondary d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">2</div>
+                                </td>
                                 <td class="fw-semibold">Emma Richardson</td>
                                 <td class="text-center text-muted">3</td>
                                 <td class="text-end fw-bold">$8,200</td>
@@ -392,7 +397,9 @@
                                 <td class="text-center"><span class="badge bg-light text-secondary rounded-pill border px-3 py-1 fw-semibold">Regular</span></td>
                             </tr>
                             <tr>
-                                <td><div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">3</div></td>
+                                <td>
+                                    <div class="rounded-circle bg-warning-subtle text-warning d-flex align-items-center justify-content-center fw-bold" style="width: 28px; height: 28px; font-size: 0.8rem;">3</div>
+                                </td>
                                 <td class="fw-semibold">David Mitchell</td>
                                 <td class="text-center text-muted">4</td>
                                 <td class="text-end fw-bold">$7,600</td>
@@ -406,15 +413,93 @@
 
         </main>
     </div>
-    
+
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../scripts/app.js"></script>
+    <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <!-- <script type="module" src="../node_modules/chart.js/dist/chart.js"></script> -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        function updateComparison(element, current, last, formatter = value => value) {
+
+            const increased = current >= last;
+
+            const percent = last > 0 ?
+                Math.abs(((current - last) / last) * 100).toFixed(1) :
+                "0.0";
+
+            element.innerHTML = `
+        <i class="fa-solid fa-arrow-${increased ? "up" : "down"}"></i>
+        ${percent}% vs last period
+    `;
+
+            element.className = `${
+        increased ? "text-info" : "text-danger"
+    } small fw-semibold mb-0`;
+        }
+
+
+        document.addEventListener("DOMContentLoaded", async function() {
             // General Chart Options
+
+            const response = await fetch("/api/reports/performance.php");
+            const result = await response.json();
+
+            if (!result.success) {
+                return;
+            }
+
+            const overview = result.data.overview;
+            document.querySelector("[data-this-year-revenue]").textContent =
+                formatCurrency(overview.revenue.this_year);
+
+            updateComparison(
+                document.querySelector("[data-last-year-revenue]"),
+                overview.revenue.this_year,
+                overview.revenue.last_year
+            );
+
+            document.querySelector("[data-this-year-occupancy]").textContent =
+                `${overview.occupancy.this_year}%`;
+
+            updateComparison(
+                document.querySelector("[data-last-year-occupancy]"),
+                overview.occupancy.this_year,
+                overview.occupancy.last_year
+            );
+
+            document.querySelector("[data-this-year-adr]").textContent =
+                formatCurrency(overview.adr.this_year);
+
+            updateComparison(
+                document.querySelector("[data-last-year-adr]"),
+                overview.adr.this_year,
+                overview.adr.last_year
+            );
+
+            document.querySelector("[data-this-year-revpar]").textContent =
+                formatCurrency(overview.revpar.this_year);
+
+            updateComparison(
+                document.querySelector("[data-last-year-revpar]"),
+                overview.revpar.this_year,
+                overview.revpar.last_year
+            );
+
+            const charts = result.data.charts;
+
             const commonGridOptions = {
-                grid: { display: false, drawBorder: false },
-                ticks: { display: true, color: '#8a8580', font: { size: 11 } }
+                grid: {
+                    display: false,
+                    drawBorder: false
+                },
+                ticks: {
+                    display: true,
+                    color: '#8a8580',
+                    font: {
+                        size: 11
+                    }
+                }
             };
 
             // 1. Monthly Revenue Chart (Bar & Line combo style from UI)[cite: 3]
@@ -422,20 +507,19 @@
             new Chart(ctxRev, {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                    datasets: [
-                        {
-                            type: 'scatter',
+                    labels: charts.monthly_revenue.labels,
+                    datasets: [{
+                            type: charts.monthly_revenue.datasets[0].type,
                             label: 'Target/Max',
-                            data: [310, 315, 320, 315, 330, 340, 335],
+                            data: charts.monthly_revenue.datasets[0].data,
                             backgroundColor: '#000',
                             pointRadius: 4,
                             yAxisID: 'y'
                         },
                         {
-                            type: 'bar',
+                            type: charts.monthly_revenue.datasets[1].type,
                             label: 'Revenue',
-                            data: [245, 230, 260, 280, 310, 320, 285],
+                            data: charts.monthly_revenue.datasets[1].data,
                             backgroundColor: '#000',
                             borderRadius: 4,
                             barPercentage: 0.7,
@@ -446,41 +530,72 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false }, tooltip: { enabled: true } },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    },
                     scales: {
                         x: commonGridOptions,
-                        y: { 
-                            display: true, position: 'left', min: 0, max: 320,
-                            ticks: { stepSize: 80, color: '#8a8580', callback: function(value) { return '$' + value + 'k'; } },
-                            grid: { display: false, drawBorder: false }
+                        y: {
+                            display: true,
+                            position: 'left',
+                            min: 0,
+                            max: 320,
+                            ticks: {
+                                stepSize: 80,
+                                color: '#8a8580',
+                                callback: function(value) {
+                                    return '$' + value + 'k';
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
                         },
                         y1: {
-                            display: true, position: 'right', min: 0, max: 340,
-                            ticks: { stepSize: 85, color: '#8a8580', callback: function(value) { return '$' + value; } },
-                            grid: { display: false, drawBorder: false }
+                            display: true,
+                            position: 'right',
+                            min: 0,
+                            max: 340,
+                            ticks: {
+                                stepSize: 85,
+                                color: '#8a8580',
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
                         }
                     }
                 }
             });
+
 
             // 2. Occupancy Trend Chart (Line area)[cite: 3]
             const ctxOcc = document.getElementById('occupancyTrendChart').getContext('2d');
             new Chart(ctxOcc, {
                 type: 'line',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [
-                        {
-                            type: 'scatter',
+                    labels: charts.weekly_occupancy.labels,
+                    datasets: [{
+                            type: charts.weekly_occupancy.datasets[0].type,
                             label: 'Peak',
-                            data: [90, 81, 93, 102, 110, 115, 104],
+                            data: charts.weekly_occupancy.datasets[0].data,
                             backgroundColor: '#000',
                             pointRadius: 4,
                         },
                         {
-                            type: 'line',
+                            type: charts.weekly_occupancy.datasets[1].type,
                             label: 'Occupancy',
-                            data: [70, 68, 72, 85, 92, 95, 88],
+                            data: charts.weekly_occupancy.datasets[1].data,
                             borderColor: 'transparent',
                             backgroundColor: 'rgba(230, 230, 230, 0.6)',
                             fill: true,
@@ -492,35 +607,191 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
                     scales: {
                         x: commonGridOptions,
-                        y: { 
-                            min: 50, max: 110,
-                            ticks: { stepSize: 15, color: '#8a8580', callback: function(value) { return value + '%'; } },
-                            grid: { display: false, drawBorder: false }
+                        y: {
+                            min: 50,
+                            max: 110,
+                            ticks: {
+                                stepSize: 15,
+                                color: '#8a8580',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
                         }
                     }
                 }
             });
 
+
             // 3. Revenue by Room Type (Doughnut)[cite: 3]
-            const ctxRoom = document.getElementById('roomTypePie').getContext('2d');
-            new Chart(ctxRoom, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Deluxe', 'Family Room', 'Standard', 'Suite'],
-                    datasets: [{
-                        data: [128.0, 96.0, 84.5, 72.0],
-                        backgroundColor: ['#000000', '#333333', '#666666', '#999999'],
-                        borderWidth: 2,
-                        borderColor: '#fff'
-                    }]
-                },
+            const roomTypeChart = charts.room_type_revenue;
+
+            new Chart(document.getElementById("roomTypePie"), {
+                type: "doughnut",
+                data: roomTypeChart,
                 options: {
-                    responsive: true, maintainAspectRatio: false, cutout: '70%',
-                    plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "70%",
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
                 }
+            });
+
+            const legend = document.getElementById("roomTypeLegend");
+
+            legend.innerHTML = "";
+
+            const labels = roomTypeChart.labels;
+            const values = roomTypeChart.datasets[0].data;
+
+            labels.forEach((label, index) => {
+
+                const item = document.createElement("div");
+
+                item.className =
+                    `d-flex justify-content-between ${
+            index < labels.length - 1
+                ? "border-bottom pb-1"
+                : ""
+        }`;
+
+                item.innerHTML = `
+        <span class="text-muted">${label}</span>
+        <strong>${formatCurrency(values[index])}</strong>
+    `;
+
+                legend.appendChild(item);
+
+            });
+
+
+            const tbody = document.querySelector("#roomTypePerformance tbody");
+
+            tbody.innerHTML = "";
+
+            result.data.tables.room_type_performance.forEach(room => {
+
+                tbody.insertAdjacentHTML("beforeend", `
+        <tr>
+
+            <td class="fw-semibold">
+                ${room.room_type}
+            </td>
+
+            <td class="text-center text-muted">
+                ${room.total_rooms}
+            </td>
+
+            <td class="text-center text-muted">
+                ${room.occupied_rooms}
+            </td>
+
+            <td style="min-width:150px;">
+
+                <div class="d-flex align-items-center gap-2">
+
+                    <div class="progress flex-grow-1 rounded-pill bg-light"
+                        style="height:6px;">
+
+                        <div
+                            class="progress-bar bg-warning rounded-pill"
+                            style="width:${room.occupancy_rate}%">
+
+                        </div>
+
+                    </div>
+
+                    <span class="text-muted small">
+                        ${room.occupancy_rate}%
+                    </span>
+
+                </div>
+
+            </td>
+
+            <td class="text-end text-muted">
+                ${formatCurrency(room.average_price)}
+            </td>
+
+            <td class="text-end fw-bold">
+                ${formatCurrency(room.revenue)}
+            </td>
+
+        </tr>
+    `);
+
+            });
+
+            const tbodyGuest =
+                document.querySelector("#topGuestsTable tbody");
+
+            tbodyGuest.innerHTML = "";
+
+            result.data.tables.top_guests.forEach((guest, index) => {
+
+                const badgeClass =
+                    guest.status === "VIP" ?
+                    "bg-warning-subtle text-warning border-warning-subtle" :
+                    "bg-light text-secondary";
+
+                tbodyGuest.insertAdjacentHTML("beforeend", `
+        <tr>
+
+            <td>
+                <div
+                    class="rounded-circle d-flex align-items-center justify-content-center fw-bold
+                    ${guest.status === "VIP"
+                        ? "bg-warning-subtle text-warning"
+                        : "bg-light text-secondary"}"
+                    style="width:28px;height:28px;font-size:.8rem;">
+
+                    ${index + 1}
+
+                </div>
+            </td>
+
+            <td class="fw-semibold">
+                ${guest.guest}
+            </td>
+
+            <td class="text-center text-muted">
+                ${guest.total_stays}
+            </td>
+
+            <td class="text-end fw-bold">
+                ${formatCurrency(guest.total_spent)}
+            </td>
+
+            <td class="text-center text-muted">
+                ${formatDate(guest.last_stay)}
+            </td>
+
+            <td class="text-center">
+
+                <span class="badge rounded-pill border px-3 py-1 fw-semibold ${badgeClass}">
+                    ${guest.status}
+                </span>
+
+            </td>
+
+        </tr>
+    `);
+
             });
 
             // 4. Booking Sources (Doughnut)[cite: 3]
@@ -537,8 +808,17 @@
                     }]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false, cutout: '70%',
-                    plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
                 }
             });
 
@@ -554,7 +834,7 @@
                     if (entry.isIntersecting) {
                         // Relies on the centralized '.is-visible' CSS class instead of inline styles
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); 
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -565,4 +845,5 @@
         });
     </script>
 </body>
+
 </html>

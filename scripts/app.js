@@ -6,6 +6,40 @@ function formatCurrency(price, targetCurrency = "PHP") {
     }).format(price)
 }
 
+
+async function loadUnavailableDates(roomId) {
+
+    const response = await fetch(
+        `../../api/reservations/unavailableDates.php?id=${roomId}`
+    );
+
+    const result = await response.json();
+
+    if (!result.success) {
+        return [];
+    }
+
+    return result.data;
+
+}
+
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+    return new Intl.DateTimeFormat(
+        "en-US",
+        {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+        }
+    ).format(new Date(date));
+
+}
+
 function updateCurrency(targetCurrency) {
     const priceElements = document.querySelectorAll('[data-price]');
 
@@ -56,6 +90,10 @@ function popModalMessage(form, modalMessage) {
         modalMessage.textContent = message
     }
 }
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -218,5 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.fade-on-scroll').forEach((el) => {
         observer.observe(el);
     });
+
+
 
 });

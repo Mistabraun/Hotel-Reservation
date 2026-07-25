@@ -17,6 +17,7 @@ export class DeleteModal {
         this.confirm = modal.querySelector(confirmButton);
 
 
+
         this.popModal = popModalMessage(this.message);
 
         this.initialize();
@@ -39,7 +40,6 @@ export class DeleteModal {
     }
 
     async delete() {
-
         if (!this.id) return;
 
         const formData = new FormData();
