@@ -138,7 +138,7 @@ $query = $service->getClientRooms();
                       data-value="<?= $room['price_per_night'] ?>"
                       data-name="<?= $room['room_name'] ?>">
                       <?= htmlspecialchars($room['room_name']) ?>
-                      ($<?= htmlspecialchars($room['price_per_night']) ?>/night)
+                      (₱<?= htmlspecialchars($room['price_per_night']) ?>/night)
                     </option>
                   <?php endforeach; ?>
 
@@ -151,10 +151,10 @@ $query = $service->getClientRooms();
                   <option value="2">2 Guests</option>
                   <option value="3">3 Guests</option>
                   <option value="4">4 Guests</option>
-                  <option value="5">5 Guests (+$20)</option>
-                  <option value="6">6 Guests (+$40)</option>
-                  <option value="7">7 Guests (+$60)</option>
-                  <option value="8">8 Guests (+$80)</option>
+                  <option value="5">5 Guests (+₱1,200)</option>
+                  <option value="6">6 Guests (+₱2,400)</option>
+                  <option value="7">7 Guests (+₱3,700)</option>
+                  <option value="8">8 Guests (+₱4,900)</option>
                 </select>
               </div>
               <div class="col-md-6">
