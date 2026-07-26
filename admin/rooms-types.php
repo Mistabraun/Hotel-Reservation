@@ -24,6 +24,7 @@ $amenities = $amenityService->getAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/roomtype.css" />
     <title>Room Types - Grand Horizon</title>
 </head>
 
@@ -325,7 +326,7 @@ $amenities = $amenityService->getAll();
                                                 <i class="fa-solid fa-pen"></i>Edit
                                             </button>
                                             <button class="btn btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#removeTypeModal">
-                                                <i class="fa-solid fa-trash"></i> Delete
+                                                <i class="fa-solid fa-trash"></i>Delete
                                             </button>
                                         </div>
                                     </div>
