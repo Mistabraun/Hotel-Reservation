@@ -668,6 +668,7 @@ if ($userId) {
             Where timeless elegance meets the serene beauty of the shore. Immerse yourself in unparalleled luxury, breathtaking ocean views, and unforgettable moments along the pristine Malibu coastline.
           </p>
         </div>
+        
 
         <div class="col-12 col-lg-7 offset-lg-1">
           <div class="row g-4">
@@ -705,10 +706,10 @@ if ($userId) {
       <div class="pt-4 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
         <p class="font-sans small opacity-50 mb-0">&copy; 2026 Grand Horizon. All rights reserved.</p>
         <div class="d-flex gap-4 social-icons-wrap">
-          <a href="#" class="footer-icon-link"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="footer-icon-link"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="footer-icon-link"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="footer-icon-link"><i class="bi bi-youtube"></i></a>
+          <a href="https://www.instagram.com" class="footer-icon-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com" class="footer-icon-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.twitter.com" class="footer-icon-link"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://www.youtube.com" class="footer-icon-link"><i class="fa-brands fa-youtube"></i></a>
         </div>
       </div>
     </div>
