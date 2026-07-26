@@ -127,14 +127,46 @@ a {
   --bs-btn-disabled-border-color: #8a8a8a;
 }
 
+/* ==========================================
+   Action Buttons
+========================================== */
+
+.btn-warning,
 .btn-danger {
-  --bs-btn-bg: rgb(220 38 38);
-  --bs-btn-hover-bg: rgb(185, 25, 25);
-  --bs-btn-active-bg: rgb(185, 25, 25);
-  --bs-btn-active-border-color: transparent;
-  --bs-btn-active-shadow: transparent;
-  --bs-btn-focus-shadow-rgb: 0, 0, 0;
-  --bs-btn-active-shadow: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+
+    padding: .6rem 1rem;
+    border-radius: .75rem;
+    font-size: .9rem;
+    font-weight: 600;
+
+    transition: all .25s ease;
+    box-shadow: 0 .2rem .6rem rgba(0,0,0,.08);
+}
+
+.btn-warning i,
+.btn-danger i {
+    font-size: .85rem;
+}
+
+.btn-warning:hover,
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+.btn-warning:active,
+.btn-danger:active {
+    transform: translateY(0);
+    box-shadow: 0 .2rem .4rem rgba(0,0,0,.1);
+}
+
+.btn-warning:focus,
+.btn-danger:focus {
+    box-shadow: none;
 }
 
 .btn-secondary {
