@@ -269,7 +269,7 @@ body {
 
 .btn-room {
   background: var(--accent);
-  color: #bb7474;
+  color:white;
   border: 1px solid var(--accent);
   transition:
     background 0.2s ease,
