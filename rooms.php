@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/room.css" />
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booking.css">
 </head>
 
 <body>
@@ -21,9 +22,9 @@
             <div class="ms-auto d-flex align-items-center gap-4">
                 <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
                 <a href="index.php#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
-                <a href="rooms.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Rooms</a>
+                <a href="rooms.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Rooms</a>
                 <!-- Naka-highlight na kulay gold ang Amenities gaya ng nasa screen -->
-                <a href="amenities.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Amenities</a>
+                <a href="amenities.php" class="nav-link font-sans small fw-meduim text-dark text-decoration-none opacity-75">Amenities</a>
                 <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
             </div>
         </div>
@@ -156,7 +157,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="about-image rounded-4 overflow-hidden shadow-sm">
-                            <img src="assets/images/background/pexels-chrislyn-dsouza-424969149-34496715.jpg" alt="Hotel experience" />
+                            <img src="assets/images/rooms/download (2).jpg" alt="Hotel experience" />
                         </div>
                     </div>
                 </div>
@@ -164,52 +165,350 @@
         </section>
     </main>
 
-    <footer class="footer-section py-5 bg-dark text-white">
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-md-4">
-                    <h5 class="footer-title">Grand Horizon</h5>
-                    <p class="footer-text">Where elegance meets the shore. Enjoy a luxurious Malibu stay with premium amenities and personalized service.</p>
-                </div>
-                <div class="col-md-2">
-                    <h6 class="footer-title">Explore</h6>
-                    <ul class="footer-list">
-                        <li><a href="#rooms">Rooms</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#">Dining</a></li>
-                        <li><a href="#">Spa</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="footer-title">Information</h6>
-                    <ul class="footer-list">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Location</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="footer-title">Policies</h6>
-                    <ul class="footer-list">
-                        <li><a href="#">Cancellation</a></li>
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-top border-secondary mt-4 pt-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-                <span class="small">© 2026 Grand Horizon. All rights reserved.</span>
-                <div class="social-links d-flex gap-3">
-                    <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fab fa-youtube fa-lg"></i></a>
-                </div>
-            </div>
+  <!-- FOOTER -->
+  <footer id="contact" class="custom-dark-footer text-white py-5 w-100">
+    <div class="container-fluid px-4 px-md-5 pt-4">
+      <div class="row g-4 mb-5">
+        <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+          <h3 class="font-serif h4 mb-3 fw-bold">Grand Horizon</h3>
+          <p class="opacity-60 font-sans font-light small lh-lg" style="max-width: 900px;">
+            Where timeless elegance meets the serene beauty of the shore. Immerse yourself in unparalleled luxury, breathtaking ocean views, and unforgettable moments along the pristine Malibu coastline.
+          </p>
         </div>
-    </footer>
+
+        <div class="col-12 col-lg-7 offset-lg-1">
+          <div class="row g-4">
+            <div class="col-4">
+              <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Explore</h6>
+              <ul class="list-unstyled font-sans small d-grid gap-2">
+                <li><a href="rooms.php" class="footer-link">Our Rooms</a></li>
+                <li><a href="amenities.php" class="footer-link">Dining</a></li>
+                <li><a href="amenities.php" class="footer-link">Spa & Wellness</a></li>
+                <li><a href="amenities.php" class="footer-link">Pool</a></li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Information</h6>
+              <ul class="list-unstyled font-sans small d-grid gap-2">
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#aboutModal">About Us</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#contactModal">Contact</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#locationModal">Location</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#careersModal">Careers</a></li>
+              </ul>
+            </div>
+            <div class="col-4">
+              <h6 class="text-uppercase tracking-wider font-sans small mb-3 fw-bold">Policies</h6>
+              <ul class="list-unstyled font-sans small d-grid gap-2">
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#cancellationModal">Cancellation Policy</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a></li>
+                <li><a href="#" class="footer-link" data-bs-toggle="modal" data-bs-target="#faqModal">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-top border-secondary border-opacity-10 d-flex justify-content-between align-items-center">
+        <p class="font-sans small opacity-50 mb-0">&copy; 2026 Grand Horizon. All rights reserved.</p>
+        <div class="d-flex gap-4 social-icons-wrap">
+          <a href="#" class="footer-icon-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="footer-icon-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="footer-icon-link"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-icon-link"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- ACCOUNT SETTINGS MODAL -->
+  <div class="modal fade" id="userSettingsModal" tabindex="-1" aria-labelledby="userSettingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden">
+        <div class="modal-header bg-dark text-white p-4">
+          <h5 class="modal-title font-serif" id="userSettingsModalLabel">
+            <i class="bi bi-sliders me-2"></i> Account Settings
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="row g-0">
+            <div class="col-md-4 bg-light border-end p-3">
+              <div class="nav flex-column nav-pills gap-2" id="v-pills-tab" role="tablist">
+                <button class="nav-link active text-start rounded-3 d-flex align-items-center gap-2" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab">
+                  <i class="bi bi-person"></i> Personal Info
+                </button>
+                <button class="nav-link text-start rounded-3 d-flex align-items-center gap-2" id="v-pills-security-tab" data-bs-toggle="pill" data-bs-target="#v-pills-security" type="button" role="tab">
+                  <i class="bi bi-shield-lock"></i> Password & Security
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-8 p-4">
+              <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel">
+                  <h6 class="font-serif fw-bold mb-3">Update Personal Details</h6>
+                  <form>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">Full Name</label>
+                      <input type="text" class="form-control rounded-3" placeholder="Juan Dela Cruz">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">Email Address</label>
+                      <input type="email" class="form-control rounded-3" placeholder="juan@example.com">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">Phone Number</label>
+                      <input type="tel" class="form-control rounded-3" placeholder="+63 912 345 6789">
+                    </div>
+                    <button type="submit" class="btn btn-gold rounded-pill px-4 btn-sm font-sans fw-medium">Save Changes</button>
+                  </form>
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-security" role="tabpanel">
+                  <h6 class="font-serif fw-bold mb-3">Change Your Password</h6>
+                  <form>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">Current Password</label>
+                      <input type="password" class="form-control rounded-3" placeholder="••••••••">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">New Password</label>
+                      <input type="password" class="form-control rounded-3" placeholder="••••••••">
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label small fw-bold">Confirm New Password</label>
+                      <input type="password" class="form-control rounded-3" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-gold rounded-pill px-4 btn-sm font-sans fw-medium">Update Password</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. ABOUT US MODAL -->
+  <div class="modal fade" id="aboutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Our Story</span>
+            <h4 class="modal-title font-serif text-white mt-1">About Grand Horizon</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <p class="text-white">Founded on the shores of coastal luxury, Grand Horizon redefines hospitality through timeless elegance, bespoke service, and refined accommodations. Nestled along pristine coastlines, our sanctuary is designed for travelers seeking both tranquility and elevated experiences.</p>
+          <p class="mb-0">From world-class dining crafted by Michelin-starred culinary talent to serene oceanfront wellness suites, every detail at Grand Horizon is tailored to inspire and rejuvenate.</p>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CONTACT MODAL -->
+  <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Get In Touch</span>
+            <h4 class="modal-title font-serif text-white mt-1">Concierge & Inquiries</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans">
+          <div class="mb-3">
+            <label class="small text-uppercase tracking-wider modal-gold-title mb-1 d-block fw-semibold">Reservations</label>
+            <p class="mb-0 text-white">+1 (800) 555-0199 | concierge@grandhorizon.com</p>
+          </div>
+          <hr class="modal-divider">
+          <div class="mb-3">
+            <label class="small text-uppercase tracking-wider modal-gold-title mb-1 d-block fw-semibold">Front Desk & Services</label>
+            <p class="mb-0 text-white">Available 24/7 at main lobby reception</p>
+          </div>
+          <hr class="modal-divider">
+          <div>
+            <label class="small text-uppercase tracking-wider modal-gold-title mb-1 d-block fw-semibold">Address</label>
+            <p class="mb-0 text-white">100 Oceanward Boulevard, Coastal Bay, CA 90210</p>
+          </div>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. LOCATION MODAL -->
+  <div class="modal fade" id="locationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Destination</span>
+            <h4 class="modal-title font-serif text-white mt-1">Our Location</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50">
+          <p class="mb-3 text-white">Grand Horizon is situated directly on the Pacific coastline, conveniently located 25 minutes from International Airport (LAX) with private valet and helipad transfer services available upon request.</p>
+          <div class="p-4 bg-black rounded-3 border border-warning border-opacity-25 text-center my-3">
+            <span class="modal-gold-title small">📍 Interactive Map View Integration Placeholder</span>
+          </div>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CAREERS MODAL -->
+  <div class="modal fade" id="careersModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Join Our Team</span>
+            <h4 class="modal-title font-serif text-white mt-1">Careers at Grand Horizon</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <p class="text-white">We are always searching for passionate, dedicated individuals to join our luxury hospitality family. Build a career delivering exceptional experiences across our operations, guest relations, fine dining, and spa facilities.</p>
+          <div class="mt-4">
+            <h6 class="modal-gold-title font-serif mb-2">Current Openings:</h6>
+            <ul class="list-unstyled d-grid gap-2">
+              <li class="p-3 bg-black rounded border border-warning border-opacity-25 d-flex justify-content-between align-items-center">
+                <span class="text-white">Guest Relations Manager</span>
+                <span class="badge btn-gold">Full-Time</span>
+              </li>
+              <li class="p-3 bg-black rounded border border-warning border-opacity-25 d-flex justify-content-between align-items-center">
+                <span class="text-white">Sommelier & Beverage Director</span>
+                <span class="badge btn-gold">Full-Time</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. CANCELLATION POLICY MODAL -->
+  <div class="modal fade" id="cancellationModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Reservations</span>
+            <h4 class="modal-title font-serif text-white mt-1">Cancellation & Modification Policy</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <h6 class="modal-gold-title font-serif">Standard Bookings</h6>
+          <p class="text-white">Reservations canceled up to 48 hours prior to local check-in time (3:00 PM PST) will receive a full refund with no additional penalty fees.</p>
+
+          <h6 class="modal-gold-title font-serif mt-4">Late Cancellations & No-Shows</h6>
+          <p class="text-white">Cancellations made within 48 hours of arrival, or guest no-shows, will be charged an amount equal to one night’s room rate plus applicable taxes.</p>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. PRIVACY POLICY MODAL -->
+  <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Legal</span>
+            <h4 class="modal-title font-serif text-white mt-1">Privacy Policy</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <p class="text-white">At Grand Horizon, we hold the privacy of our distinguished guests in highest regard. This policy outlines how your personal information is gathered, protected, and processed.</p>
+          <h6 class="modal-gold-title font-serif mt-3">Data Collection</h6>
+          <p class="text-white">We collect essential personal information strictly for processing reservations, tailoring customized stay preferences, and handling transaction processing through secure encrypted protocols.</p>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. TERMS OF SERVICE MODAL -->
+  <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Legal</span>
+            <h4 class="modal-title font-serif text-white mt-1">Terms of Service</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <p class="text-white">By booking or residing at Grand Horizon, guests agree to adhere to our estate guidelines and standards of luxury conduct.</p>
+          <h6 class="modal-gold-title font-serif mt-3">Check-In & Checkout</h6>
+          <p class="text-white">Standard check-in begins at 3:00 PM. Checkout is required by 11:00 AM. Late checkouts can be requested via front desk and are subject to availability.</p>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FAQ MODAL -->
+  <div class="modal fade" id="faqModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content custom-modal text-white rounded-4">
+        <div class="modal-header modal-divider px-4 pt-4">
+          <div>
+            <span class="text-uppercase tracking-wider small modal-gold-title font-sans fw-semibold">Help Center</span>
+            <h4 class="modal-title font-serif text-white mt-1">Frequently Asked Questions</h4>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 py-4 font-sans text-white-50 lh-lg" style="max-height: 60vh; overflow-y: auto;">
+          <div class="mb-4">
+            <h6 class="modal-gold-title font-serif">What are the check-in and checkout times?</h6>
+            <p class="mb-0 text-white">Check-in is at 3:00 PM and checkout is at 11:00 AM.</p>
+          </div>
+          <div class="mb-4">
+            <h6 class="modal-gold-title font-serif">Are pets allowed at the property?</h6>
+            <p class="mb-0 text-white">We welcome small pets in designated pet-friendly ocean suites with prior reservation notice.</p>
+          </div>
+          <div>
+            <h6 class="modal-gold-title font-serif">Is airport transportation included?</h6>
+            <p class="mb-0 text-white">Private luxury chauffeur transfers are complimentary for Penthouse and Villa tier guests.</p>
+          </div>
+        </div>
+        <div class="modal-footer modal-divider px-4 pb-4">
+          <button type="button" class="btn btn-gold btn-sm rounded-pill px-4 fw-semibold" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/scripts/app.js"></script>

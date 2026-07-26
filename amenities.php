@@ -7,6 +7,7 @@
     <title>Amenities - Grand Horizon</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/booking.css">
 </head>
 
 <body style="background-color: #fcfaf6;">
@@ -520,6 +521,8 @@
       </div>
     </div>
   </div>
+
+   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

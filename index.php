@@ -372,7 +372,7 @@ if ($userId) {
               <span><i class="fa-solid fa-expand"></i> 320 sq ft</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <span class="font-sans fw-bold text-dark fs-5">$189<span class="text-muted font-light fs-6">/night</span></span>
+              <span class="font-sans fw-bold text-dark fs-5">₱11,600<span class="text-muted font-light fs-6">/night</span></span>
               <a href="rooms.php" class="text-dark font-sans small fw-medium text-decoration-underline">View Details</a>
             </div>
           </div>
@@ -390,7 +390,7 @@ if ($userId) {
               <span><i class="fa-solid fa-expand"></i> 480 sq ft</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <span class="font-sans fw-bold text-dark fs-5">$349<span class="text-muted font-light fs-6">/night</span></span>
+              <span class="font-sans fw-bold text-dark fs-5">₱21,500<span class="text-muted font-light fs-6">/night</span></span>
               <a href="rooms.php" class="text-dark font-sans small fw-medium text-decoration-underline">View Details</a>
             </div>
           </div>
@@ -408,7 +408,7 @@ if ($userId) {
               <span><i class="fa-solid fa-expand"></i> 650 sq ft</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <span class="font-sans fw-bold text-dark fs-5">$429<span class="text-muted font-light fs-6">/night</span></span>
+              <span class="font-sans fw-bold text-dark fs-5">₱26,400<span class="text-muted font-light fs-6">/night</span></span>
               <a href="rooms.php" class="text-dark font-sans small fw-medium text-decoration-underline">View Details</a>
             </div>
           </div>
@@ -426,7 +426,7 @@ if ($userId) {
               <span><i class="fa-solid fa-expand"></i> 950 sq ft</span>
             </div>
             <div class="d-flex justify-content-between align-items-center">
-              <span class="font-sans fw-bold text-dark fs-5">$899<span class="text-muted font-light fs-6">/night</span></span>
+              <span class="font-sans fw-bold text-dark fs-5">₱55,454<span class="text-muted font-light fs-6">/night</span></span>
               <a href="rooms.php" class="text-dark font-sans small fw-medium text-decoration-underline">View Details</a>
             </div>
           </div>
