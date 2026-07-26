@@ -69,10 +69,8 @@ if ($userId) {
                     class="form-control"
                     id="phone"
                     name="phone"
-                    oninvalid="this.setCustomValidity('Enter a valid number')"
                     placeholder="9123456789"
-                    pattern="9[0-9]{9}"
-                    maxlength="10"
+                    maxlength="11"
                     required>
                 </div>
               </div>
