@@ -24,6 +24,7 @@ class Reservation
     }
 
 
+
     public function create(
         string $bookingReference,
         int $customerId,
@@ -585,7 +586,4 @@ class Reservation
 
         return (int) mysqli_fetch_assoc($result)["total"];
     }
-
-    
-
 }

@@ -5,6 +5,8 @@ require_once __DIR__ . "/BaseService.php";
 require_once __DIR__ . "/../models/Customer.php";
 require_once __DIR__ . "/../models/Transaction.php";
 
+
+
 class TransactionService extends BaseService
 {
 
@@ -13,8 +15,6 @@ class TransactionService extends BaseService
 
     public function __construct()
     {
-
-
         $this->customer = new Customer();
         $this->transaction = new Transaction();
     }
@@ -33,18 +33,22 @@ class TransactionService extends BaseService
             );
         }
 
+        $currentBooking =  $this->transaction->getCurrentBooking(
+            $customer["id"]
+        );
+
+
+
+        $historyBooking =  $this->transaction->getHistory(
+            $customer["id"]
+        );
+
         return $this->success(
             "Transactions retrieved successfully.",
             [
-                "current_booking" =>
-                $this->transaction->getCurrentBooking(
-                    $customer["id"]
-                ),
+                "current_booking" => $currentBooking,
+                "history" => $historyBooking
 
-                "history" =>
-                $this->transaction->getHistory(
-                    $customer["id"]
-                )
             ]
         );
     }

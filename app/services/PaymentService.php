@@ -128,7 +128,7 @@ class PaymentService extends BaseService
             ]
         );
     }
-    
+
     public function create(array $data): array
     {
         $reservationId = (int)($data["reservation_id"] ?? 0);

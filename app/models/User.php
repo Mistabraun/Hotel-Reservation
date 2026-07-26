@@ -47,6 +47,8 @@ class User
         );
     }
 
+    
+
     public function updateEmail(
         int $id,
         string $email

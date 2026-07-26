@@ -358,6 +358,8 @@ class Payment
         "
         );
 
+
+
         mysqli_stmt_execute($statement);
 
         $result = mysqli_stmt_get_result($statement);

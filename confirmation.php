@@ -11,6 +11,7 @@ if (!$secretKey) {
 $service = new BookingService();
 
 $booking = $service->viewBySecretKey($secretKey);
+print_r($booking);
 
 if (!$booking["success"]) {
     header("Location: /rooms.php");

@@ -133,8 +133,10 @@ $query = $service->getClientRooms();
                   <!-- <option value="presidential" data-price="899">Presidential Sanctuary ($899/night)</option> -->
                   <?php foreach ($query as $room): ?>
                     <option
+                      id="roomData"
                       value="<?= $room['id'] ?>"
-                      data-value="<?= $room['price_per_night'] ?>">
+                      data-value="<?= $room['price_per_night'] ?>"
+                      data-name="<?= $room['room_name'] ?>">
                       <?= htmlspecialchars($room['room_name']) ?>
                       ($<?= htmlspecialchars($room['price_per_night']) ?>/night)
                     </option>
@@ -719,8 +721,17 @@ $query = $service->getClientRooms();
 
     // Summary Calculation for payment
     function updateSummary() {
-      const roomOption = roomSelect.options[roomSelect.selectedIndex];
-      const pricePerNight = roomOption ? parseFloat(roomOption.getAttribute('data-value')) : 0;
+      const roomElement = document.querySelector("#roomType")
+      const element = roomElement.options[roomElement.selectedIndex];
+
+      console.log(element)
+      if (!element) {
+        return
+      }
+
+      const roomDataset = element.dataset
+      const pricePerNight = parseInt(roomDataset.value)
+      const roomName = roomDataset.name
 
       const date1 = new Date(checkInInput.value);
       const date2 = new Date(checkOutInput.value);
@@ -731,24 +742,25 @@ $query = $service->getClientRooms();
       // Guest Fee Computation (for extra guest)
       const guests = parseInt(guestSelect.value) || 1;
       const extraGuests = guests > 4 ? guests - 4 : 0;
-      const extraGuestFeePerNight = extraGuests * 20;
+      const extraGuestFeePerNight = extraGuests * 250;
 
-      // Effective Rate per night
-      const effectiveNightlyRate = pricePerNight + extraGuestFeePerNight;
+      const effectiveNightlyRate = pricePerNight + parseInt(extraGuestFeePerNight);
+      console.log(pricePerNight, totalNights, guests, extraGuests, extraGuestFeePerNight, effectiveNightlyRate)
+
 
       if (checkInInput.value && checkOutInput.value && roomSelect.value && totalNights > 0) {
         document.getElementById('summaryPlaceholder').style.display = 'none';
         document.getElementById('summaryDetails').style.display = 'block';
 
-        document.getElementById('summaryRoomName').innerText = roomOption.text.split(' ($')[0];
-        document.getElementById('summaryRate').innerText = `$${pricePerNight}`; // Base Room Price
+        document.getElementById('summaryRoomName').innerText = roomName.split(' (₱')[0];
+        document.getElementById('summaryRate').innerText = `${formatCurrency(pricePerNight)}`; // Base Room Price
         document.getElementById('summaryGuests').innerText = `${guests} Guest(s)`; // Guest count
 
         // Extra Fee Breakdown Handling (overall if there is an extra pax)
         const extraFeeRow = document.getElementById('summaryExtraFeeRow');
         if (extraGuests > 0) {
           extraFeeRow.style.setProperty('display', 'flex', 'important');
-          document.getElementById('summaryExtraFee').innerText = `+$${extraGuestFeePerNight}/night (${extraGuests} extra pax)`;
+          document.getElementById('summaryExtraFee').innerText = `+₱${extraGuestFeePerNight}/night (${extraGuests} extra pax)`;
         } else {
           extraFeeRow.style.setProperty('display', 'none', 'important');
         }
@@ -757,11 +769,15 @@ $query = $service->getClientRooms();
 
         // Total Computation = (Base Price + Extra Guest Fee) * Total Nights
         const grandTotal = effectiveNightlyRate * totalNights;
-        document.getElementById('summaryTotalPrice').innerText = `$${grandTotal}`;
+        document.getElementById('summaryTotalPrice').innerText = `${formatCurrency(grandTotal)}`;
       } else {
         document.getElementById('summaryPlaceholder').style.display = 'block';
         document.getElementById('summaryDetails').style.display = 'none';
       }
+
+
+
+
     }
 
     function getMinCheckInDate() {
@@ -786,7 +802,7 @@ $query = $service->getClientRooms();
     const datePicker = flatpickr("#booking_date", {
       mode: "range",
       dateFormat: "Y-m-d",
-      minDate: getMinCheckInDate,
+      minDate: getMinCheckInDate(),
       disable: [],
       onClose(selectedDates) {
 
@@ -926,15 +942,13 @@ $query = $service->getClientRooms();
 
       const result = await response.json();
 
-      console.log(result)
-
       if (!response.ok || !result.success) {
         promptError(result.message);
         return;
       }
 
       window.location.href =
-        `confirmation.php?reservation=${result.data.secret_key}`;
+        `confirmation.php?secret_key=${result.data.secret_key}`;
     }
   </script>
 </body>

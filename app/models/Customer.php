@@ -171,6 +171,38 @@ class Customer
         return mysqli_fetch_assoc($result) ?: null;
     }
 
+    public function updateBasicInformation(
+        int $customerId,
+        string $firstName,
+        string $lastName,
+        string $phone
+    ): bool {
+
+        $sql = "
+        UPDATE customers
+        SET
+            first_name = ?,
+            last_name = ?,
+            phone_number = ?
+        WHERE id = ?
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "sssi",
+            $firstName,
+            $lastName,
+            $phone,
+            $customerId
+        );
+
+        return mysqli_stmt_execute($statement);
+    }
 
     public function findByUserId(
         int $userId

@@ -2,13 +2,17 @@
 
 require_once __DIR__ . "/../../config/Database.php";
 
+require_once __DIR__ . "/../services/PricingService.php";
+
 class Transaction
 {
     private mysqli $connection;
+    private PricingService $pricing;
 
     public function __construct()
     {
         $this->connection = Database::connect();
+        $this->pricing = new PricingService();
     }
 
     public function getCurrentBooking(
@@ -66,9 +70,12 @@ class Transaction
 
         mysqli_stmt_execute($statement);
 
-        return mysqli_fetch_assoc(
+        $result = mysqli_fetch_assoc(
             mysqli_stmt_get_result($statement)
-        ) ?: [];
+        );
+
+
+        return $result ?: [];
     }
 
     public function getHistory(

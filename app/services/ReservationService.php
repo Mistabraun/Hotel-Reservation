@@ -154,8 +154,42 @@ class ReservationService extends BaseService
             );
         }
 
-        if ($guestCount > $room["capacity"]) {
-            return $this->error("Invalid guest amount.");
+        if ($guestCount <= 0) {
+            return $this->error("At least one guest is required.");
+        }
+
+        if ($guestCount > 12) {
+            return $this->error(
+                "Maximum of 12 guests per reservation."
+            );
+        }
+
+        $today = new DateTime("today");
+        $tomorrow = new DateTime("tomorrow");
+
+        try {
+
+            $checkInDate = new DateTime($checkIn);
+            $checkOutDate = new DateTime($checkOut);
+        } catch (Exception $e) {
+
+            return $this->error(
+                "Invalid reservation dates."
+            );
+        }
+
+        if ($checkInDate < $tomorrow) {
+
+            return $this->error(
+                "Check-in must be at least tomorrow."
+            );
+        }
+
+        if ($checkOutDate <= $checkInDate) {
+
+            return $this->error(
+                "Check-out must be after check-in."
+            );
         }
 
         if (
