@@ -67,7 +67,7 @@ class AuthMiddleware
             Response::error("Unauthorized", 401);
         }
 
-        header("Location: admin/login");
+        header("Location: /");
         exit;
     }
 }

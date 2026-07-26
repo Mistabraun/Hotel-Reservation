@@ -108,9 +108,8 @@ $amenitiesData = $amenities["message"];
                         </a>
                     </li>
                     <li>
-                        <a href="reports.php" class="sidebar-link link link-gray">
-                            <i class="fa-solid fa-gear"></i>
-                            Settings
+                        <a href="/settings.php" class="sidebar-link link link-gray">
+                            <i class="fa-solid fa-gear"></i> Settings
                         </a>
                     </li>
                 </ul>

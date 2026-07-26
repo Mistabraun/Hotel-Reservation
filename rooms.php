@@ -23,8 +23,8 @@ if ($userId) {
   <title>Grand Horizon Rooms</title>
   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/room.css" />
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/booking.css">
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>

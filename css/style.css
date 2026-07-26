@@ -872,7 +872,7 @@ body {
 
 /* --- Sidebar Branding & Shared Page Effects --- */
 .sidebar-brand h1 {
-  font-family: "Times New Roman", Times, serif;
+  /* font-family: "Times New Roman", Times, serif; */
   font-size: 1.4rem;
   font-weight: bold;
   margin: 0;
@@ -1101,7 +1101,7 @@ body {
 
 /* Grand Horizon Branding Sidebar Top */
 .sidebar-brand h1 {
-  font-family: "Times New Roman", Times, serif;
+  /* font-family: "Times New Roman", Times, serif; */
   font-size: 1.4rem;
   font-weight: bold;
   margin: 0;

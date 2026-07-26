@@ -1,3 +1,16 @@
+<?php
+
+include_once __DIR__ . "../../app/services/CustomerProfileService.php";
+include_once __DIR__ . "../../app/middleware/Authmidlleware.php";
+
+$userId = AuthMiddleware::admin(false);
+
+$customerProfile = new CustomerProfile();
+$profile = $customerProfile->findByUserId($userId);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,9 +121,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="reports.php" class="sidebar-link link link-gray">
-                            <i class="fa-solid fa-gear"></i>
-                            Settings
+                        <a href="/settings.php" class="sidebar-link link link-gray">
+                            <i class="fa-solid fa-gear"></i> Settings
                         </a>
                     </li>
                 </ul>
@@ -131,36 +143,53 @@
                 <i class="fa-solid fa-bars fs-5"></i>
             </button>
 
-            <div class="dropdown ms-auto d-flex align-items-center gap-3">
-                <i class="fa-regular fa-bell fs-5 text-secondary bell-ring" onclick="fetchNotifications()"></i>
-
-                <button class="btn border-0 text-start p-0 text-secondary" type="button" id="profile-dropdown-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-user-circle fs-3"></i>
+            <?php
+            if ($profile) {
+                echo '    <div class="dropdown ms-auto">
+                  <button
+                    class="btn border-0 text-start p-0 text-secondary"
+                    type="button"
+                    id="profile-dropdown-btn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end mt-2 profile-menu pt-2 pb-1 shadow-sm" aria-labelledby="profile-dropdown-btn">
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
                     <div class="profile-header p-1 px-3 mb-2">
-                        <p class="profile-name fw-semibold">Justine Carl</p>
-                        <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
-                        <span class="user-role admin rounded-1">Super Admin</span>
+                        <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
+                        <span class="status status-warning rounded-1">Customer</span>
                     </div>
                     <div class="line"></div>
                     <ul class="profile-items my-1">
-                        <li><a class="link link-subtle fs-7" href="settings.php"><i class="fa-regular fa-user"></i>
-                                <p>Profile</p>
-                            </a></li>
-                        <li><a class="link link-subtle fs-7" href="settings.php"><i class="fa-solid fa-gear"></i>
+                        <li>
+                            <a class="link link-subtle fs-7" href="/transactions.php">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Transactions</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link link-subtle fs-7" href="/settings.php">
+                                <i class="fa-solid fa-gear"></i>
                                 <p>Settings</p>
-                            </a></li>
+                            </a>
+                        </li>
                     </ul>
                     <div class="line"></div>
                     <ul class="profile-items mt-1">
-                        <li><button class="link link-danger fs-7 btn-default" href="settings.php"><i class="fa-solid fa-sign-out"></i>
+                        <li>
+                            <button class="link link-danger fs-7 btn-default" id="logout">
+                                <i class="fa-solid fa-sign-out"></i>
                                 <p>Logout</p>
-                            </button></li>
+                            </button>
+                        </li>
                     </ul>
                 </ul>
-            </div>
+            </div>';
+            } else {
+                echo '<button class="btn btn-book-now btn-primary border-0 font-sans text-decoration-none fw-medium text-white text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+            }
+            ?>
         </header>
 
         <!-- Responsive Main: Adjusted padding for mobile (p-2 p-md-4) -->
