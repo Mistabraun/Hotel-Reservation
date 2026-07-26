@@ -224,9 +224,9 @@ if ($userId) {
                     <div class="line"></div>
                     <ul class="profile-items my-1">
                         <li>
-                            <a class="link link-subtle fs-7" href="settings.php">
+                            <a class="link link-subtle fs-7" href="transactions.php">
                                 <i class="fa-regular fa-user"></i>
-                                <p>Profile</p>
+                                <p>Transactions</p>
                             </a>
                         </li>
                         <li>
