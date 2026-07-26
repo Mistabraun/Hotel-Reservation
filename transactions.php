@@ -350,6 +350,7 @@ if ($userId) {
 
                 <button
                     class="btn btn-book w-100 mt-3"
+                    id="cancelReservation"
                     data-secret-key="${booking.secret_key}">
                     Cancel Reservation
                 </button>
@@ -449,7 +450,28 @@ if ($userId) {
         }
 
 
+        async function cancel(secretKey) {
+            const formData = new FormData()
+            formData.append("secret_key", secretKey)
+
+            const response = await fetch("api/users/booking/cancel.php", {
+                method: "post",
+                body: formData
+            })
+
+            const result = await response.json()
+            if (response.ok || result["success"]) {
+                window.location.reload()
+            }
+        }
+
+
         loadTransactions()
+        document.addEventListener("click", function(event) {
+            if (event.target.id === "cancelReservation") {
+                cancel(event.target.dataset.secretKey)
+            }
+        });
     </script>
 </body>
 
