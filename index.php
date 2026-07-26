@@ -7,12 +7,11 @@ $sessionService = new SessionService();
 $sessionService->start();
 
 $userId = $sessionService->getUserId();
-if (!$userId) {
-  return;
+$profile = null;
+if ($userId) {
+  $customerProfile = new CustomerProfile();
+  $profile = $customerProfile->findByUserId($userId);
 }
-
-$customerProfile = new CustomerProfile();
-$profile = $customerProfile->findByUserId($userId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,7 +204,7 @@ $profile = $customerProfile->findByUserId($userId);
 
 
         <?php
-        if ($sessionService->isAuthenticated()) {
+        if ($profile) {
           echo '    <div class="dropdown ms-auto">
                 <button
                     class="btn border-0 text-start p-0 "
