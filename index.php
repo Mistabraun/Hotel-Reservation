@@ -221,7 +221,7 @@ if ($userId) {
                 <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
                     <div class="profile-header p-1 px-3 mb-2">
                         <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
-                        <span class="status status-warning rounded-1">Super Admin</span>
+                        <span class="status status-warning rounded-1">Customer</span>
                     </div>
                     <div class="line"></div>
                     <ul class="profile-items my-1">

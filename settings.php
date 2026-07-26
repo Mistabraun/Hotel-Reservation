@@ -1,3 +1,21 @@
+<?php
+
+include_once __DIR__ . "/app/services/SessionService.php";
+include_once __DIR__ . "/app/services/CustomerProfileService.php";
+include_once __DIR__ . "/app/middleware/Authmidlleware.php";
+
+AuthMiddleware::user(false);
+$sessionService = new SessionService();
+$sessionService->start();
+
+$userId = $sessionService->getUserId();
+$profile = null;
+if ($userId) {
+    $customerProfile = new CustomerProfile();
+    $profile = $customerProfile->findByUserId($userId);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +79,54 @@
                 <a href="index.php#about" class="nav-link font-sans small fw-medium text-decoration-none" style="color: #1a1a1a !important; opacity: 0.8;">About</a>
                 <a href="rooms.php" class="nav-link font-sans small fw-medium text-decoration-none" style="color: #1a1a1a !important; opacity: 0.8;">Rooms</a>
                 <a href="amenities.php" class="nav-link font-sans small fw-medium text-decoration-none" style="color: #1a1a1a !important; opacity: 0.8;">Amenities</a>
-                <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-center">Book Now</a>
+                <?php
+                if ($profile) {
+                    echo '    <div class="dropdown ms-auto">
+                <button
+                    class="btn border-0 text-start p-0 "
+                    style="color: var(--bg-primary)"
+                    type="button"
+                    id="profile-dropdown-btn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                    <div class="profile-header p-1 px-3 mb-2">
+                        <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
+                        <span class="status status-warning rounded-1">Customer</span>
+                    </div>
+                    <div class="line"></div>
+                    <ul class="profile-items my-1">
+                        <li>
+                            <a class="link link-subtle fs-7" href="transactions.php">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Transactions</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="line"></div>
+                    <ul class="profile-items mt-1">
+                        <li>
+                            <button class="link link-danger fs-7 btn-default" id="logout">
+                                <i class="fa-solid fa-sign-out"></i>
+                                <p>Logout</p>
+                            </button>
+                        </li>
+                    </ul>
+                </ul>
+            </div>';
+                } else {
+                    echo '<button class="btn btn-book-now btn-primary border-0 font-sans text-decoration-none fw-medium text-white text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+                }
+                ?>
             </div>
         </div>
     </nav>
@@ -160,6 +225,7 @@
     </main>
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="/scripts/app.js"></script>
     <!-- <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script> -->
     <script>
         const profileInfo = document.getElementById("profileInfo");

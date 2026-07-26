@@ -1,169 +1,383 @@
+<?php
+
+include_once __DIR__ . "/app/services/SessionService.php";
+include_once __DIR__ . "/app/services/CustomerProfileService.php";
+
+$sessionService = new SessionService();
+$sessionService->start();
+
+$userId = $sessionService->getUserId();
+$profile = null;
+if ($userId) {
+  $customerProfile = new CustomerProfile();
+  $profile = $customerProfile->findByUserId($userId);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grand Horizon Rooms</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/room.css" />
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/booking.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grand Horizon Rooms</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/room.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/booking.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm py-3 bg-white bg-opacity-95">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered mx-w-md">
+      <div class="modal-content p-2">
+        <div class="modal-body">
+          <section class="mb-4">
+            <h2 class="fs-4 text-center">Sign up</h2>
+          </section>
+          <div class="line mb-3"></div>
+
+          <div class="alert alert-danger p-1 px-2 mt-3 d-none" id="errorMessage">Error message here!</div>
+
+          <form method="post" id="registerForm">
+
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="fname" class="form-label">First Name</label>
+                <input title="" type="text" class="form-control outline-hover" id="fname" name="fname" placeholder="Ramcel" autocomplete="email" required="">
+              </div>
+
+              <div class="col-md-6 col mb-4">
+                <label for="lname" class="form-label">Last Name</label>
+                <input title="" type="text" class="form-control outline-hover" id="lname" name="lname" placeholder="Esteron" autocomplete="email" required="">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="fname" class="form-label">Phone</label>
+                <div class="input-group">
+                  <span class="input-group-text">+63</span>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    oninvalid="this.setCustomValidity('Enter a valid number')"
+                    placeholder="9123456789"
+                    pattern="9[0-9]{9}"
+                    maxlength="10"
+                    required>
+                </div>
+              </div>
+
+              <div class="col-md-6 col mb-4">
+                <label for="email" class="form-label">Email Address</label>
+                <input title="" type="email" class="form-control outline-hover" id="email" name="email" placeholder="example@mail.com" autocomplete="email" required="">
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-6 col mb-4">
+                <label for="password" class="mb-2"> Password </label>
+                <div class="input-group password-group">
+                  <input title="" type="password" class="form-control outline-hover rounded z-2" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required="">
+
+                  <button type="button" class="toggle-password">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+
+              </div>
+              <div class="col-md-6 col mb-4">
+
+                <label for="password" class="mb-2"> Confirm Password </label>
+                <div class="input-group password-group">
+                  <input title="" type="password" class="form-control outline-hover rounded z-2" id="cpassword" name="cpassword" placeholder="Enter your password" autocomplete="current-password" required="">
+
+                  <button type="button" class="toggle-password">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+
+                </div>
+
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-semibold mt-3">
+              <i class="fa-solid fa-user-plus me-2"></i>Sign up
             </button>
-            <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
+          </form>
+          <div>
+            <div class="border-0 border-top mt-4 p-1"></div>
+            <p class="text-center">Already have an account?
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
+                class="btn-plain text-decoration-underline text-primary p-0">Sign in</button>
+            </p>
+            </p>
+          </div>
 
-            <div class="ms-auto d-flex align-items-center gap-4">
-                <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
-                <a href="index.php#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
-                <a href="rooms.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Rooms</a>
-                <!-- Naka-highlight na kulay gold ang Amenities gaya ng nasa screen -->
-                <a href="amenities.php" class="nav-link font-sans small fw-meduim text-dark text-decoration-none opacity-75">Amenities</a>
-                <a href="booking.php" class="btn-book-now font-sans text-decoration-none fw-medium text-white text-center">Book Now</a>
-            </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered mx-w-sm">
+      <div class="modal-content p-2">
+        <div class="modal-body">
+          <section class="mb-4">
+            <h2 class="fs-4 text-center">Login</h2>
+          </section>
+          <div class="line mb-3"></div>
+
+          <div class="alert alert-danger p-1 px-2 mt-3 d-none" id="errorMessage">Error message here!</div>
+
+          <form method="post" id="loginForm">
+            <div class="mb-4">
+              <label for="email" class="form-label"> Email address </label>
+              <input title="" type="email" class="form-control outline-hover" id="email" name="email" placeholder="example@mail.com" autocomplete="email" required="">
+            </div>
+
+            <label for="password" class=""> Password </label>
+            <div class="input-group password-group">
+              <input title="" type="password" class="form-control outline-hover rounded z-2" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required="">
+
+              <button type="button" class="toggle-password">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4 text-secondary-2 mt-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                <label class="form-check-label" for="remember"> Remember me </label>
+              </div>
+
+              <a href="/" class="text-gray-light text-decoration-underline">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-semibold">
+              <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Sign In
+            </button>
+          </form>
+          <div>
+            <div class="border-0 border-top mt-4 p-1"></div>
+            <p class="text-center">Don't have an account?
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#registerModal"
+                class="btn-plain text-decoration-underline text-primary p-0">Sign up</button>
+            </p>
+          </div>
+
         </div>
-    </nav>
+      </div>
+    </div>
+  </div>
 
-    <header id="hero" class="hero-section d-flex align-items-center text-white">
-        <div class="container text-center hero-content">
-            <h1 class="hero-title mb-4">Our Rooms</h1>
-            <p class="hero-text mx-auto mb-4">Choose from our carefully curated selection of rooms and suites, each designed for your perfect stay.</p>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm py-3 bg-white bg-opacity-95">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand font-serif fw-bold h4 mb-0 text-dark text-decoration-none" href="index.php">Grand Horizon</a>
+
+      <div class="ms-auto d-flex align-items-center gap-4">
+        <a href="index.php" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">Home</a>
+        <a href="index.php#about" class="nav-link font-sans small fw-medium text-dark text-decoration-none opacity-75">About</a>
+        <a href="rooms.php" class="nav-link font-sans small fw-bold text-gold text-decoration-none">Rooms</a>
+        <!-- Naka-highlight na kulay gold ang Amenities gaya ng nasa screen -->
+        <a href="amenities.php" class="nav-link font-sans small fw-meduim text-dark text-decoration-none opacity-75">Amenities</a>
+        <?php
+        if ($profile) {
+          echo '    <div class="dropdown ms-auto">
+                <button
+                    class="btn border-0 text-start p-0 "
+                    style="color: var(--bg-primary)"
+                    type="button"
+                    id="profile-dropdown-btn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fs-2 mt-1"></i>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                    <div class="profile-header p-1 px-3 mb-2">
+                        <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
+                        <span class="status status-warning rounded-1">Customer</span>
+                    </div>
+                    <div class="line"></div>
+                    <ul class="profile-items my-1">
+                        <li>
+                            <a class="link link-subtle fs-7" href="transactions.php">
+                                <i class="fa-regular fa-user"></i>
+                                <p>Transactions</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="link link-subtle fs-7" href="settings.php">
+                                <i class="fa-solid fa-gear"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="line"></div>
+                    <ul class="profile-items mt-1">
+                        <li>
+                            <button class="link link-danger fs-7 btn-default" id="logout">
+                                <i class="fa-solid fa-sign-out"></i>
+                                <p>Logout</p>
+                            </button>
+                        </li>
+                    </ul>
+                </ul>
+            </div>';
+        } else {
+          echo '<button class="btn btn-book-now btn-primary border-0 font-sans text-decoration-none fw-medium text-white text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+        }
+        ?>
+      </div>
+    </div>
+    </div>
+  </nav>
+
+  <header id="hero" class="hero-section d-flex align-items-center text-white">
+    <div class="container text-center hero-content">
+      <h1 class="hero-title mb-4">Our Rooms</h1>
+      <p class="hero-text mx-auto mb-4">Choose from our carefully curated selection of rooms and suites, each designed for your perfect stay.</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="filter-section py-5 bg-light">
+      <div class="container">
+        <div class="row gx-4 gy-3 align-items-center">
+          <div class="col-lg-8">
+            <div class="filter-group d-flex flex-wrap gap-2">
+              <button class="filter-pill active" data-type="All">All</button>
+              <button class="filter-pill" data-type="Standard">Standard</button>
+              <button class="filter-pill" data-type="Deluxe">Deluxe</button>
+              <button class="filter-pill" data-type="Family Room">Family Room</button>
+              <button class="filter-pill" data-type="Suite">Suite</button>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="capacity-row d-flex align-items-center justify-content-lg-end gap-2">
+              <label class="capacity-label text-muted mb-0" for="capacitySelect">Capacity</label>
+              <div class="capacity-picker">
+                <select id="capacitySelect" class="form-select capacity-select" aria-label="Select guest capacity">
+                  <option value="1">1+ guests</option>
+                  <option value="2">2+ guests</option>
+                  <option value="3">3+ guests</option>
+                  <option value="4">4+ guests</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <section class="filter-section py-5 bg-light">
-            <div class="container">
-                <div class="row gx-4 gy-3 align-items-center">
-                    <div class="col-lg-8">
-                        <div class="filter-group d-flex flex-wrap gap-2">
-                            <button class="filter-pill active" data-type="All">All</button>
-                            <button class="filter-pill" data-type="Standard">Standard</button>
-                            <button class="filter-pill" data-type="Deluxe">Deluxe</button>
-                            <button class="filter-pill" data-type="Family Room">Family Room</button>
-                            <button class="filter-pill" data-type="Suite">Suite</button>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="capacity-row d-flex align-items-center justify-content-lg-end gap-2">
-                            <label class="capacity-label text-muted mb-0" for="capacitySelect">Capacity</label>
-                            <div class="capacity-picker">
-                                <select id="capacitySelect" class="form-select capacity-select" aria-label="Select guest capacity">
-                                    <option value="1">1+ guests</option>
-                                    <option value="2">2+ guests</option>
-                                    <option value="3">3+ guests</option>
-                                    <option value="4">4+ guests</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+    <section id="rooms" class="rooms-section py-5">
+      <div class="container">
+        <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3" id="roomsContainer">
+          <article class="col room-item" data-type="family" data-capacity="4">
+            <div class="card room-card h-100 overflow-hidden">
+              <img src="assets/images/Room1.jpg" class="card-img-top" alt="Family Suite">
+              <div class="card-body">
+                <span class="room-tag">Family</span>
+                <h2 class="room-title">Family Suite</h2>
+                <p class="room-price">$260 <span>/ night</span></p>
+                <p class="room-meta">4 guests · 500 sq ft · 2 Queen Beds</p>
+                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                  <span>Breakfast</span>
+                  <span>Living Area</span>
+                  <span>Room Service</span>
                 </div>
+                <a href="room-id.html?roomId=3" class="btn btn-room rounded-pill">View details</a>
+              </div>
             </div>
-        </section>
+          </article>
+          <article class="col room-item" data-type="standard" data-capacity="2">
+            <div class="card room-card h-100 overflow-hidden">
+              <img src="assets/images/Room2.jpg" class="card-img-top" alt="Classic Garden Room">
+              <div class="card-body">
+                <span class="room-tag">Standard</span>
+                <h2 class="room-title">Classic Garden Room</h2>
+                <p class="room-price">$189 <span>/ night</span></p>
+                <p class="room-meta">2 guests · 320 sq ft · 1 Queen Bed</p>
+                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                  <span>Free Wi-Fi</span>
+                  <span>Smart TV</span>
+                  <span>Mini Bar</span>
+                </div>
+                <a href="room-id.html?roomId=1" class="btn btn-room rounded-pill">View details</a>
+              </div>
+            </div>
+          </article>
+          <article class="col room-item" data-type="deluxe" data-capacity="2">
+            <div class="card room-card h-100 overflow-hidden">
+              <img src="assets/images/Room3.jpg" class="card-img-top" alt="Deluxe Room">
+              <div class="card-body">
+                <span class="room-tag">Deluxe</span>
+                <h2 class="room-title">Deluxe Coastal Room</h2>
+                <p class="room-price">$320 <span>/ night</span></p>
+                <p class="room-meta">2 guests · 420 sq ft · 1 King Bed</p>
+                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                  <span>Ocean View</span>
+                  <span>King Bed</span>
+                  <span>Balcony</span>
+                </div>
+                <a href="room-id.html?roomId=2" class="btn btn-room rounded-pill">View details</a>
+              </div>
+            </div>
+          </article>
+          <article class="col room-item" data-type="suite" data-capacity="3">
+            <div class="card room-card h-100 overflow-hidden">
+              <img src="assets/images/Room4.jpg" class="card-img-top" alt="Ocean View Suite">
+              <div class="card-body">
+                <span class="room-tag">Suite</span>
+                <h2 class="room-title">Ocean View Suite</h2>
+                <p class="room-price">$398 <span>/ night</span></p>
+                <p class="room-meta">3 guests · 620 sq ft · 1 King Bed</p>
+                <div class="room-features d-flex flex-wrap gap-2 mb-4">
+                  <span>Balcony</span>
+                  <span>Soaking Tub</span>
+                  <span>Ocean View</span>
+                </div>
+                <a href="room-id.html?roomId=4" class="btn btn-room rounded-pill">View details</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <section id="rooms" class="rooms-section py-5">
-            <div class="container">
-                <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-xl-3" id="roomsContainer">
-                    <article class="col room-item" data-type="family" data-capacity="4">
-                        <div class="card room-card h-100 overflow-hidden">
-                            <img src="assets/images/Room1.jpg" class="card-img-top" alt="Family Suite">
-                            <div class="card-body">
-                                <span class="room-tag">Family</span>
-                                <h2 class="room-title">Family Suite</h2>
-                                <p class="room-price">$260 <span>/ night</span></p>
-                                <p class="room-meta">4 guests · 500 sq ft · 2 Queen Beds</p>
-                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
-                                    <span>Breakfast</span>
-                                    <span>Living Area</span>
-                                    <span>Room Service</span>
-                                </div>
-                                <a href="room-id.html?roomId=3" class="btn btn-room rounded-pill">View details</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col room-item" data-type="standard" data-capacity="2">
-                        <div class="card room-card h-100 overflow-hidden">
-                            <img src="assets/images/Room2.jpg" class="card-img-top" alt="Classic Garden Room">
-                            <div class="card-body">
-                                <span class="room-tag">Standard</span>
-                                <h2 class="room-title">Classic Garden Room</h2>
-                                <p class="room-price">$189 <span>/ night</span></p>
-                                <p class="room-meta">2 guests · 320 sq ft · 1 Queen Bed</p>
-                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
-                                    <span>Free Wi-Fi</span>
-                                    <span>Smart TV</span>
-                                    <span>Mini Bar</span>
-                                </div>
-                                <a href="room-id.html?roomId=1" class="btn btn-room rounded-pill">View details</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col room-item" data-type="deluxe" data-capacity="2">
-                        <div class="card room-card h-100 overflow-hidden">
-                            <img src="assets/images/Room3.jpg" class="card-img-top" alt="Deluxe Room">
-                            <div class="card-body">
-                                <span class="room-tag">Deluxe</span>
-                                <h2 class="room-title">Deluxe Coastal Room</h2>
-                                <p class="room-price">$320 <span>/ night</span></p>
-                                <p class="room-meta">2 guests · 420 sq ft · 1 King Bed</p>
-                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
-                                    <span>Ocean View</span>
-                                    <span>King Bed</span>
-                                    <span>Balcony</span>
-                                </div>
-                                <a href="room-id.html?roomId=2" class="btn btn-room rounded-pill">View details</a>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="col room-item" data-type="suite" data-capacity="3">
-                        <div class="card room-card h-100 overflow-hidden">
-                            <img src="assets/images/Room4.jpg" class="card-img-top" alt="Ocean View Suite">
-                            <div class="card-body">
-                                <span class="room-tag">Suite</span>
-                                <h2 class="room-title">Ocean View Suite</h2>
-                                <p class="room-price">$398 <span>/ night</span></p>
-                                <p class="room-meta">3 guests · 620 sq ft · 1 King Bed</p>
-                                <div class="room-features d-flex flex-wrap gap-2 mb-4">
-                                    <span>Balcony</span>
-                                    <span>Soaking Tub</span>
-                                    <span>Ocean View</span>
-                                </div>
-                                <a href="room-id.html?roomId=4" class="btn btn-room rounded-pill">View details</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+    <section id="about" class="about-section py-5">
+      <div class="container">
+        <div class="row align-items-center gy-4">
+          <div class="col-lg-6">
+            <h2 class="section-title">A signature stay in Malibu.</h2>
+            <p class="section-text">Experience warm coastal design, world-class service, and thoughtfully curated spaces that make every stay unforgettable.</p>
+            <ul class="list-unstyled feature-list">
+              <li><i class="fa-solid fa-check text-warning me-2"></i> Oceanfront views and private terraces</li>
+              <li><i class="fa-solid fa-check text-warning me-2"></i> On-site dining, spa, and concierge service</li>
+              <li><i class="fa-solid fa-check text-warning me-2"></i> Fast booking and responsive stay support</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <div class="about-image rounded-4 overflow-hidden shadow-sm">
+              <img src="assets/images/rooms/download (2).jpg" alt="Hotel experience" />
             </div>
-        </section>
-
-        <section id="about" class="about-section py-5">
-            <div class="container">
-                <div class="row align-items-center gy-4">
-                    <div class="col-lg-6">
-                        <h2 class="section-title">A signature stay in Malibu.</h2>
-                        <p class="section-text">Experience warm coastal design, world-class service, and thoughtfully curated spaces that make every stay unforgettable.</p>
-                        <ul class="list-unstyled feature-list">
-                            <li><i class="fa-solid fa-check text-warning me-2"></i> Oceanfront views and private terraces</li>
-                            <li><i class="fa-solid fa-check text-warning me-2"></i> On-site dining, spa, and concierge service</li>
-                            <li><i class="fa-solid fa-check text-warning me-2"></i> Fast booking and responsive stay support</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="about-image rounded-4 overflow-hidden shadow-sm">
-                            <img src="assets/images/rooms/download (2).jpg" alt="Hotel experience" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- FOOTER -->
   <footer id="contact" class="custom-dark-footer text-white py-5 w-100">
@@ -507,42 +721,39 @@
     </div>
   </div>
 
-   <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/scripts/app.js"></script>
+  <script>
+    let selectedType = "All";
+    let selectedCapacity = 1;
 
+    const container = document.getElementById("roomsContainer")
+    const filterButtons = document.querySelectorAll('.filter-pill');
+    const capacitySelect = document.getElementById('capacitySelect');
 
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/scripts/app.js"></script>
-    <script>
-        let selectedType = "All";
-        let selectedCapacity = 1;
+    function generateRooms(items) {
 
-        const container = document.getElementById("roomsContainer")
-        const filterButtons = document.querySelectorAll('.filter-pill');
-        const capacitySelect = document.getElementById('capacitySelect');
+      container.innerHTML = "";
 
-        function generateRooms(items) {
+      items.forEach(room => {
 
-            container.innerHTML = "";
+        const visibleAmenities = room.amenities.slice(0, 3);
 
-            items.forEach(room => {
+        const amenities = visibleAmenities
+          .map(amenity => `<span>${amenity.name}</span>`)
+          .join("");
 
-                const visibleAmenities = room.amenities.slice(0, 3);
+        const remaining =
+          room.amenities.length - visibleAmenities.length;
 
-                const amenities = visibleAmenities
-                    .map(amenity => `<span>${amenity.name}</span>`)
-                    .join("");
+        const more =
+          remaining > 0 ?
+          `<span>+${remaining} More</span>` :
+          "";
 
-                const remaining =
-                    room.amenities.length - visibleAmenities.length;
-
-                const more =
-                    remaining > 0 ?
-                    `<span>+${remaining} More</span>` :
-                    "";
-
-                container.insertAdjacentHTML(
-                    "beforeend",
-                    `
+        container.insertAdjacentHTML(
+          "beforeend",
+          `
             <article
                 class="col room-item"
                 data-type="${room.room_type}"
@@ -602,63 +813,63 @@
 
             </article>
             `
-                );
+        );
 
-            });
+      });
 
+    }
+
+    async function loadRooms() {
+
+      const params = new URLSearchParams();
+
+      if (selectedType !== "All") {
+        params.append("type", selectedType);
+      }
+
+      if (selectedCapacity) {
+        params.append("capacity", selectedCapacity);
+      }
+
+      const response = await fetch(
+        `api/users/rooms/get.php?${params.toString()}`, {
+          headers: {
+            Accept: "application/json"
+          }
         }
+      );
 
-        async function loadRooms() {
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        return
+      }
+      generateRooms(result.data)
+    }
 
-            const params = new URLSearchParams();
+    filterButtons.forEach(button => {
 
-            if (selectedType !== "All") {
-                params.append("type", selectedType);
-            }
+      button.addEventListener("click", () => {
 
-            if (selectedCapacity) {
-                params.append("capacity", selectedCapacity);
-            }
+        filterButtons.forEach(btn =>
+          btn.classList.remove("active")
+        );
 
-            const response = await fetch(
-                `api/users/rooms/get.php?${params.toString()}`, {
-                    headers: {
-                        Accept: "application/json"
-                    }
-                }
-            );
+        button.classList.add("active");
 
-            const result = await response.json();
-            if (!response.ok || !result.success) {
-                return
-            }
-            generateRooms(result.data)
-        }
+        selectedType = button.dataset.type;
 
-        filterButtons.forEach(button => {
+        loadRooms();
 
-            button.addEventListener("click", () => {
+      });
 
-                filterButtons.forEach(btn =>
-                    btn.classList.remove("active")
-                );
+    });
 
-                button.classList.add("active");
-
-                selectedType = button.dataset.type;
-
-                loadRooms();
-
-            });
-
-        });
-
-        capacitySelect.addEventListener("change", function() {
-            selectedCapacity = Number(capacitySelect.value);
-            loadRooms()
-        })
-        loadRooms()
-    </script>
+    capacitySelect.addEventListener("change", function() {
+      selectedCapacity = Number(capacitySelect.value);
+      loadRooms()
+    })
+    loadRooms()
+  </script>
 </body>
 
 </html>

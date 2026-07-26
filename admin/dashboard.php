@@ -1,3 +1,16 @@
+<?php
+
+include_once __DIR__ . "../../app/services/CustomerProfileService.php";
+include_once __DIR__ . "../../app/middleware/Authmidlleware.php";
+
+$userId = AuthMiddleware::admin(false);
+
+$customerProfile = new CustomerProfile();
+$profile = $customerProfile->findByUserId($userId);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -116,8 +129,11 @@
 
                 <i class="fa-solid fa-bars"></i>
             </button>
-            <div class="dropdown ms-auto">
-                <button
+
+            <?php
+            if ($profile) {
+                echo '    <div class="dropdown ms-auto">
+                  <button
                     class="btn border-0 text-start p-0 text-secondary"
                     type="button"
                     id="profile-dropdown-btn"
@@ -126,22 +142,21 @@
                     <i class="fa fa-user-circle fs-2 mt-1"></i>
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-end mt-2 me-3 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
+                <ul class="dropdown-menu dropdown-menu-end mt-2 me-1 profile-menu pt-2 pb-1" aria-labelledby="profile-dropdown-btn">
                     <div class="profile-header p-1 px-3 mb-2">
-                        <p class="profile-name fw-semibold">Justine Carl</p>
-                        <p class="profile-email text-secondary-2">justine.carl@grandhorizon.com</p>
-                        <span class="status status-warning rounded-1">Super Admin</span>
+                        <p class="profile-name fw-semibold">' . $profile["full_name"] . '</p>
+                        <span class="status status-warning rounded-1">Customer</span>
                     </div>
                     <div class="line"></div>
                     <ul class="profile-items my-1">
                         <li>
-                            <a class="link link-subtle fs-7" href="settings.php">
+                            <a class="link link-subtle fs-7" href="/transactions.php">
                                 <i class="fa-regular fa-user"></i>
-                                <p>Profile</p>
+                                <p>Transactions</p>
                             </a>
                         </li>
                         <li>
-                            <a class="link link-subtle fs-7" href="settings.php">
+                            <a class="link link-subtle fs-7" href="/settings.php">
                                 <i class="fa-solid fa-gear"></i>
                                 <p>Settings</p>
                             </a>
@@ -157,7 +172,11 @@
                         </li>
                     </ul>
                 </ul>
-            </div>
+            </div>';
+            } else {
+                echo '<button class="btn btn-book-now btn-primary border-0 font-sans text-decoration-none fw-medium text-white text-center" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>';
+            }
+            ?>
         </header>
 
         <main class="flex-grow-1 p-4 m-1 overflow-y-auto" id="scroll-container">

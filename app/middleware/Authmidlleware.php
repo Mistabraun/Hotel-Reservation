@@ -51,20 +51,16 @@ class AuthMiddleware
             Response::error("Unauthorized", 401);
         }
 
-        header("Location: /login");
+        header("Location: /");
         exit;
     }
 
-    public static function admin(bool $api = true): void
+    public static function admin(bool $api = true): int
     {
         $session = self::session();
 
-        if ($session->isAuthenticated()) {
-            return;
-        }
-
-        if ($session->isAdmin()) {
-            return;
+        if ($session->isAuthenticated() && $session->isAdmin()) {
+            return $session->getUserId();
         }
 
         if ($api) {
