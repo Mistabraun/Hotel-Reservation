@@ -245,7 +245,27 @@ class Reservation
                 rm.price_per_night,
                 rm.capacity,
                 DATEDIFF(r.check_out, r.check_in) AS nights,
-                rm.price_per_night * DATEDIFF(r.check_out, r.check_in) AS total_amount,
+                DATEDIFF(r.check_out, r.check_in) AS nights,
+
+            GREATEST(
+                r.number_of_guests - rm.capacity,
+                0
+            ) * 250 AS extra_guest_fee,
+
+            (
+                rm.price_per_night +
+
+                (
+                    GREATEST(
+                        r.number_of_guests - rm.capacity,
+                        0
+                    ) * 250
+                )
+
+            ) * DATEDIFF(
+                r.check_out,
+                r.check_in
+            ) AS total_amount,
                 rt.name AS room_type,
                 r.check_in,
                 r.check_out,
@@ -391,7 +411,27 @@ class Reservation
                 rm.price_per_night,
                 rm.capacity,
                 DATEDIFF(r.check_out, r.check_in) AS nights,
-                rm.price_per_night * DATEDIFF(r.check_out, r.check_in) AS total_amount,
+               DATEDIFF(r.check_out, r.check_in) AS nights,
+
+            GREATEST(
+                r.number_of_guests - rm.capacity,
+                0
+            ) * 250 AS extra_guest_fee,
+
+            (
+                rm.price_per_night +
+
+                (
+                    GREATEST(
+                        r.number_of_guests - rm.capacity,
+                        0
+                    ) * 250
+                )
+
+            ) * DATEDIFF(
+                r.check_out,
+                r.check_in
+            ) AS total_amount,
                 rt.name AS room_type,
                 r.check_in,
                 r.check_out,

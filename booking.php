@@ -135,6 +135,7 @@ $query = $service->getClientRooms();
                     <option
                       id="roomData"
                       value="<?= $room['id'] ?>"
+                      data-capacity="<?= $room['capacity'] ?>"
                       data-value="<?= $room['price_per_night'] ?>"
                       data-name="<?= $room['room_name'] ?>">
                       <?= htmlspecialchars($room['room_name']) ?>
@@ -739,12 +740,20 @@ $query = $service->getClientRooms();
       const timeDiff = date2.getTime() - date1.getTime();
       const totalNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-      // Guest Fee Computation (for extra guest)
-      const guests = parseInt(guestSelect.value) || 1;
-      const extraGuests = guests > 4 ? guests - 4 : 0;
-      const extraGuestFeePerNight = extraGuests * 250;
+      const roomCapacity = Number(roomDataset.capacity);
+      const guests = Number(guestSelect.value) || 1;
 
-      const effectiveNightlyRate = pricePerNight + parseInt(extraGuestFeePerNight);
+      const extraGuests = Math.max(
+        guests - roomCapacity,
+        0
+      );
+
+      const extraGuestFeePerNight =
+        extraGuests * 250;
+
+      const effectiveNightlyRate =
+        pricePerNight +
+        extraGuestFeePerNight;
       console.log(pricePerNight, totalNights, guests, extraGuests, extraGuestFeePerNight, effectiveNightlyRate)
 
 

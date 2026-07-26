@@ -344,8 +344,30 @@ class Payment
                 c.last_name
             ) AS guest,
             rm.price_per_night,
-            DATEDIFF(r.check_out, r.check_in) AS nights,
-            rm.price_per_night * DATEDIFF(r.check_out, r.check_in) AS total_amount
+          
+
+              DATEDIFF(r.check_out, r.check_in) AS nights,
+
+            GREATEST(
+                r.number_of_guests - rm.capacity,
+                0
+            ) * 250 AS extra_guest_fee,
+
+            (
+                rm.price_per_night +
+
+                (
+                    GREATEST(
+                        r.number_of_guests - rm.capacity,
+                        0
+                    ) * 250
+                )
+
+            ) * DATEDIFF(
+                r.check_out,
+                r.check_in
+            ) AS total_amount
+
         FROM reservations r
         INNER JOIN customers c
             ON r.customer_id = c.id
