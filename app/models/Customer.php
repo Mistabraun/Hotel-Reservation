@@ -204,6 +204,41 @@ class Customer
         return mysqli_stmt_execute($statement);
     }
 
+    public function updateByUserId(
+        int $userId,
+        string $firstName,
+        string $lastName,
+        string $phone
+    ): bool {
+
+        $sql = "
+        UPDATE customers
+        SET
+            first_name = ?,
+            last_name = ?,
+            phone_number = ?
+        WHERE user_id = ?
+    ";
+
+        $statement = mysqli_prepare(
+            $this->connection,
+            $sql
+        );
+
+        mysqli_stmt_bind_param(
+            $statement,
+            "sssi",
+            $firstName,
+            $lastName,
+            $phone,
+            $userId
+        );
+
+        return mysqli_stmt_execute(
+            $statement
+        );
+    }
+
     public function findByUserId(
         int $userId
     ): array|null {

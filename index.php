@@ -668,7 +668,7 @@ if ($userId) {
             Where timeless elegance meets the serene beauty of the shore. Immerse yourself in unparalleled luxury, breathtaking ocean views, and unforgettable moments along the pristine Malibu coastline.
           </p>
         </div>
-        
+
 
         <div class="col-12 col-lg-7 offset-lg-1">
           <div class="row g-4">

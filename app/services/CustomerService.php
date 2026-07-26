@@ -41,23 +41,29 @@ class CustomerService extends BaseService
             );
         }
 
-        if (!ctype_alpha($firstName) || !ctype_alpha($lastName)) {
-            return $this->error("Invalid name or lastname.");
+        if (
+            !ctype_alpha($firstName) ||
+            !ctype_alpha($lastName)
+        ) {
+            return $this->error(
+                "Invalid name or lastname."
+            );
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (
+            !filter_var(
+                $email,
+                FILTER_VALIDATE_EMAIL
+            )
+        ) {
             return $this->error(
                 "Invalid email address."
             );
         }
 
-        if ($this->user->findByEmail($email)) {
-            return $this->error(
-                "Email address already exists."
-            );
-        }
-
-        mysqli_begin_transaction($this->connection);
+        mysqli_begin_transaction(
+            $this->connection
+        );
 
         try {
 
@@ -66,6 +72,72 @@ class CustomerService extends BaseService
                 PASSWORD_DEFAULT
             );
 
+            $existingUser = $this->user->findByEmail(
+                $email
+            );
+
+            if ($existingUser) {
+
+                // Fully registered already
+                if (
+                    !empty($existingUser["password"])
+                ) {
+                    throw new Exception(
+                        "Email address already exists."
+                    );
+                }
+
+                // Activate placeholder account
+                $updated = $this->user->updatePassword(
+                    $existingUser["id"],
+                    $hashedPassword
+                );
+
+                if (!$updated) {
+                    throw new Exception(
+                        "Unable to activate account."
+                    );
+                }
+
+                $updated = $this->customer->updateByUserId(
+                    $existingUser["id"],
+                    $firstName,
+                    $lastName,
+                    $phoneNumber
+                );
+
+                if (!$updated) {
+                    throw new Exception(
+                        "Unable to update customer."
+                    );
+                }
+
+                mysqli_commit(
+                    $this->connection
+                );
+
+                $userData =
+                    $this->user->findById(
+                        $existingUser["id"]
+                    );
+
+                $this->session->login(
+                    $userData
+                );
+
+                $customer = $this->customer->findByUserId(
+                    $existingUser["id"]
+                );
+
+                return $this->success(
+                    "Registration successful.",
+                    [
+                        "customer_id" => $customer["id"]
+                    ]
+                );
+            }
+
+            // Brand new user
             $userId = $this->user->create(
                 $email,
                 $hashedPassword,
@@ -78,12 +150,13 @@ class CustomerService extends BaseService
                 );
             }
 
-            $customerId = $this->customer->create(
-                $userId,
-                $firstName,
-                $lastName,
-                $phoneNumber
-            );
+            $customerId =
+                $this->customer->create(
+                    $userId,
+                    $firstName,
+                    $lastName,
+                    $phoneNumber
+                );
 
             if (!$customerId) {
                 throw new Exception(
@@ -91,12 +164,18 @@ class CustomerService extends BaseService
                 );
             }
 
-            mysqli_commit($this->connection);
+            mysqli_commit(
+                $this->connection
+            );
 
-            // Automatically log the user in
-            $userData = $this->user->findById($userId);
+            $userData =
+                $this->user->findById(
+                    $userId
+                );
 
-            $this->session->login($userData);
+            $this->session->login(
+                $userData
+            );
 
             return $this->success(
                 "Registration successful.",
@@ -106,7 +185,9 @@ class CustomerService extends BaseService
             );
         } catch (Exception $e) {
 
-            mysqli_rollback($this->connection);
+            mysqli_rollback(
+                $this->connection
+            );
 
             return $this->error(
                 $e->getMessage()

@@ -37,7 +37,7 @@ class ReservationService extends BaseService
         $this->session = new SessionService();
         $this->session->start();
 
-        self::$PASSWORD = password_hash(".__TEMPORARY PASSWORD__.", PASSWORD_DEFAULT);
+        // self::$PASSWORD = password_hash(".__TEMPORARY PASSWORD__.", PASSWORD_DEFAULT);
     }
 
 
@@ -216,7 +216,7 @@ class ReservationService extends BaseService
             $userId = 0;
 
             if (!$user) {
-                $userId = $this->user->create($email, self::$PASSWORD, "2");
+                $userId = $this->user->create($email, null, "2");
             } else {
                 $userId = $user["id"];
             }

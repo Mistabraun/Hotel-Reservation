@@ -12,7 +12,7 @@ class User
 
     public function create(
         string $email,
-        string $password,
+        ?string $password,
         int $roleId
     ): int|false {
 
@@ -47,7 +47,7 @@ class User
         );
     }
 
-    
+
 
     public function updateEmail(
         int $id,
